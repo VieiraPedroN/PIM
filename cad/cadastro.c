@@ -159,7 +159,7 @@ void cad() {
         } while (verify == 1); // Repetir enquanto o ID for inválido
     
     default:
-        printf("Saindo sem exibir os produtos.\n");
+        printf("\nSaindo sem exibir os produtos.\n");
         break;
     }
 }

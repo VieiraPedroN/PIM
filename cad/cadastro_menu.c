@@ -14,39 +14,49 @@ void produto(){
 }
 
 void cad_menu(){
-    int produtos;
+        int produtos, verify = 0;
+         
+         
+        do{
+            printf("\n");
+            produto();
 
-        printf("\n");
-        produto();
+            printf("\nSelecione um produto para cadastro: ");
+            scanf("%d", &produtos);
 
-        printf("\nSelecione um produto para cadastro: ");
-        scanf("%d", &produtos);
+                switch (produtos){
+                    
+                    case 1: {
+                        cad();
+                            break;
+                        }
 
-            switch (produtos){
-                
-                case 1: {
-                    cad();
-                        break;
-                    }
-                case 2: {
-                    cad();
-                        break;
-                    }
-                case 3: {
-                    cad();
-                        break;
-                    }
-                case 4: {
-                    cad();
-                        break;
-                    }
-                case 5: {
-                    cad();
-                        break;
-                    }
+                    case 2: {
+                        cad();
+                            break;
+                        }
+
+                    case 3: {
+                        cad();
+                            break;
+                        }
+
+                    case 4: {
+                        cad();
+                            break;
+                        }
+
+                    case 5: {
+                        cad();
+                            break;
+                        }
+                        
                     default:
                         printf("Opção inválida.\n");
                         break;
-                    }
-                
+                }
+            printf("\nGostaria de continhar na aba cadastro? 1-Sim, 0-Não: \n");
+            scanf("%d", &verify);
+        } while (verify == 1);
+                    
 }

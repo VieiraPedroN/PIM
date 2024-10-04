@@ -3,6 +3,7 @@
 #include <string.h>
 #include "cad/cadastro_menu.c"
 
+
 void menu(){
     printf("***************************\n");
     printf("*   Menu Raizes da Terra  *\n");
@@ -10,6 +11,7 @@ void menu(){
     printf("* 2- Fluxo de Caixa       *\n");
     printf("* 3- Estoque              *\n");
     printf("* 4- Relatorio Doacao     *\n");
+    printf("* 5- Sair da aplicação    *\n");
     printf("***************************\n");
     printf("\n");
 }
@@ -28,22 +30,27 @@ int main() {
 
             case 1: {
                 cad_menu();
-                rep = 0;
+                rep = 1;
                 break;
             }
 
             case 2:
                 printf("\nFluxo de Caixa\n\n");
-                rep = 0;
+                rep = 1;
                 break;
 
             case 3:
                 printf("\nEstoque\n\n");
-                rep = 0;
+                rep = 1;
                 break;
 
             case 4:
                 printf("\nRelatorio Doacao\n\n");
+                rep = 1;
+                break;
+
+            case 5:
+                printf("\nSaindo da apllicação\n\n");
                 rep = 0;
                 break;
 

@@ -1,9 +1,27 @@
 {
+    "version": "2.0.0",
     "tasks": [
         {
+            "label": "build",
+            "type": "shell",
+            "command": "gcc",
+            "args": [
+                "-g",
+                "menu.c",
+                "cadastro.c",
+                "estoque.c",
+                "-o",
+                "meu_programa"
+            ],
+            "group": "build",
+            "problemMatcher": [
+                "$gcc"
+            ]
+        },
+        {
             "type": "cppbuild",
-            "label": "C/C++: gcc arquivo de build ativo",
-            "command": "/usr/bin/gcc",
+            "label": "C/C++: gcc-13 arquivo de build ativo",
+            "command": "/usr/bin/gcc-13",
             "args": [
                 "-fdiagnostics-color=always",
                 "-g",
@@ -23,6 +41,5 @@
             },
             "detail": "Tarefa gerada pelo Depurador."
         }
-    ],
-    "version": "2.0.0"
+    ]
 }

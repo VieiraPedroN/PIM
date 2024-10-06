@@ -1,62 +1,23 @@
 #include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
 #include "cadastro.c"
+#include "cadastro.h"
 
-void produto(){
+void cad_menu() {
+    int tipo;
     printf("*****************\n");
     printf("* 1- Frutas     *\n");
     printf("* 2- Hortaliças *\n");
     printf("* 3- Bebidas    *\n");
     printf("* 4- Cereais    *\n");
-    printf("* 5- Laticineos *\n");
+    printf("* 5- Laticíneos *\n");
     printf("*****************\n");
-}
-
-void cad_menu(){
-        int produtos, verify = 0;
-         
-         
-        do{
-            printf("\n");
-            produto();
-
-            printf("\nSelecione um produto para cadastro: ");
-            scanf("%d", &produtos);
-
-                switch (produtos){
-                    
-                    case 1: {
-                        cad();
-                            break;
-                        }
-
-                    case 2: {
-                        cad();
-                            break;
-                        }
-
-                    case 3: {
-                        cad();
-                            break;
-                        }
-
-                    case 4: {
-                        cad();
-                            break;
-                        }
-
-                    case 5: {
-                        cad();
-                            break;
-                        }
-                        
-                    default:
-                        printf("Opção inválida.\n");
-                        break;
-                }
-            printf("\nGostaria de continhar na aba cadastro? 1-Sim, 0-Não: \n");
-            scanf("%d", &verify);
-        } while (verify == 1);
-                    
+    printf("Selecione um tipo de produto para cadastro: ");
+    scanf("%d", &tipo);
+    
+    if (tipo < 1 || tipo > 5) {
+        printf("Tipo inválido. Retornando ao menu principal.\n");
+        return;
+    }
+    
+    cad(tipo);
 }

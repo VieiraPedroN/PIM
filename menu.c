@@ -1,10 +1,11 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
+#include "cad/cadastro.h"
 #include "cad/cadastro_menu.c"
+#include "armz/estoque.c"
 
-
-void menu(){
+void menu() {
+    printf("\n");
     printf("***************************\n");
     printf("*   Menu Raizes da Terra  *\n");
     printf("* 1- Cadastro de Produtos *\n");
@@ -16,51 +17,42 @@ void menu(){
     printf("\n");
 }
 
-int main() {
+void main() {
+    int opção, rep = 0;
 
-    int opção, rep=0;
-
-    do{
+    do {
         menu();
-
         printf("Por favor selecione uma opcao: ");
         scanf("%d", &opção);
-        
-        switch (opção){
 
+        switch (opção) {
             case 1: {
+                printf("\nCadastro de Produtos\n");
                 cad_menu();
                 rep = 1;
                 break;
             }
-
             case 2:
-                printf("\nFluxo de Caixa\n\n");
+                printf("\nFluxo de Caixa\n");
                 rep = 1;
                 break;
-
             case 3:
-                printf("\nEstoque\n\n");
+                printf("\nEstoque\n");
+                visuArmz();
                 rep = 1;
                 break;
-
             case 4:
-                printf("\nRelatorio Doacao\n\n");
+                printf("\nRelatorio Doacao\n");
                 rep = 1;
                 break;
-
             case 5:
-                printf("\nSaindo da apllicação\n\n");
+                printf("\nSaindo da aplicação\n");
                 rep = 0;
                 break;
-
             default:
-                printf("\nOpção invalida\n\n");
+                printf("\nOpção inválida\n");
                 rep = 1;
                 break;
         }
-
     } while (rep == 1);
-    
-    return 0;
-} 
+}

@@ -13,12 +13,12 @@ typedef struct {
     char nome[101];
     float valor;
     int qtd;
-    Data validade;
+    Data valid;
     int tipo; // 1-Frutas, 2-Hortaliças, 3-Bebidas, 4-Cereais, 5-Laticínios
 } Cadastro;
 
-int validarData(char *dia, char *mes, char *ano);
-int produtoJaCadastrado(Cadastro prod[], int totalProd, char nome[]);
+int validData(char *dia, char *mes, char *ano);
+int compareCad(Cadastro prod[], int totalProd, char nome[]);
 void saveCad(Cadastro prod[], int totalProd);
 int loadCad(Cadastro prod[]);
 void listCad(Cadastro prod[], int totalProd);

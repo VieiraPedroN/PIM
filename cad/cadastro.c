@@ -3,7 +3,7 @@
 #include <string.h>
 #include "cadastro.h"
 
-int validarData(char *dia, char *mes, char *ano) {
+int validData(char *dia, char *mes, char *ano) {
     int d = atoi(dia);
     int m = atoi(mes);
     int a = atoi(ano);
@@ -21,7 +21,8 @@ int validarData(char *dia, char *mes, char *ano) {
     return 1;
 }
 
-int produtoJaCadastrado(Cadastro prod[], int totalProd, char nome[]) {
+int compareCad
+(Cadastro prod[], int totalProd, char nome[]) {
     for (int i = 0; i < totalProd; i++) {
         if (strcmp(prod[i].nome, nome) == 0) {
             return 1; // Produto já cadastrado
@@ -67,7 +68,7 @@ void listCad(Cadastro prod[], int totalProd) {
     for (int i = 0; i < totalProd; i++) {
         printf("%d. Nome: %s, Quantidade: %d, Valor: %.2f, Validade: %s/%s/%s, Tipo: %d\n",
                i + 1, prod[i].nome, prod[i].qtd, prod[i].valor,
-               prod[i].validade.dia, prod[i].validade.mes, prod[i].validade.ano,
+               prod[i].valid.dia, prod[i].valid.mes, prod[i].valid.ano,
                prod[i].tipo);
     }
 }
@@ -84,54 +85,55 @@ void cad(int tipoProd) {
             break;
         }
 
-        Cadastro novoProduto;
+        Cadastro newProd;
 
         // Validar o nome do produto e verificar se já está cadastrado
         do {
             printf("\nNome do produto: ");
-            scanf(" %100[^\n]", novoProduto.nome);
+            scanf(" %100[^\n]", newProd.nome);
 
-            if (strlen(novoProduto.nome) == 0) {
+            if (strlen(newProd.nome) == 0) {
                 printf("Erro: Nome não pode estar vazio. Tente novamente.\n");
-            } else if (produtoJaCadastrado(prod, totalProd, novoProduto.nome)) {
+            } else if (compareCad
+            (prod, totalProd, newProd.nome)) {
                 printf("Erro: Produto já cadastrado. Insira outro nome.\n");
-                novoProduto.nome[0] = '\0'; // Limpar nome
+                newProd.nome[0] = '\0'; // Limpar nome
             }
-        } while (strlen(novoProduto.nome) == 0);
+        } while (strlen(newProd.nome) == 0);
 
         // Validar a quantidade
         do {
             printf("Quantidade: ");
-            scanf("%d", &novoProduto.qtd);
-            if (novoProduto.qtd <= 0) {
+            scanf("%d", &newProd.qtd);
+            if (newProd.qtd <= 0) {
                 printf("Erro: Quantidade deve ser maior que zero. Tente novamente.\n");
             }
-        } while (novoProduto.qtd <= 0);
+        } while (newProd.qtd <= 0);
 
         // Validar o valor
         do {
             printf("Valor: ");
-            scanf("%f", &novoProduto.valor);
-            if (novoProduto.valor <= 0) {
+            scanf("%f", &newProd.valor);
+            if (newProd.valor <= 0) {
                 printf("Erro: O valor deve ser positivo. Tente novamente.\n");
             }
-        } while (novoProduto.valor <= 0);
+        } while (newProd.valor <= 0);
 
         // Validar a data de validade
         int dataValida;
         do {
             printf("Data de validade (dd/mm/yyyy): ");
-            scanf("%2s/%2s/%4s", novoProduto.validade.dia, novoProduto.validade.mes, novoProduto.validade.ano);
+            scanf("%2s/%2s/%4s", newProd.valid.dia, newProd.valid.mes, newProd.valid.ano);
 
-            dataValida = validarData(novoProduto.validade.dia, novoProduto.validade.mes, novoProduto.validade.ano);
+            dataValida = validData(newProd.valid.dia, newProd.valid.mes, newProd.valid.ano);
             if (!dataValida) {
                 printf("Erro: Data inválida. Tente novamente.\n");
             }
         } while (!dataValida);
 
         // Atribuir automaticamente o tipo de produto
-        novoProduto.tipo = tipoProd;
-        prod[totalProd] = novoProduto; // Adiciona o novo produto ao array
+        newProd.tipo = tipoProd;
+        prod[totalProd] = newProd; // Adiciona o novo produto ao array
 
         totalProd++; // Incrementa o total de produtos
 

@@ -4,9 +4,9 @@
 #include "cadastro.h"
 
 int validData(char *dia, char *mes, char *ano) {
-    int d = temp(dia);
-    int m = temp(mes);
-    int a = temp(ano);
+    int d = atoi(dia);
+    int m = atoi(mes);
+    int a = atoi(ano);
 
     if (a < 2024 || a > 2100) return 0;
     if (m < 1 || m > 12) return 0;

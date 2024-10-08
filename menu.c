@@ -17,7 +17,7 @@ void menu() {
 }
 
 void main() {
-    int opcao, rep;
+    int opcao, rep = 0;
 
     do {
         menu();

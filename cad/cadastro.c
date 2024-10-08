@@ -1,5 +1,4 @@
 #include <stdio.h>
-#include <stdlib.h>
 #include <string.h>
 #include "cadastro.h"
 
@@ -28,7 +27,7 @@ int compareCad
             return 1; // Produto já cadastrado
         }
     }
-    return 0; // Produto não cadastrado
+    return 0; // Produto nao cadastrado
 }
 
 void saveCad(Cadastro prod[], int totalProd) {
@@ -73,7 +72,7 @@ void listCad(Cadastro prod[], int totalProd) {
     }
 }
 
-// Função de cadastro com tipo de produto automático
+// Funcao de cadastro com tipo de produto automático
 void cad(int tipoProd) {
     Cadastro prod[MAX_PRODUTOS];
     int totalProd = loadCad(prod); // Carrega produtos existentes
@@ -93,7 +92,7 @@ void cad(int tipoProd) {
             scanf(" %100[^\n]", newProd.nome);
 
             if (strlen(newProd.nome) == 0) {
-                printf("Erro: Nome não pode estar vazio. Tente novamente.\n");
+                printf("Erro: Nome nao pode estar vazio. Tente novamente.\n");
             } else if (compareCad
             (prod, totalProd, newProd.nome)) {
                 printf("Erro: Produto já cadastrado. Insira outro nome.\n");
@@ -143,7 +142,7 @@ void cad(int tipoProd) {
         listCad(prod, totalProd);
 
         // Perguntar se deseja cadastrar outro produto
-        printf("Deseja cadastrar outro produto? (1-Sim, 0-Não): ");
+        printf("Deseja cadastrar outro produto? (1-Sim, 0-Nao): ");
         scanf("%d", &continuar);
 
     } while (continuar == 1);

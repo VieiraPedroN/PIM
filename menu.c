@@ -1,5 +1,4 @@
 #include <stdio.h>
-#include <stdlib.h>
 #include "cad/cadastro.h"
 #include "cad/cadastro_menu.c"
 #include "armz/estoque.c"
@@ -12,20 +11,20 @@ void menu() {
     printf("* 2- Fluxo de Caixa       *\n");
     printf("* 3- Estoque              *\n");
     printf("* 4- Relatorio Doacao     *\n");
-    printf("* 5- Sair da aplicação    *\n");
+    printf("* 5- Sair da aplicao      *\n");
     printf("***************************\n");
     printf("\n");
 }
 
 void main() {
-    int opção, rep = 0;
+    int opcao, rep;
 
     do {
         menu();
         printf("Por favor selecione uma opcao: ");
-        scanf("%d", &opção);
+        scanf("%d", &opcao);
 
-        switch (opção) {
+        switch (opcao) {
             case 1: {
                 printf("\nCadastro de Produtos\n");
                 cad_menu();
@@ -46,11 +45,11 @@ void main() {
                 rep = 1;
                 break;
             case 5:
-                printf("\nSaindo da aplicação\n");
+                printf("\nSaindo da aplicacao\n");
                 rep = 0;
                 break;
             default:
-                printf("\nOpção inválida\n");
+                printf("\nOpcao inválida\n");
                 rep = 1;
                 break;
         }

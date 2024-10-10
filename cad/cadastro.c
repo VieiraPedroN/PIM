@@ -1,22 +1,16 @@
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h> 
 #include "cadastro.h"
 
-int validData(char *dia, char *mes, char *ano) {
-    int d = atoi(dia);
+// Função para validar data (somente mês e ano)
+int validData(char *mes, char *ano) {
     int m = atoi(mes);
     int a = atoi(ano);
 
     if (a < 2024 || a > 2100) return 0;
     if (m < 1 || m > 12) return 0;
-    if (d < 1 || d > 31) return 0;
 
-    if ((m == 4 || m == 6 || m == 9 || m == 11) && d > 30) return 0;
-    if (m == 2) {
-        int bissexto = (a % 4 == 0 && (a % 100 != 0 || a % 400 == 0));
-        if (bissexto && d > 29) return 0;
-        if (!bissexto && d > 28) return 0;
-    }
     return 1;
 }
 
@@ -65,18 +59,19 @@ void listCad(Cadastro prod[], int totalProd) {
 
     printf("\nProdutos cadastrados:\n");
     for (int i = 0; i < totalProd; i++) {
-        printf("%d. Nome: %s, Quantidade: %d, Valor: %.2f, Validade: %s/%s/%s, Tipo: %d\n",
+        printf("%d. Nome: %s, Quantidade: %d, Valor: %.2f, Validade: %s/%s, Tipo: %d\n",
                i + 1, prod[i].nome, prod[i].qtd, prod[i].valor,
-               prod[i].valid.dia, prod[i].valid.mes, prod[i].valid.ano,
+               prod[i].valid.mes, prod[i].valid.ano,
                prod[i].tipo);
     }
 }
+
 
 // Funcao de cadastro com tipo de produto automático
 void cad(int tipoProd) {
     Cadastro prod[MAX_PRODUTOS];
     int totalProd = loadCad(prod); // Carrega produtos existentes
-    int continuar = 1;
+    int conti = 1;
 
     do {
         if (totalProd >= MAX_PRODUTOS) {
@@ -85,31 +80,35 @@ void cad(int tipoProd) {
         }
 
         Cadastro newProd;
-
+        char unidTipo[10];
+        
         // Validar o nome do produto e verificar se já está cadastrado
         do {
             printf("\nNome do produto: ");
             scanf(" %100[^\n]", newProd.nome);
 
             if (strlen(newProd.nome) == 0) {
-                printf("Erro: Nome nao pode estar vazio. Tente novamente.\n");
-            } else if (compareCad
-            (prod, totalProd, newProd.nome)) {
+                printf("Erro: Nome não pode estar vazio. Tente novamente.\n");
+            } else if (compareCad(prod, totalProd, newProd.nome)) {
                 printf("Erro: Produto já cadastrado. Insira outro nome.\n");
                 newProd.nome[0] = '\0'; // Limpar nome
             }
         } while (strlen(newProd.nome) == 0);
 
-        // Validar a quantidade
-        do {
-            printf("Quantidade: ");
+        // Solicitar quantidade e escolher entre unidades ou quilos
+        do{
+            printf("Escolha a unidade (1 - Unidade, 2 - Kg): ");
+            scanf("%d", &newProd.unid); // Salve a unidade diretamente
+
+            printf("Quantidade %s: ", unidTipo);
             scanf("%d", &newProd.qtd);
+
             if (newProd.qtd <= 0) {
                 printf("Erro: Quantidade deve ser maior que zero. Tente novamente.\n");
             }
-        } while (newProd.qtd <= 0);
+        } while (newProd.qtd <= 0 && newProd.unid != 1 && newProd.unid != 2);
 
-        // Validar o valor
+        // Solicitar valor
         do {
             printf("Valor: ");
             scanf("%f", &newProd.valor);
@@ -118,19 +117,18 @@ void cad(int tipoProd) {
             }
         } while (newProd.valor <= 0);
 
-        // Validar a data de validade
+        // Validar a data de validade (mes e ano)
         int dataValida;
         do {
-            printf("Data de validade (dd/mm/yyyy): ");
-            scanf("%2s/%2s/%4s", newProd.valid.dia, newProd.valid.mes, newProd.valid.ano);
-
-            dataValida = validData(newProd.valid.dia, newProd.valid.mes, newProd.valid.ano);
+            printf("Data de validade (mm/yyyy): ");
+            scanf("%2s/%4s", newProd.valid.mes, newProd.valid.ano);
+            dataValida = validData(newProd.valid.mes, newProd.valid.ano);
             if (!dataValida) {
                 printf("Erro: Data inválida. Tente novamente.\n");
             }
         } while (!dataValida);
 
-        // Atribuir automaticamente o tipo de produto
+        // Atribuir o tipo de produto
         newProd.tipo = tipoProd;
         prod[totalProd] = newProd; // Adiciona o novo produto ao array
 
@@ -138,15 +136,41 @@ void cad(int tipoProd) {
 
         printf("\nProduto cadastrado com sucesso!\n");
 
-        // Listar produtos cadastrados
-        listCad(prod, totalProd);
+        // Perguntar se o usuário deseja visualizar os produtos cadastrados
+        int visu;
+        printf("Deseja visualizar os produtos cadastrados? (1-Sim, 0-Não): ");
+        scanf("%d", &visu);
 
-        // Perguntar se deseja cadastrar outro produto
-        printf("Deseja cadastrar outro produto? (1-Sim, 0-Nao): ");
-        scanf("%d", &continuar);
+        if (visu == 1) {
+            printf("\nProdutos cadastrados:\n");
+            for (int i = 0; i < totalProd; i++) {
+                printf("%d. Nome: %s, Quantidade: %d %s, Valor: %.2f, Validade: %s/%s, Tipo: %d\n",
+                       i + 1, prod[i].nome, prod[i].qtd, unidTipo, prod[i].valor,
+                       prod[i].valid.mes, prod[i].valid.ano, prod[i].tipo);
+            }
+        }
 
-    } while (continuar == 1);
+        // Perguntar se o usuário deseja cadastrar mais produtos
+        int contiCad;
+        printf("Deseja continuar cadastrando produtos? (1-Sim, 0-Não): ");
+        scanf("%d", &contiCad);
 
-    // Salvar produtos no arquivo
-    saveCad(prod, totalProd);
+        if (contiCad == 1) {
+            // Perguntar se deseja cadastrar o mesmo produto
+            int cadMesmo;
+            printf("Deseja cadastrar o mesmo produto? (1-Sim, 0-Outro produto): ");
+            scanf("%d", &cadMesmo);
+
+            if (cadMesmo == 0) {
+                conti = 0; // Se escolher outro, saia do loop
+            }
+        } else {
+            conti = 0; // Se escolher não continuar, saia do loop
+        }
+
+        } while (conti == 1);
+
+        // Salvar produtos no arquivo
+        saveCad(prod, totalProd);
+        printf("Produtos salvos com sucesso!\n");
 }

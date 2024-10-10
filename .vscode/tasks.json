@@ -8,10 +8,10 @@
             "args": [
                 "-g",
                 "menu.c",
-                "cadastro.c",
                 "estoque.c",
+                "cadastro.c",
                 "-o",
-                "meu_programa"
+                "app"
             ],
             "group": "build",
             "problemMatcher": [

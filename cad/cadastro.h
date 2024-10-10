@@ -4,9 +4,8 @@
 #define MAX_PRODUTOS 5 // Limite de produtos que podem ser cadastrados
 
 typedef struct {
-    char dia[3];
     char mes[3];
-    char ano[5];
+    char ano[5];  // Ajustar tamanho do ano para 4 dígitos + terminador nulo
 } Data;
 
 typedef struct {
@@ -15,9 +14,10 @@ typedef struct {
     int qtd;
     Data valid;
     int tipo; // 1-Frutas, 2-Hortaliças, 3-Bebidas, 4-Cereais, 5-Laticínios
+    int unid;   // 1-Unidade, 2-Kg
 } Cadastro;
 
-int validData(char *dia, char *mes, char *ano);
+int validData(char *mes, char *ano); // Mantém apenas mes e ano como parâmetros
 int compareCad(Cadastro prod[], int totalProd, char nome[]);
 void saveCad(Cadastro prod[], int totalProd);
 int loadCad(Cadastro prod[]);

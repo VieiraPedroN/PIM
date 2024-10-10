@@ -17,8 +17,9 @@ void menu() {
 }
 
 void main() {
-    int opcao, rep = 0;
 
+    int opcao, rep = 0;
+    
     do {
         menu();
         printf("Por favor selecione uma opcao: ");

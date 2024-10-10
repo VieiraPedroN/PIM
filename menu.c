@@ -11,7 +11,7 @@ void menu() {
     printf("* 2- Fluxo de Caixa       *\n");
     printf("* 3- Estoque              *\n");
     printf("* 4- Relatorio Doacao     *\n");
-    printf("* 5- Sair da aplicao      *\n");
+    printf("* 5- Sair da aplicacao    *\n");
     printf("***************************\n");
     printf("\n");
 }

@@ -1,0 +1,1 @@
+PontoColeta pontos[5]

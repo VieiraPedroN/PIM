@@ -2,6 +2,7 @@
 #include "cad/cadastro.h"
 #include "cad/cadastro_menu.c"
 #include "armz/estoque.c"
+#include "Fluxo_Caixa/Fluxo_menu.c"
 
 void menu() {
     printf("\n");
@@ -34,6 +35,7 @@ void main() {
             }
             case 2:
                 printf("\nFluxo de Caixa\n");
+                fluxo();
                 rep = 1;
                 break;
             case 3:

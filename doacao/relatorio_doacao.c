@@ -27,11 +27,11 @@ void menu_doacao() {
             printf("* Verificar Estoque para seleção de doação de produtos  *\n");
 
             Cadastro prod[MAX_PRODUTOS];
-            int totalProd = loadCad(prod);
+            int totalProd = loadCad(prod);;
             int opcao;
 
             if (totalProd == 0) {
-            printf("Não ha produtos no estoque. Por favor, adicione produtos.\n");
+            printf("Não ha produtos no estoque.\n");
             return;
             }
 
@@ -40,9 +40,8 @@ void menu_doacao() {
             for (int i = 0; i < totalProd; i++) {
             char *unidadeTipo = (prod[i].unid == 1) ? "Unid" : "Kg"; 
 
-            printf("%d. Nome: %s, Quantidade: %d %s, Valor: %.2f, Validade: %s/%s, Tipo: %d\n",
-           i + 1, prod[i].nome, prod[i].qtd, unidadeTipo,
-           prod[i].valor, prod[i].valid.mes, prod[i].valid.ano, prod[i].tipo);
+            printf("%d. Nome: %s, Quantidade: %d %s, Validade: %s/%s, \n",
+           i + 1, prod[i].nome, prod[i].qtd, unidadeTipo, prod[i].valid.mes, prod[i].valid.ano);
         }
 
         printf("\n\n1. continuar\n2. Sair\n");
@@ -50,7 +49,7 @@ void menu_doacao() {
 
         switch (opcao) {
             case 1:
-                editProd(prod, totalProd);
+                editProdDoacao(prod, totalProd);
                 break;
             case 2:
                 printf("Saindo do estoque.\n");
@@ -86,7 +85,7 @@ saveCad(prod, totalProd);
 
         switch (opcao) {
             case 1:
-                editProd(prod, totalProd);
+                descarteDoacao(prod, totalProd);
                 break;
             case 2:
                 printf("Saindo do estoque.\n");

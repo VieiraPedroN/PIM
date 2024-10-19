@@ -1,7 +1,9 @@
 #include <stdio.h>
-#include "cad/cadastro.h"
+#include <stdlib.h>
+#include "sistema.h"
 #include "cad/cadastro_menu.c"
 #include "armz/estoque.c"
+#include "doacao/menu_doa.c"
 
 void menu() {
     printf("\n");
@@ -43,6 +45,7 @@ void main() {
                 break;
             case 4:
                 printf("\nRelatorio Doacao\n");
+                menu_doa();
                 rep = 1;
                 break;
             case 5:

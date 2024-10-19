@@ -1,82 +1,93 @@
 #include <stdio.h>
-#include "../cad/cadastro.h"
+#include <stdlib.h>
+#include "../sistema.h"
 
-void editProd(Cadastro *prod, int totalProd) {
+void editProd(Cadastro *prod, int totalProd){
     int index;
     printf("Digite o número do produto que deseja editar (1 a %d): ", totalProd);
     scanf("%d", &index);
     index--; // Ajusta para índice de array
 
-    if (index < 0 || index >= totalProd) {
+    if (index < 0 || index >= totalProd)
+    {
         printf("Erro: Produto inválido!\n");
         return;
     }
 
     Cadastro *editProd = &prod[index]; // Usa ponteiro para acessar o produto
     int opcao;
-    
-    do {
+
+    do
+    {
         printf("\nO que deseja editar?\n");
         printf("1. Nome\n2. Quantidade\n3. Valor\n4. Data de validade\n5. Tipo\n0. Sair\n");
         printf("Escolha uma opção: ");
         scanf("%d", &opcao);
-        
-        switch (opcao) {
-            case 1:
-                printf("Novo nome: ");
-                scanf(" %100[^\n]", editProd->nome);
-                break;
-            case 2:
-                do {
-                    printf("Nova quantidade: ");
-                    scanf("%d", &editProd->qtd);
-                    if (editProd->qtd <= 0) {
-                        printf("Erro: Quantidade deve ser maior que zero.\n");
-                    }
-                } while (editProd->qtd <= 0);
-                break;
-            case 3:
-                do {
-                    printf("Novo valor: ");
-                    scanf("%f", &editProd->valor);
-                    if (editProd->valor <= 0) {
-                        printf("Erro: O valor deve ser positivo.\n");
-                    }
-                } while (editProd->valor <= 0);
-                break;
-            case 4:
-                do {
-                    printf("Nova data de validade (mm/yyyy): ");
-                    scanf("%2s/%4s", editProd->valid.mes, editProd->valid.ano);
-                } while (!validData(editProd->valid.mes, editProd->valid.ano));
-                break;
-            case 5:
-                printf("Novo tipo (1-Frutas, 2-Hortaliças, 3-Bebidas, 4-Cereais, 5-Laticínios): ");
-                scanf("%d", &editProd->tipo);
-                break;
-            case 0:
-                printf("Saindo da edição.\n");
-                break;
-            default:
-                printf("Opção inválida!\n");
-                break;
+
+        switch (opcao)
+        {
+        case 1:
+            printf("Novo nome: ");
+            scanf(" %100[^\n]", editProd->nome);
+            break;
+        case 2:
+            do
+            {
+                printf("Nova quantidade: ");
+                scanf("%d", &editProd->qtd);
+                if (editProd->qtd <= 0)
+                {
+                    printf("Erro: Quantidade deve ser maior que zero.\n");
+                }
+            } while (editProd->qtd <= 0);
+            break;
+        case 3:
+            do
+            {
+                printf("Novo valor: ");
+                scanf("%f", &editProd->valor);
+                if (editProd->valor <= 0)
+                {
+                    printf("Erro: O valor deve ser positivo.\n");
+                }
+            } while (editProd->valor <= 0);
+            break;
+        case 4:
+            do
+            {
+                printf("Nova data de validade (mm/yyyy): ");
+                scanf("%2s/%4s", editProd->valid.mes, editProd->valid.ano);
+            } while (!validData(editProd->valid.mes, editProd->valid.ano));
+            break;
+        case 5:
+            printf("Novo tipo (1-Frutas, 2-Hortaliças, 3-Bebidas, 4-Cereais, 5-Laticínios): ");
+            scanf("%d", &editProd->tipo);
+            break;
+        case 0:
+            printf("Saindo da edição.\n");
+            break;
+        default:
+            printf("Opção inválida!\n");
+            break;
         }
     } while (opcao != 0);
 }
 
-void removeProd(Cadastro *prod, int *totalProd) {
+void removeProd(Cadastro *prod, int *totalProd){
     int index;
     printf("Digite o número do produto que deseja remover (1 a %d): ", *totalProd);
     scanf("%d", &index);
     index--; // Ajusta para índice de array
 
-    if (index < 0 || index >= *totalProd) {
+    if (index < 0 || index >= *totalProd)
+    {
         printf("Erro: Produto inválido!\n");
         return;
     }
 
     // Remover o produto deslocando os demais
-    for (int i = index; i < *totalProd - 1; i++) {
+    for (int i = index; i < *totalProd - 1; i++)
+    {
         prod[i] = prod[i + 1];
     }
 
@@ -84,28 +95,28 @@ void removeProd(Cadastro *prod, int *totalProd) {
     printf("Produto removido com sucesso!\n");
 }
 
-// Função para visualizar o estoque
-// Função para visualizar o estoque
-void visuArmz() {
+void visuArmz(){
     Cadastro prod[MAX_PRODUTOS];
     int totalProd = loadCad(prod); // Carrega produtos existentes
     int opcao;
 
-    if (totalProd == 0) {
+    if (totalProd == 0)
+    {
         printf("O estoque não contém nenhum produto. Por favor, adicione produtos.\n");
         return;
     }
 
-    do {
+    do
+    {
         printf("\nEstoque:\n");
-        // Dentro da função visuArmz
-for (int i = 0; i < totalProd; i++) {
-    // Determina a unidade com base no valor armazenado
-    char *unidadeTipo = (prod[i].unid == 1) ? "Unid" : "Kg"; // Usa o campo unidade
+        // Exibe todos os produtos cadastrados
+        for (int i = 0; i < totalProd; i++)
+        {
+            char *unidadeTipo = (prod[i].unid == 1) ? "Unid" : "Kg"; // Define unidade
 
-    printf("%d. Nome: %s, Quantidade: %d %s, Valor: %.2f, Validade: %s/%s, Tipo: %d\n",
-           i + 1, prod[i].nome, prod[i].qtd, unidadeTipo,
-           prod[i].valor, prod[i].valid.mes, prod[i].valid.ano, prod[i].tipo);
+            printf("%d. Nome: %s, Quantidade: %d %s, Valor: %.2f, Validade: %s/%s, Tipo: %d\n",
+                   i + 1, prod[i].nome, prod[i].qtd, unidadeTipo,
+                   prod[i].valor, prod[i].valid.mes, prod[i].valid.ano, prod[i].tipo);
         }
 
         printf("\nO que deseja fazer?\n");
@@ -113,19 +124,20 @@ for (int i = 0; i < totalProd; i++) {
         printf("Escolha uma opção: ");
         scanf("%d", &opcao);
 
-        switch (opcao) {
-            case 1:
-                editProd(prod, totalProd);
-                break;
-            case 2:
-                removeProd(prod, &totalProd);
-                break;
-            case 0:
-                printf("Saindo do estoque.\n");
-                break;
-            default:
-                printf("Opção inválida!\n");
-                break;
+        switch (opcao)
+        {
+        case 1:
+            editProd(prod, totalProd);
+            break;
+        case 2:
+            removeProd(prod, &totalProd);
+            break;
+        case 0:
+            printf("Saindo do estoque.\n");
+            break;
+        default:
+            printf("Opção inválida!\n");
+            break;
         }
     } while (opcao != 0);
 

@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h> 
-#include "cadastro.h"
+#include "../sistema.h"
 
 // Função para validar data (somente mês e ano)
 int validData(char *mes, char *ano) {
@@ -99,6 +99,10 @@ void cad(int tipoProd) {
         do{
             printf("Escolha a unidade (1 - Unidade, 2 - Kg): ");
             scanf("%d", &newProd.unid); // Salve a unidade diretamente
+
+             if (newProd.qtd != 1 && newProd.unid != 2) {
+                printf("Erro: Unidade inválida. Tente novamente.\n");
+            }
 
             printf("Quantidade %s: ", unidTipo);
             scanf("%d", &newProd.qtd);

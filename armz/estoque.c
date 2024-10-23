@@ -105,6 +105,47 @@ void removeProd(Cadastro *prod, int *totalProd){
 void visuArmz(){
     Cadastro prod[MAX_PRODUTOS];
     int totalProd = loadCad(prod); // Carrega produtos existentes
+    int visu;
+
+    printf("\nEstoque:\n");
+    printf("\nComo deseja visualizar?");
+
+    do{
+        printf("\n1. Tipo\n2. Todo o estoque\n0. sair\n");
+        printf("\nEscolha uma opção: ");
+        scanf("%d", &visu);
+        switch (visu)
+        {
+        case 1:
+            
+            break;
+        case 2:
+            // Exibe todos os produtos cadastrados
+            for (int i = 0; i < totalProd; i++){
+            char *unidadeTipo = (prod[i].unid == 1) ? "Unid" : "Kg"; // Define unidade
+
+            printf("%d. Nome: %s, Quantidade: %d %s, Valor: %.2f, Validade: %s/%s, Tipo: %d\n",
+               i + 1, prod[i].nome, prod[i].qtd, unidadeTipo,
+               prod[i].valor, prod[i].valid.mes, prod[i].valid.ano, prod[i].tipo);
+             }
+            break;
+        case 0:
+            printf("Saindo da operação.\n");
+            break;
+        default:
+            printf("Opção inválida!\n");
+            break;
+        }
+    } while (visu != 0);
+
+
+    // Salvar produtos no arquivo após alterações
+    saveCad(prod, totalProd);
+}
+
+void menuArmz(){
+    Cadastro prod[MAX_PRODUTOS];
+    int totalProd = loadCad(prod); // Carrega produtos existentes
     int opcao;
 
     if (totalProd == 0)
@@ -113,41 +154,28 @@ void visuArmz(){
         return;
     }
 
-    do
-    {
-        printf("\nEstoque:\n");
-        // Exibe todos os produtos cadastrados
-        for (int i = 0; i < totalProd; i++)
-        {
-            char *unidadeTipo = (prod[i].unid == 1) ? "Unid" : "Kg"; // Define unidade
-
-            printf("%d. Nome: %s, Quantidade: %d %s, Valor: %.2f, Validade: %s/%s, Tipo: %d\n",
-                   i + 1, prod[i].nome, prod[i].qtd, unidadeTipo,
-                   prod[i].valor, prod[i].valid.mes, prod[i].valid.ano, prod[i].tipo);
-        }
-
-        printf("\nO que deseja fazer?\n");
-        printf("1. Editar produto\n2. Remover produto\n0. Sair\n");
+    printf("\nO que deseja fazer?\n");
+    do{
+        printf("1. Exibir estoque\n2. Editar produto\n3. Remover produto\n0. Sair\n");
         printf("Escolha uma opção: ");
         scanf("%d", &opcao);
 
-        switch (opcao)
-        {
-        case 1:
-            editProd(prod, totalProd);
-            break;
-        case 2:
-            removeProd(prod, &totalProd);
-            break;
-        case 0:
-            printf("Saindo do estoque.\n");
-            break;
-        default:
-            printf("Opção inválida!\n");
-            break;
+        switch (opcao){
+            case 1:
+                visuArmz;
+                break;
+            case 2:
+                editProd(prod, totalProd);
+                break;
+            case 3:
+                removeProd(prod, &totalProd);
+                break;
+            case 0:
+                printf("Saindo da operação.\n");
+                break;
+            default:
+                printf("Opção inválida!\n");
+                break;
         }
     } while (opcao != 0);
-
-    // Salvar produtos no arquivo após alterações
-    saveCad(prod, totalProd);
 }

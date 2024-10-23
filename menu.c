@@ -40,7 +40,7 @@ void main() {
                 break;
             case 3:
                 printf("\nEstoque\n");
-                visuArmz();
+                menuArmz();
                 rep = 1;
                 break;
             case 4:

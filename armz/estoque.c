@@ -75,6 +75,13 @@ void editProd(Cadastro *prod, int totalProd){
 
 void removeProd(Cadastro *prod, int *totalProd){
     int index;
+
+    if (index == 0){
+        printf("Não contem nenhum produto para ser removido.");
+        return;
+    }
+    
+
     printf("Digite o número do produto que deseja remover (1 a %d): ", *totalProd);
     scanf("%d", &index);
     index--; // Ajusta para índice de array

@@ -114,10 +114,24 @@ void visuArmz(){
         printf("\n1. Tipo\n2. Todo o estoque\n0. sair\n");
         printf("\nEscolha uma opção: ");
         scanf("%d", &visu);
-        switch (visu)
-        {
+        switch (visu){
         case 1:
-            
+        int opcTipo;
+
+            printf("\n\n1.Frutas\n2.Hortalicas\n3.Bebidas\n4.Cereais\n5.Laticineos\n");
+            printf("Escolha um Tipo: ");
+            scanf("%d", &opcTipo);
+        
+            for (int i = 0; i < totalProd; i++){
+
+            char *unidadeTipo = (prod[i].unid == 1) ? "Unid" : "Kg"; // Define unidade
+
+                if (prod[i].tipo == opcTipo){
+                    printf("%d. Nome: %s, Quantidade: %d %s, Valor: %.2f, Validade: %s/%s, Tipo: %d\n",
+                    i + 1, prod[i].nome, prod[i].qtd, unidadeTipo,
+                    prod[i].valor, prod[i].valid.mes, prod[i].valid.ano, prod[i].tipo);
+                    }
+            }
             break;
         case 2:
             // Exibe todos os produtos cadastrados
@@ -130,7 +144,7 @@ void visuArmz(){
              }
             break;
         case 0:
-            printf("Saindo da operação.\n");
+            printf("\nSaindo da operação.\n");
             break;
         default:
             printf("Opção inválida!\n");
@@ -138,9 +152,6 @@ void visuArmz(){
         }
     } while (visu != 0);
 
-
-    // Salvar produtos no arquivo após alterações
-    saveCad(prod, totalProd);
 }
 
 void menuArmz(){
@@ -156,19 +167,21 @@ void menuArmz(){
 
     printf("\nO que deseja fazer?\n");
     do{
-        printf("1. Exibir estoque\n2. Editar produto\n3. Remover produto\n0. Sair\n");
+        printf("\n1. Exibir estoque\n2. Editar produto\n3. Remover produto\n0. Sair\n");
         printf("Escolha uma opção: ");
         scanf("%d", &opcao);
 
         switch (opcao){
             case 1:
-                visuArmz;
+                visuArmz();
                 break;
             case 2:
                 editProd(prod, totalProd);
+                saveCad(prod, totalProd);
                 break;
             case 3:
                 removeProd(prod, &totalProd);
+                saveCad(prod, totalProd);
                 break;
             case 0:
                 printf("Saindo da operação.\n");
@@ -176,6 +189,10 @@ void menuArmz(){
             default:
                 printf("Opção inválida!\n");
                 break;
+
         }
+
     } while (opcao != 0);
+    // Salvar produtos no arquivo após alterações
+    saveCad(prod, totalProd);
 }

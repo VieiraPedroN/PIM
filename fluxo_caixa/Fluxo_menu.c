@@ -71,14 +71,14 @@ int fluxo()
             break;
         case 2:
         {
-            printf("\nPagamentos\n");
+            printf("\nÁrea de Pagamentos\n");
             char transacao[50], data[11], pagamento[20];
             float valorPago;
-            printf("Pagamento: ");
+            printf("Informe o que deseja Pagar: ");
             getchar();
             fgets(transacao, sizeof(transacao), stdin);
             transacao[strcspn(transacao, "\n")] = '\0';
-            printf("Valor Pago: ");
+            printf("Informe o custo desse Pagamento: ");
             scanf("%f", &valorPago);
             FormaPP(pagamento);
             printf("Data (DD/MM/YYYY): ");

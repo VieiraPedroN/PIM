@@ -6,7 +6,7 @@
 
 void FormaPP(char *pagamento) {
     int formaP;
-    printf("Forma de pagamento:\n");
+    printf("Forma de Pagamento:\n");
     printf("1. Dinheiro\n");
     printf("2. Cartão de Crédito\n");
     printf("3. Cartão de Débito\n");
@@ -41,7 +41,7 @@ void FormaPP(char *pagamento) {
 
 void FormaP(char *pagamento) {
     int formaP;
-    printf("Forma de pagamento:\n");
+    printf("Forma de Pagamento:\n");
     printf("1. Dinheiro\n");
     printf("2. Cartão de Crédito\n");
     printf("3. Cartão de Débito\n");

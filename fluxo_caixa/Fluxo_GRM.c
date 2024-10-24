@@ -40,8 +40,8 @@ void GerarR_M(Fluxo *transacoes, int NumF, char *MesAno) {
         }
     }
     printf("=============================================================================================================================\n");
-    printf("| %-71s | %-10.2f  \n", "Total Recebido:", totalRecebido);
-    printf("| %-71s | %-10.2f  \n", "Total Gasto:", totalGasto);
+    printf("| %-72s | %-10.2f  \n", "Total Recebido:", totalRecebido);
+    printf("| %-72s | %-10.2f  \n", "Total Gasto:", totalGasto);
     printf("| %-72s | %-10.2f  \n", "Saldo do Mês:", saldo);
     printf("=============================================================================================================================\n");
 }

@@ -10,6 +10,7 @@ void DeletV(Fluxo *transacoes, int *NumF, int IndiceT, Cadastro *produtos, int t
         printf("Índice inválido.\n");
         return;
     }
+    IndiceT--;
     if (strcasecmp(transacoes[IndiceT].tipo, "Recebimento") != 0) {
         printf("Apenas Vendas podem ser deletadas.\n");
         return;
@@ -108,7 +109,7 @@ void EditV(Fluxo *transacoes, int NumF, Cadastro *produtos, int totalProd) {
     char novaMovimentacao[50], novaData[11], novoPagamento[20];
     float novoValor = produtos[id - 1].valor * novasUnidadesVendidas;
 
-    printf("Nova forma de pagamento: ");
+    printf("Nova ");
     FormaP(novoPagamento);
 
     printf("Nova data (DD/MM/YYYY): ");
@@ -146,7 +147,7 @@ void EditP(Fluxo *transacoes, int NumF, int IndiceT) {
     printf("Novo valor do pagamento: ");
     scanf("%f", &novoValor);
 
-    printf("Nova forma de pagamento: ");
+    printf("Nova ");
     FormaPP(novoPagamento);
 
     printf("Nova data (DD/MM/YYYY): ");
@@ -201,7 +202,7 @@ void MenuED(Fluxo *transacoes, int totalFluxo, Cadastro *produtos, int totalProd
                 printf("Saindo do menu de edição e exclusão.\n");
                 break;
             default:
-                printf("Opção inválida!\n");
+                printf("Opção inválida! Digite uma opção válida\n");
         }
     } while (acao != 5);
 }

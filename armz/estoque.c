@@ -31,15 +31,13 @@ void editProd(Cadastro *prod, int totalProd){
             scanf(" %100[^\n]", editProd->nome);
             break;
         case 2:
-            do
-            {
+            do{
                 printf("Nova quantidade: ");
                 scanf("%d", &editProd->qtd);
-                if (editProd->qtd <= 0)
-                {
+                if (editProd->qtd < 0){
                     printf("Erro: Quantidade deve ser maior que zero.\n");
                 }
-            } while (editProd->qtd <= 0);
+            } while (editProd->qtd < 0);
             break;
         case 3:
             do
@@ -159,14 +157,16 @@ void menuArmz(){
     int totalProd = loadCad(prod); // Carrega produtos existentes
     int opcao;
 
-    if (totalProd == 0)
-    {
+   do{
+
+    if (totalProd == 0){
         printf("O estoque não contém nenhum produto. Por favor, adicione produtos.\n");
+        opcao  = 0;
         return;
     }
 
     printf("\nO que deseja fazer?\n");
-    do{
+    
         printf("\n1. Exibir estoque\n2. Editar produto\n3. Remover produto\n0. Sair\n");
         printf("Escolha uma opção: ");
         scanf("%d", &opcao);

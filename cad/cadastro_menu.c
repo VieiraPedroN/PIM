@@ -4,28 +4,30 @@
 #include "../sistema.h"
 
 void cad_menu() {
-    int tipo, resp=0;
-
-    do{
+    int tipo;
+    
+    do {
         printf("***********************\n");
         printf("* 1- Frutas           *\n");
         printf("* 2- Hortalicas       *\n");
         printf("* 3- Bebidas          *\n");
         printf("* 4- Cereais          *\n");
         printf("* 5- Laticineos       *\n");
-        printf("* 6- Sair da operacao *\n");
+        printf("* 0- Sair da operacao *\n");
         printf("***********************\n");
         printf("Selecione um tipo de produto para cadastro: ");
         scanf("%d", &tipo);
         
-        if (tipo < 1 || tipo > 5) {
-            printf("Tipo inválido. Retornando ao menu principal.\n");
-            return;
+        if (tipo == 0) {
+            printf("Saindo da operação de cadastro.\n");
+            return; // Retorna ao menu principal
         }
-        else{
-            resp = 1;
+        
+        if (tipo < 1 || tipo > 5) {
+            printf("Tipo inválido. Tente novamente.\n");
+            continue;
         }
 
-        cad(tipo);
-    } while (resp == 1);
+        cad(tipo); // Quando retornar daqui, volta para o início do loop
+    } while (1); // Loop infinito que só é quebrado quando escolher sair (6)
 }

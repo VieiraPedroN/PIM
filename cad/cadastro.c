@@ -14,8 +14,7 @@ int validData(char *mes, char *ano) {
     return 1;
 }
 
-int compareCad
-(Cadastro prod[], int totalProd, char nome[]) {
+int compareCad (Cadastro prod[], int totalProd, char nome[]) {
     for (int i = 0; i < totalProd; i++) {
         if (strcmp(prod[i].nome, nome) == 0) {
             return 1; // Produto já cadastrado
@@ -34,7 +33,7 @@ void saveCad(Cadastro prod[], int totalProd) {
 
     fwrite(prod, sizeof(Cadastro), totalProd, arquivo);
     fclose(arquivo);
-    printf("Produtos salvos com sucesso no arquivo!\n");
+    printf("Produtos salvos com sucesso no banco de dados!\n");
 }
 
 int loadCad(Cadastro prod[]) {
@@ -66,11 +65,11 @@ void listCad(Cadastro prod[], int totalProd) {
     }
 }
 
-
-// Funcao de cadastro com tipo de produto automático
 void cad(int tipoProd) {
     Cadastro prod[MAX_PRODUTOS];
+    Cadastro newProds[MAX_PRODUTOS]; // Array para novos produtos
     int totalProd = loadCad(prod); // Carrega produtos existentes
+    int totalNewProds = 0; // Contador para novos produtos
     int conti = 1;
 
     do {
@@ -100,7 +99,7 @@ void cad(int tipoProd) {
             printf("Escolha a unidade (1 - Unidade, 2 - Kg): ");
             scanf("%d", &newProd.unid); // Salve a unidade diretamente
 
-             if (newProd.qtd != 1 && newProd.unid != 2) {
+             if (newProd.unid != 1 && newProd.unid != 2) {
                 printf("Erro: Unidade inválida. Tente novamente.\n");
             }
 
@@ -132,27 +131,13 @@ void cad(int tipoProd) {
             }
         } while (!dataValida);
 
-        // Atribuir o tipo de produto
         newProd.tipo = tipoProd;
-        prod[totalProd] = newProd; // Adiciona o novo produto ao array
 
-        totalProd++; // Incrementa o total de produtos
+
+        newProds[totalNewProds] = newProd;
+        totalNewProds++;
 
         printf("\nProduto cadastrado com sucesso!\n");
-
-        // Perguntar se o usuário deseja visualizar os produtos cadastrados
-        int visu;
-        printf("Deseja visualizar os produtos cadastrados? (1-Sim, 0-Não): ");
-        scanf("%d", &visu);
-
-        if (visu == 1) {
-            printf("\nProdutos cadastrados:\n");
-            for (int i = 0; i < totalProd; i++) {
-                printf("%d. Nome: %s, Quantidade: %d %s, Valor: %.2f, Validade: %s/%s, Tipo: %d\n",
-                       i + 1, prod[i].nome, prod[i].qtd, unidTipo, prod[i].valor,
-                       prod[i].valid.mes, prod[i].valid.ano, prod[i].tipo);
-            }
-        }
 
         // Perguntar se o usuário deseja cadastrar mais produtos
         int contiCad;
@@ -166,15 +151,64 @@ void cad(int tipoProd) {
             scanf("%d", &cadMesmo);
 
             if (cadMesmo == 0) {
-                conti = 0; // Se escolher outro, saia do loop
+                // Mostrar produtos e validar antes de mudar de tipo
+                if (totalNewProds > 0) {
+                    printf("\nProdutos cadastrados nesta sessão:\n");
+                    for (int i = 0; i < totalNewProds; i++) {
+                        char *unidadeTipo = (newProds[i].unid == 1) ? "Unid" : "Kg";
+                        printf("%d. Nome: %s, Quantidade: %d %s, Valor: %.2f, Validade: %s/%s, Tipo: %d\n",
+                               i + 1, newProds[i].nome, newProds[i].qtd, unidadeTipo, newProds[i].valor,
+                               newProds[i].valid.mes, newProds[i].valid.ano, newProds[i].tipo);
+                    }
+
+                    int salvar;
+                    printf("\nDeseja salvar os produtos antes de mudar de tipo? (1-Salvar, 0-Cancelar): ");
+                    scanf("%d", &salvar);
+
+                    if (salvar == 1) {
+                        // Adiciona os novos produtos ao array principal
+                        for (int i = 0; i < totalNewProds; i++) {
+                            prod[totalProd + i] = newProds[i];
+                        }
+                        saveCad(prod, totalProd + totalNewProds);
+                        printf("Produtos salvos com sucesso!\n");
+                    } else {
+                        printf("Operação cancelada. Produtos não foram salvos.\n");
+                    }
+                }
+                return; // Retorna para o menu de cadastro
             }
         } else {
-            conti = 0; // Se escolher não continuar, saia do loop
+            break; // Sai do loop para mostrar os produtos e confirmar salvamento
         }
 
-        } while (conti == 1);
+    } while (conti == 1);
 
-        // Salvar produtos no arquivo
-        saveCad(prod, totalProd);
-        printf("Produtos salvos com sucesso!\n");
+    // Mostrar produtos cadastrados nesta sessão (quando escolhe não continuar)
+    if (totalNewProds > 0) {
+        printf("\nProdutos cadastrados nesta sessão:\n");
+        for (int i = 0; i < totalNewProds; i++) {
+            char *unidadeTipo = (newProds[i].unid == 1) ? "Unid" : "Kg";
+            printf("%d. Nome: %s, Quantidade: %d %s, Valor: %.2f, Validade: %s/%s, Tipo: %d\n",
+                   i + 1, newProds[i].nome, newProds[i].qtd, unidadeTipo, newProds[i].valor,
+                   newProds[i].valid.mes, newProds[i].valid.ano, newProds[i].tipo);
+        }
+
+        // Confirmar salvamento
+        int salvar;
+        printf("\nDeseja salvar os produtos cadastrados? (1-Salvar, 0-Cancelar): ");
+        scanf("%d", &salvar);
+
+        if (salvar == 1) {
+            // Adiciona os novos produtos ao array principal
+            for (int i = 0; i < totalNewProds; i++) {
+                prod[totalProd + i] = newProds[i];
+            }
+            saveCad(prod, totalProd + totalNewProds);
+        } else {
+            printf("Operação cancelada. Produtos não foram salvos.\n");
+        }
+    }
+
+    return; // Retorna para o menu de cadastro
 }

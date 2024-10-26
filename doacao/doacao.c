@@ -72,7 +72,7 @@ void saveDoa(Doacao doacao) {
 
 int visuDoa(Cadastro *prod, int totalProd) {
     Doacao doacao;
-    FILE *file = fopen("doaca.dat", "rb");
+    FILE *file = fopen("doacao.dat", "rb");
     if (file == NULL) {
         printf("\nNenhuma doação registrada até o momento.\n");
         return 0;

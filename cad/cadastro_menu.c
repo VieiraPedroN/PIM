@@ -7,6 +7,12 @@ void cad_menu() {
     int tipo;
     
     do {
+
+        if (check == 1){
+            return;
+        }
+        
+
         printf("***********************\n");
         printf("* 1- Frutas           *\n");
         printf("* 2- Hortalicas       *\n");

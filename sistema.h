@@ -66,4 +66,6 @@ void rmvProd(Cadastro *prod, int totalProd);
 void saveDoa(Doacao doacao); // Salva doações em doaca.dat
 int visuDoa(); // Visualiza doações existentes
 
+int check = 0;
+
 #endif // SISTEMA_H

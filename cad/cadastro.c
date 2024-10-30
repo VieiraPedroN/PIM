@@ -179,6 +179,7 @@ void cad(int tipoProd) {
                 return; // Retorna para o menu de cadastro
             }
         } else {
+            check = 1;
             break; // Sai do loop para mostrar os produtos e confirmar salvamento
         }
 

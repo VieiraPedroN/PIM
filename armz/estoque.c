@@ -112,9 +112,9 @@ void visuArmz(){
         printf("\n1. Tipo\n2. Todo o estoque\n0. sair\n");
         printf("\nEscolha uma opção: ");
         scanf("%d", &visu);
-        switch (visu){
+        switch (visu){ 
+        int opcTipo;    
         case 1:
-        int opcTipo;
 
             printf("\n\n1.Frutas\n2.Hortalicas\n3.Bebidas\n4.Cereais\n5.Laticineos\n");
             printf("Escolha um Tipo: ");

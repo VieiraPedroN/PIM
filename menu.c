@@ -23,6 +23,7 @@ void main() {
     int opcao, rep = 0;
     
     do {
+        check = 0;
         menu();
         printf("Por favor selecione uma opcao: ");
         scanf("%d", &opcao);

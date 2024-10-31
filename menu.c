@@ -6,6 +6,7 @@
 #include "doacao/menu_doa.c"
 #include "doacao/menu_desc.c"
 #include "compra/compra.c"
+#include "fluxo_caixa/Fluxo_menu.c"
 
 void menu_print() {
     printf("\n");
@@ -45,6 +46,7 @@ void menu() {
                 break;
             case 3:
                 printf("\nFluxo de Caixa\n");
+                fluxo();
                 rep = 1;
                 break;
             case 4:

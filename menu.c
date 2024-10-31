@@ -5,16 +5,18 @@
 #include "armz/estoque.c"
 #include "doacao/menu_doa.c"
 #include "doacao/menu_desc.c"
+#include "compra/compra.c"
 
 void menu_print() {
     printf("\n");
     printf("***************************\n");
     printf("*   Menu Raizes da Terra  *\n");
     printf("* 1- Cadastro de Produtos *\n");
-    printf("* 2- Fluxo de Caixa       *\n");
-    printf("* 3- Estoque              *\n");
-    printf("* 4- Doacao de Produtos   *\n");
-    printf("* 5- Descarte de Produtos *\n");
+    printf("* 2- Compra de Produtos   *\n");
+    printf("* 3- Fluxo de Caixa       *\n");
+    printf("* 4- Estoque              *\n");
+    printf("* 5- Doacao de Produtos   *\n");
+    printf("* 6- Descarte de Produtos *\n");
     printf("* 0- Sair da aplicacao    *\n");
     printf("***************************\n");
     printf("\n");
@@ -31,27 +33,31 @@ void menu() {
         scanf("%d", &opcao);
 
         switch (opcao) {
-            case 1: {
+            case 1: 
                 printf("\nCadastro de Produtos\n");
                 cad_menu();
                 rep = 1;
                 break;
-            }
-            case 2:
-                printf("\nFluxo de Caixa\n");
+            case 2: 
+                printf("\nCompra de Produtos\n");
+                compra();
                 rep = 1;
                 break;
             case 3:
+                printf("\nFluxo de Caixa\n");
+                rep = 1;
+                break;
+            case 4:
                 printf("\nEstoque\n");
                 menuArmz();
                 rep = 1;
                 break;
-            case 4:
+            case 5:
                 printf("\nDoacao\n");
                 menu_doa();
                 rep = 1;
                 break;
-            case 5:
+            case 6:
                 printf("\nDescarte\n");
                 menu_desc();
                 rep = 1;

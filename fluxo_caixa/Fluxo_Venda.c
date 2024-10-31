@@ -8,67 +8,83 @@
 void Venda(Fluxo *transacoes, int *NumF, Cadastro *produtos, int totalProd) {
     int id, unidadesVendidas;
     char data[11], pagamento[20];
-    char cont;
+    char confirmacao;
+    float subtotal = 0.0;
+    int numTransacoes = *NumF;
 
-    do {
+    while (1) {
         printf("ID do Produto que será vendido: ");
         scanf("%d", &id);
 
-        if (id > 0 && id <= totalProd) {
-            printf("Produto selecionado: %s\n", produtos[id - 1].nome);
-        } else {
+        if (id <= 0 || id > totalProd) {
             printf("ID inválido. Por favor, tente novamente.\n");
             continue;
         }
 
+        printf("Produto selecionado: %s\n", produtos[id - 1].nome);
         printf("Quantidades a serem Vendidas: ");
         scanf("%d", &unidadesVendidas);
+
+        if (unidadesVendidas <= 0) {
+            printf("Erro: A quantidade de unidades vendidas deve ser maior que zero.\n");
+            continue;
+        }
 
         if (*NumF >= Max_Fluxos) {
             printf("Limite de transações alcançado!\n");
             return;
         }
-        if (unidadesVendidas <= 0) {
-            printf("Erro: A quantidade de unidades vendidas deve ser maior que zero.\n");
-            continue;
-        }
+
         int prodIndex = id - 1;
-        if (prodIndex < 0 || prodIndex >= totalProd) {
-            printf("Erro: Produto não encontrado!\n");
-            continue;
-        }
+
         if (produtos[prodIndex].qtd < unidadesVendidas) {
             printf("Erro: Quantidade insuficiente no estoque!\n");
             continue;
         }
-        
-        printf("Data (DD/MM/YYYY): ");
-        scanf("%s", data);
-        FormaP(pagamento);
 
         float produtoValor = produtos[prodIndex].valor;
         float valorTotal = produtoValor * unidadesVendidas;
-        Fluxo NovoF;
+        subtotal += valorTotal;
 
+        Fluxo NovoF;
         snprintf(NovoF.movimentacao, sizeof(NovoF.movimentacao), "%s (ID: %d, Unidades Vendidas: %d)", produtos[prodIndex].nome, id, unidadesVendidas);
         NovoF.valor = valorTotal;
         strcpy(NovoF.tipo, "Recebimento");
-        strncpy(NovoF.data, data, sizeof(NovoF.data) - 1);
-        NovoF.data[sizeof(NovoF.data) - 1] = '\0';
-        strncpy(NovoF.pagamento, pagamento, sizeof(NovoF.pagamento) - 1);
-        NovoF.pagamento[sizeof(NovoF.pagamento) - 1] = '\0';
+
         transacoes[*NumF] = NovoF;
         (*NumF)++;
         produtos[prodIndex].qtd -= unidadesVendidas;
-        if (produtos[prodIndex].qtd < 0) {
-            produtos[prodIndex].qtd = 0;
-        }
 
-        printf("Venda realizada com sucesso! Quantidade restante de %s: %d\n", produtos[prodIndex].nome, produtos[prodIndex].qtd);
-        printf("Deseja adicionar outra venda? (S/N): ");
-        scanf(" %c", &cont);
-    } while (cont == 'S' || cont == 's');
-    
+        printf("Produto adicionado com Sucesso! Quantidade restante de %s: %d\n", produtos[prodIndex].nome, produtos[prodIndex].qtd);
+        printf("Subtotal da compra até agora: %.2f\n", subtotal);
+        printf("Deseja adicionar Outro Produto? (S/N): ");
+        scanf(" %c", &confirmacao);
+
+        if (confirmacao != 'S' && confirmacao != 's') {
+            break;
+        }
+    }
+
+    printf("Data Da Venda (DD/MM/YYYY): ");
+    scanf("%s", data);
+    FormaP(pagamento);
+
+    if (strcmp(pagamento, "Dinheiro") == 0) {
+        float valorPago, troco;
+        printf("Valor Pago pelo Cliente: ");
+        scanf("%f", &valorPago);
+        troco = valorPago - subtotal;
+        printf("Troco: %.2f\n", troco);
+        printf("Venda Realizada com Sucesso!\n");
+    }
+
+    for (int i = numTransacoes; i < *NumF; i++) {
+        strncpy(transacoes[i].data, data, sizeof(transacoes[i].data) - 1);
+        transacoes[i].data[sizeof(transacoes[i].data) - 1] = '\0';
+        strncpy(transacoes[i].pagamento, pagamento, sizeof(transacoes[i].pagamento) - 1);
+        transacoes[i].pagamento[sizeof(transacoes[i].pagamento) - 1] = '\0';
+    }
+
     saveFluxo(transacoes, *NumF);
     saveCad(produtos, totalProd);
 }

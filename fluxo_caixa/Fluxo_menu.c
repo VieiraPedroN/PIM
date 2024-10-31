@@ -11,18 +11,16 @@
 #include "Fluxo_Venda.c"
 #include "Fluxo_M_E_D.c"
 
-void MenuF()
-{
-    printf("\nMenu do Fluxo de Caixa:\n");
-    printf("***************************\n");
-    printf("1. Adicionar uma Venda\n");
-    printf("2. Realizar Pagamentos\n");
-    printf("3. Ver Todas as Transacões\n");
-    printf("4. Editar ou Deletar Transações\n");
-    printf("5. Imprimir Fluxo de Caixa\n");
-    printf("6. Gerar Relatório Mensal\n");
-    printf("7. Voltar o Menu Principal\n");
-    printf("***************************\n");
+void MenuF() {
+    printf("\n======== Menu do Financeiro =============\n");
+    printf("| 1. Iniciar Venda                      |\n");
+    printf("| 2. Realizar Pagamentos                |\n");
+    printf("| 3. Ver Histórico de Transações        |\n");
+    printf("| 4. Editar ou Deletar Transações       |\n");
+    printf("| 5. Relatório Diário                   |\n");
+    printf("| 6. Relatório Mensal                   |\n");
+    printf("| 7. Voltar ao Menu Principal           |\n");
+    printf("=========================================\n");
 }
 
 void saveFluxo(Fluxo *transacoes, int totalFluxo) {
@@ -82,9 +80,10 @@ int fluxo()
             scanf("%f", &valorPago);
             FormaPP(pagamento);
             printf("Data (DD/MM/YYYY): ");
-            scanf("%s", data);
+            scanf("%s\n", data);
             Pagamentos(transacoes, &totalFluxo, transacao, valorPago, data, pagamento);
             saveFluxo(transacoes, totalFluxo);
+            printf("Pagamento Salvo com Sucesso!");
             break;
         }
         case 3:
@@ -94,14 +93,14 @@ int fluxo()
             MenuED(transacoes, totalFluxo, produtos, totalProd);
             break;
         case 5:
-            printf("Digite a data desejada (DD/MM/YYYY): ");
+            printf("Digite o Dia do Relatório (DD/MM/YYYY): ");
             scanf("%s", dataDesejada);
             IFC(transacoes, totalFluxo, dataDesejada);
             break;
         case 6:
         {
             char MesAno[8];
-            printf("Mês/Ano para relatório (MM/YYYY): ");
+            printf("Digite o Mês e o Ano do Relatório (MM/YYYY): ");
             scanf("%s", MesAno);
             GerarR_M(transacoes, totalFluxo, MesAno);
             break;

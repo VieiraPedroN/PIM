@@ -1,5 +1,6 @@
 {
     "files.associations": {
-        "cadastro.h": "c"
+        "cadastro.h": "c",
+        "stdlib.h": "c"
     }
 }

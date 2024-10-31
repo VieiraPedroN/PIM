@@ -46,7 +46,7 @@ int loadFluxo(Fluxo *transacoes)
     return totalFluxo;
 }
 
-int fluxo()
+void fluxo()
 {
     setlocale(LC_ALL, "pt_BR.UTF-8");
     system("chcp 65001 > nul");
@@ -113,5 +113,4 @@ int fluxo()
             printf("Opção inválida!\n");
         }
     } while (acao != 7);
-    return 0;
 }

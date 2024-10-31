@@ -3,7 +3,7 @@
 #include <string.h>
 #include <locale.h>
 #include "Fluxo.h"
-#include "../cad/cadastro.h"
+#include "../sistema.h"
 
 void DeletV(Fluxo *transacoes, int *NumF, int IndiceT, Cadastro *produtos, int totalProd) {
     if (IndiceT < 0 || IndiceT >= *NumF) {

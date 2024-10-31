@@ -1,6 +1,6 @@
 #ifndef FLUXO_H
 #define FLUXO_H
-#include "../cad/cadastro.h"
+#include "../sistema.h"
 #define Max_Fluxos 100
 
 typedef struct {

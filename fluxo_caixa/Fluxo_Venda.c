@@ -3,7 +3,7 @@
 #include <string.h>
 #include <locale.h>
 #include "Fluxo.h"
-#include "../cad/cadastro.h"
+#include "../sistema.h"
 
 void Venda(Fluxo *transacoes, int *NumF, Cadastro *produtos, int totalProd) {
     int id, unidadesVendidas;

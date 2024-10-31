@@ -5,7 +5,7 @@
 #include "armz/estoque.c"
 #include "doacao/menu_doa.c"
 
-void menu() {
+void menu_print() {
     printf("\n");
     printf("***************************\n");
     printf("*   Menu Raizes da Terra  *\n");
@@ -13,18 +13,18 @@ void menu() {
     printf("* 2- Fluxo de Caixa       *\n");
     printf("* 3- Estoque              *\n");
     printf("* 4- Relatorio Doacao     *\n");
-    printf("* 5- Sair da aplicacao    *\n");
+    printf("* 0- Sair da aplicacao    *\n");
     printf("***************************\n");
     printf("\n");
 }
 
-void main() {
+void menu() {
 
     int opcao, rep = 0;
     
     do {
         check = 0;
-        menu();
+        menu_print();
         printf("Por favor selecione uma opcao: ");
         scanf("%d", &opcao);
 
@@ -49,7 +49,7 @@ void main() {
                 menu_doa();
                 rep = 1;
                 break;
-            case 5:
+            case 0:
                 printf("\nSaindo da aplicacao\n");
                 rep = 0;
                 break;

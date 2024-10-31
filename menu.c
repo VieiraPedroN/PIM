@@ -4,6 +4,7 @@
 #include "cad/cadastro_menu.c"
 #include "armz/estoque.c"
 #include "doacao/menu_doa.c"
+#include "doacao/menu_desc.c"
 
 void menu_print() {
     printf("\n");
@@ -12,7 +13,8 @@ void menu_print() {
     printf("* 1- Cadastro de Produtos *\n");
     printf("* 2- Fluxo de Caixa       *\n");
     printf("* 3- Estoque              *\n");
-    printf("* 4- Relatorio Doacao     *\n");
+    printf("* 4- Doacao de Produtos   *\n");
+    printf("* 5- Descarte de Produtos *\n");
     printf("* 0- Sair da aplicacao    *\n");
     printf("***************************\n");
     printf("\n");
@@ -45,8 +47,13 @@ void menu() {
                 rep = 1;
                 break;
             case 4:
-                printf("\nRelatorio Doacao\n");
+                printf("\nDoacao\n");
                 menu_doa();
+                rep = 1;
+                break;
+            case 5:
+                printf("\nDescarte\n");
+                menu_desc();
                 rep = 1;
                 break;
             case 0:

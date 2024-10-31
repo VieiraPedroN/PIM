@@ -14,8 +14,10 @@ void descProd(Cadastro *prod, int totalProd) {
 
     // Exibir produtos
     for (int i = 0; i < totalProd; i++) {
-        printf("%d. Nome: %s, Quantidade: %d, Validade: %s/%s\n",
-               i + 1, prod[i].nome, prod[i].qtd, prod[i].valid.mes, prod[i].valid.ano);
+        char *unidadeTipo = (prod[i].unid == 1) ? "Unid" : "Kg"; // Define unidade
+
+        printf("%d. Nome: %s, Quantidade: %d %s, Validade: %s/%s\n",
+               i + 1, prod[i].nome, prod[i].qtd, unidadeTipo, prod[i].valid.mes, prod[i].valid.ano);
     }
 
     printf("Digite o número do produto que deseja descartar (1 a %d): ", totalProd);
@@ -32,7 +34,8 @@ void descProd(Cadastro *prod, int totalProd) {
 
     // Solicita a quantidade a ser descartada
     do {
-        printf("Quantidade a ser descartada de %s (máximo %d): ", prod[index].nome, prod[index].qtd);
+        char *unidadeTipo = (prod[index].unid == 1) ? "Unid" : "Kg"; // Define unidade
+        printf("Quantidade a ser descartada de %s (máximo %d %s): ", prod[index].nome, prod[index].qtd, unidadeTipo);
         scanf("%d", &newRmv.qtdRmv);
         if (newRmv.qtdRmv < 1 || newRmv.qtdRmv > prod[index].qtd) {
             printf("Erro: Quantidade inválida!\n");
@@ -70,7 +73,7 @@ void saveDesc(Descarte descarte) {
     fclose(file);
 }
 
-int visuDesc() {
+int visuDesc(Cadastro *prod, int totalProd) {
     Descarte descarte;
     FILE *file = fopen("descarte.dat", "rb"); // Abre o arquivo para leitura em modo binário
     if (file == NULL) {
@@ -80,8 +83,22 @@ int visuDesc() {
 
     printf("Descartes registrados:\n");
     while (fread(&descarte, sizeof(Descarte), 1, file)) {
-        printf("Produto: %s, Quantidade descartada: %d, Data do descarte: %s/%s\n",
-               descarte.prodNome, descarte.qtdRmv,
+
+        char unidadeTipo[10] = "";
+        for (int i = 0; i < totalProd; i++) {
+            if (strcmp(prod[i].nome, descarte.prodNome) == 0) {
+                // Encontramos o produto correspondente
+                if (prod[i].unid == 1) {
+                    strcpy(unidadeTipo, "Unidade");
+                } else if (prod[i].unid == 2) {
+                    strcpy(unidadeTipo, "Kg");
+                }
+                break;
+            }
+        }
+
+        printf("Produto: %s, Quantidade descartada: %d %s, Data do descarte: %s/%s\n",
+               descarte.prodNome, descarte.qtdRmv, unidadeTipo,
                descarte.dataRmv.mes, descarte.dataRmv.ano);
     }
     fclose(file);

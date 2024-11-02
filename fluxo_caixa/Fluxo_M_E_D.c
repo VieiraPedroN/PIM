@@ -5,91 +5,93 @@
 #include "Fluxo.h"
 #include "../sistema.h"
 
-void DeletV(Fluxo *transacoes, int *NumF, int IndiceT, Cadastro *produtos, int totalProd) {
-    if (IndiceT < 0 || IndiceT >= *NumF) {
+void DeletV(Fluxo *transacoes, int *numTransacoes, int indiceTransacao, Cadastro *produtos, int totalProdutos) {
+    if (indiceTransacao < 0 || indiceTransacao >= *numTransacoes) {
         printf("Índice inválido.\n");
         return;
     }
-    IndiceT--;
-    if (strcasecmp(transacoes[IndiceT].tipo, "Recebimento") != 0) {
+    indiceTransacao--;
+    if (strcasecmp(transacoes[indiceTransacao].tipo, "Recebimento") != 0) {
         printf("Apenas Vendas podem ser deletadas.\n");
         return;
     }
-    int prodIndex = -1;
-    for (int i = 0; i < totalProd; i++) {
-        if (strstr(transacoes[IndiceT].movimentacao, produtos[i].nome) != NULL) {
-            int unidadesVendidas = (int)(transacoes[IndiceT].valor / produtos[i].valor);
+    int indiceProduto = -1;
+    for (int i = 0; i < totalProdutos; i++) {
+        if (strstr(transacoes[indiceTransacao].movimentacao, produtos[i].nome) != NULL) {
+            int unidadesVendidas = (int)(transacoes[indiceTransacao].valor / produtos[i].valor);
             produtos[i].qtd += unidadesVendidas;
-            prodIndex = i;
+            indiceProduto = i;
             break;
         }
     }
-    if (prodIndex == -1) {
+    if (indiceProduto == -1) {
         printf("Erro: Produto não encontrado na transação.\n");
         return;
     }
     char confirmacao;
-    printf("Tem certeza que deseja deletar a transação de %s no valor de %.2f? (S/N): ", produtos[prodIndex].nome, transacoes[IndiceT].valor);
+    printf("Tem certeza que deseja deletar a transação de %s no valor de %.2f? (S/N): ", produtos[indiceProduto].nome, transacoes[indiceTransacao].valor);
     scanf(" %c", &confirmacao);
     if (confirmacao == 'S' || confirmacao == 's') {
-        for (int i = IndiceT; i < *NumF - 1; i++) {
+        for (int i = indiceTransacao; i < *numTransacoes - 1; i++) {
             transacoes[i] = transacoes[i + 1];
         }
-        (*NumF)--;
+        (*numTransacoes)--;
         Fluxo vazio = {"", 0.0, "", "", ""};
-        transacoes[*NumF] = vazio;
+        transacoes[*numTransacoes] = vazio;
 
-        saveCad(produtos, totalProd);
-        saveFluxo(transacoes, *NumF);
+        saveCad(produtos, totalProdutos);
+        saveFluxo(transacoes, *numTransacoes);
         printf("Venda Deletada com Sucesso. Estoque atualizado.\n");
     } else {
         printf("Operação de exclusão cancelada.\n");
     }
 }
 
-void DeletP(Fluxo *transacoes, int *NumF, int IndiceT) {
-    if (IndiceT <= 0 || IndiceT > *NumF) {
+void DeletP(Fluxo *transacoes, int *numTransacoes, int indiceTransacao) {
+    if (indiceTransacao <= 0 || indiceTransacao > *numTransacoes) {
         printf("Índice inválido.\n");
         return;
     }
-    IndiceT--;
-    if (strcasecmp(transacoes[IndiceT].tipo, "Gasto") != 0) {
+    indiceTransacao--;
+    if (strcasecmp(transacoes[indiceTransacao].tipo, "Gasto") != 0) {
         printf("Apenas Pagamentos podem ser deletados.\n");
         return;
     }
     char confirmacao;
-    printf("Tem certeza que deseja deletar o Pagamento '%s' no valor de %.2f? (S/N): ", transacoes[IndiceT].movimentacao, transacoes[IndiceT].valor);
+    printf("Tem certeza que deseja deletar o Pagamento '%s' no valor de %.2f? (S/N): ", transacoes[indiceTransacao].movimentacao, transacoes[indiceTransacao].valor);
     scanf(" %c", &confirmacao);
     if (confirmacao == 'S' || confirmacao == 's') {
-        for (int i = IndiceT; i < *NumF - 1; i++) {
+        for (int i = indiceTransacao; i < *numTransacoes - 1; i++) {
             transacoes[i] = transacoes[i + 1];
         }
-        (*NumF)--;
-        memset(&transacoes[*NumF], 0, sizeof(Fluxo));
-        saveFluxo(transacoes, *NumF);
+        (*numTransacoes)--;
+        memset(&transacoes[*numTransacoes], 0, sizeof(Fluxo));
+        saveFluxo(transacoes, *numTransacoes);
         printf("Pagamento Deletado com Sucesso.\n");
     } else {
         printf("Operação de exclusão cancelada.\n");
     }
 }
 
-void EditV(Fluxo *transacoes, int NumF, Cadastro *produtos, int totalProd) {
-    int IndiceT, novasUnidadesVendidas, id = -1;
+void EditV(Fluxo *transacoes, int numTransacoes, Cadastro *produtos, int totalProdutos) {
+    int indiceTransacao, novasUnidadesVendidas, id = -1;
+    float novoValor;
+    char novaMovimentacao[50], novaData[11], novoPagamento[20], dia[3], mes[3], ano[5];
 
     printf("ID da Venda Para Editar: ");
-    scanf("%d", &IndiceT);
+    scanf("%d", &indiceTransacao);
 
-    if (IndiceT <= 0 || IndiceT > NumF) {
+    if (indiceTransacao <= 0 || indiceTransacao > numTransacoes) {
         printf("Índice inválido.\n");
         return;
     }
-    IndiceT--;
-    if (strcasecmp(transacoes[IndiceT].tipo, "Recebimento") != 0) {
+    indiceTransacao--;
+    if (strcasecmp(transacoes[indiceTransacao].tipo, "Recebimento") != 0) {
         printf("Apenas Vendas podem ser editadas.\n");
         return;
     }
-    for (int i = 0; i < totalProd; i++) {
-        if (strstr(transacoes[IndiceT].movimentacao, produtos[i].nome) != NULL) {
+    for (int i = 0; i < totalProdutos; i++) {
+        if (strstr(transacoes[indiceTransacao].movimentacao, produtos[i].nome) != NULL) {
             id = i + 1;
             break;
         }
@@ -98,72 +100,156 @@ void EditV(Fluxo *transacoes, int NumF, Cadastro *produtos, int totalProd) {
         printf("Produto Não Encontrado.\n");
         return;
     }
-    printf("Produto atual: %s\n", produtos[id - 1].nome);
-    printf("Nova Quantidade de Produtos: ");
-    scanf("%d", &novasUnidadesVendidas);
 
-    int unidadesVendidas = (int)(transacoes[IndiceT].valor / produtos[id - 1].valor);
-    produtos[id - 1].qtd += unidadesVendidas;
-    produtos[id - 1].qtd -= novasUnidadesVendidas;
+    printf("Editando a Venda do Produto: %s\n", produtos[id - 1].nome);
 
-    char novaMovimentacao[50], novaData[11], novoPagamento[20];
-    float novoValor = produtos[id - 1].valor * novasUnidadesVendidas;
+    printf("O que você gostaria de editar?\n");
+    printf("1. Quantidade de Produtos\n");
+    printf("2. Data\n");
+    printf("3. Forma de Pagamento\n");
+    printf("4. Sair\n");
+    
+    int escolha;
+    printf("Selecione uma opção: ");
+    scanf("%d", &escolha);
 
-    printf("Nova ");
-    FormaP(novoPagamento);
+    switch (escolha) {
+        case 1: {
+            printf("Nova Quantidade de Produtos: ");
+            scanf("%d", &novasUnidadesVendidas);
+            int unidadesVendidas = (int)(transacoes[indiceTransacao].valor / produtos[id - 1].valor);
+            produtos[id - 1].qtd += unidadesVendidas;
+            produtos[id - 1].qtd -= novasUnidadesVendidas;
 
-    printf("Nova data (DD/MM/YYYY): ");
-    scanf("%s", novaData);
+            novoValor = produtos[id - 1].valor * novasUnidadesVendidas;
+            snprintf(novaMovimentacao, sizeof(novaMovimentacao), "%s (ID: %d, Unidades Vendidas: %d)", produtos[id - 1].nome, id, novasUnidadesVendidas);
 
-    snprintf(novaMovimentacao, sizeof(novaMovimentacao), "%s (ID: %d, Unidades Vendidas: %d)", produtos[id - 1].nome, id, novasUnidadesVendidas);
-    strncpy(transacoes[IndiceT].movimentacao, novaMovimentacao, sizeof(transacoes[IndiceT].movimentacao) - 1);
-    transacoes[IndiceT].movimentacao[sizeof(transacoes[IndiceT].movimentacao) - 1] = '\0';
-    transacoes[IndiceT].valor = novoValor;
-    strncpy(transacoes[IndiceT].data, novaData, sizeof(transacoes[IndiceT].data) - 1);
-    transacoes[IndiceT].data[sizeof(transacoes[IndiceT].data) - 1] = '\0';
-    strncpy(transacoes[IndiceT].pagamento, novoPagamento, sizeof(transacoes[IndiceT].pagamento) - 1);
-    transacoes[IndiceT].pagamento[sizeof(transacoes[IndiceT].pagamento) - 1] = '\0';
+            strncpy(transacoes[indiceTransacao].movimentacao, novaMovimentacao, sizeof(transacoes[indiceTransacao].movimentacao) - 1);
+            transacoes[indiceTransacao].movimentacao[sizeof(transacoes[indiceTransacao].movimentacao) - 1] = '\0';
+            transacoes[indiceTransacao].valor = novoValor;
+            break;
+        }
+        case 2: {
+            int dataValida = 0;
+            while (!dataValida) {
+                printf("Nova data (DD/MM/YYYY): ");
+                if (scanf("%2s/%2s/%4s", dia, mes, ano) != 3) {
+                    printf("Erro: Formato de data inválido. Por favor, tente novamente.\n");
+                    while (getchar() != '\n');
+                    continue;
+                }
+                dataValida = validarD(dia, mes, ano);
+                if (!dataValida) {
+                    printf("Erro: Data inválida. Tente novamente.\n");
+                }
+            }
+            snprintf(novaData, sizeof(novaData), "%s/%s/%s", dia, mes, ano);
+            strncpy(transacoes[indiceTransacao].data, novaData, sizeof(transacoes[indiceTransacao].data) - 1);
+            transacoes[indiceTransacao].data[sizeof(transacoes[indiceTransacao].data) - 1] = '\0';
+            break;
+        }
+        case 3: {
+            printf("Nova ");
+            FormaP(novoPagamento);
+            strncpy(transacoes[indiceTransacao].pagamento, novoPagamento, sizeof(transacoes[indiceTransacao].pagamento) - 1);
+            transacoes[indiceTransacao].pagamento[sizeof(transacoes[indiceTransacao].pagamento) - 1] = '\0';
+            break;
+        }
+        case 4: {
+            printf("Saindo da edição.\n");
+            return;
+        }
+        default: {
+            printf("Opção inválida!\n");
+            return;
+        }
+    }
 
-    saveCad(produtos, totalProd);
-    saveFluxo(transacoes, NumF);
-    printf("Estoque atualizado.\n");
+    saveCad(produtos, totalProdutos);
+    saveFluxo(transacoes, numTransacoes);
+    printf("Venda editada com sucesso.\n");
 }
 
-void EditP(Fluxo *transacoes, int NumF, int IndiceT) {
-    if (IndiceT <= 0 || IndiceT > NumF) {
+void EditP(Fluxo *transacoes, int numTransacoes, int indiceTransacao) {
+    if (indiceTransacao <= 0 || indiceTransacao > numTransacoes) {
         printf("Índice inválido.\n");
         return;
     }
-    IndiceT--;
-    if (strcasecmp(transacoes[IndiceT].tipo, "Gasto") != 0) {
-        printf("Apenas Pagamento podem ser editados.\n");
+    indiceTransacao--;
+    if (strcasecmp(transacoes[indiceTransacao].tipo, "Gasto") != 0) {
+        printf("Apenas Pagamentos podem ser editados.\n");
         return;
     }
-    printf("Nome Do Pagamento: %s\n", transacoes[IndiceT].movimentacao);
+    printf("Editando o Pagamento: %s\n", transacoes[indiceTransacao].movimentacao);
 
-    char novaMovimentacao[50], novaData[11], novoPagamento[20];
+    printf("O que você gostaria de editar?\n");
+    printf("1. Nome do Pagamento\n");
+    printf("2. Valor do Pagamento\n");
+    printf("3. Data\n");
+    printf("4. Forma de Pagamento\n");
+    printf("5. Sair\n");
+
+    int escolha;
+    printf("Selecione uma opção: ");
+    scanf("%d", &escolha);
+
     float novoValor;
+    char novaMovimentacao[50], novaData[11], novoPagamento[20], dia[3], mes[3], ano[5];
 
-    printf("Novo Valor do Pagamento: ");
-    scanf("%f", &novoValor);
+    switch (escolha) {
+        case 1: {
+            printf("Novo Nome do Pagamento: ");
+            getchar();
+            fgets(novaMovimentacao, sizeof(novaMovimentacao), stdin);
+            novaMovimentacao[strcspn(novaMovimentacao, "\n")] = '\0';
+            strncpy(transacoes[indiceTransacao].movimentacao, novaMovimentacao, sizeof(transacoes[indiceTransacao].movimentacao) - 1);
+            transacoes[indiceTransacao].movimentacao[sizeof(transacoes[indiceTransacao].movimentacao) - 1] = '\0';
+            break;
+        }
+        case 2: {
+            printf("Novo Valor do Pagamento: ");
+            scanf("%f", &novoValor);
+            transacoes[indiceTransacao].valor = novoValor;
+            break;
+        }
+        case 3: {
+            int dataValida = 0;
+            while (!dataValida) {
+                printf("Nova data (DD/MM/YYYY): ");
+                if (scanf("%2s/%2s/%4s", dia, mes, ano) != 3) {
+                    printf("Erro: Formato de data inválido. Por favor, tente novamente.\n");
+                    while (getchar() != '\n');
+                    continue;
+                }
+                dataValida = validarD(dia, mes, ano);
+                if (!dataValida) {
+                    printf("Erro: Data inválida. Tente novamente.\n");
+                }
+            }
+            snprintf(novaData, sizeof(novaData), "%s/%s/%s", dia, mes, ano);
+            strncpy(transacoes[indiceTransacao].data, novaData, sizeof(transacoes[indiceTransacao].data) - 1);
+            transacoes[indiceTransacao].data[sizeof(transacoes[indiceTransacao].data) - 1] = '\0';
+            break;
+        }
+        case 4: {
+            printf("Nova ");
+            FormaPP(novoPagamento);
+            strncpy(transacoes[indiceTransacao].pagamento, novoPagamento, sizeof(transacoes[indiceTransacao].pagamento) - 1);
+            transacoes[indiceTransacao].pagamento[sizeof(transacoes[indiceTransacao].pagamento) - 1] = '\0';
+            break;
+        }
+        case 5: {
+            printf("Saindo da edição.\n");
+            return;
+        }
+        default: {
+            printf("Opção inválida!\n");
+            return;
+        }
+    }
 
-    printf("Nova ");
-    FormaPP(novoPagamento);
-
-    printf("Nova data (DD/MM/YYYY): ");
-    scanf("%s", novaData);
-
-    snprintf(novaMovimentacao, sizeof(novaMovimentacao), "%s", transacoes[IndiceT].movimentacao);
-    strncpy(transacoes[IndiceT].movimentacao, novaMovimentacao, sizeof(transacoes[IndiceT].movimentacao) - 1);
-    transacoes[IndiceT].movimentacao[sizeof(transacoes[IndiceT].movimentacao) - 1] = '\0';
-    transacoes[IndiceT].valor = novoValor;
-    strncpy(transacoes[IndiceT].data, novaData, sizeof(transacoes[IndiceT].data) - 1);
-    transacoes[IndiceT].data[sizeof(transacoes[IndiceT].data) - 1] = '\0';
-    strncpy(transacoes[IndiceT].pagamento, novoPagamento, sizeof(transacoes[IndiceT].pagamento) - 1);
-    transacoes[IndiceT].pagamento[sizeof(transacoes[IndiceT].pagamento) - 1] = '\0';
-
-    saveFluxo(transacoes, NumF);
-    printf("Pagamento Editado com Sucesso!\n");
+    saveFluxo(transacoes, numTransacoes);
+    printf("Pagamento editado com sucesso.\n");
 }
 
 void MenuED(Fluxo *transacoes, int totalFluxo, Cadastro *produtos, int totalProd) {

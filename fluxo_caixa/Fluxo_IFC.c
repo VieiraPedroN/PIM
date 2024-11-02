@@ -4,15 +4,15 @@
 #include <locale.h>
 #include "Fluxo.h"
 
-void IFC(Fluxo *transacoes, int NumF, const char *dataDesejada) {
+void IFC(Fluxo *transacoes, int numTransacoes, const char *dataDesejada) {
     float saldo = 0.0, totalRecebido = 0.0, totalGasto = 0.0;
-    printf("|==================================================================================================================\n");
+    printf("|==============================================================================================================================\n");
     printf("|                                FLUXO DE CAIXA PARA O DIA %s\n", dataDesejada);
     printf("|====|=====================================|============|=================|===============|============|=======================\n");
     printf("| ID |           Transação                 |  Unidades  |  Valor Unitário |  Valor Total  |    Data    |  Pagamento            \n");
     printf("|====|=====================================|============|=================|===============|============|=======================\n");
     int id = 1;
-    for (int i = 0; i < NumF; i++) {
+    for (int i = 0; i < numTransacoes; i++) {
         if (strcmp(transacoes[i].data, dataDesejada) == 0) {
             int unidadesVendidas = -1;
             float valorUnitario = -1;
@@ -20,8 +20,6 @@ void IFC(Fluxo *transacoes, int NumF, const char *dataDesejada) {
             char nomeProduto[31] = "";
             char pagamento[26];
 
-            strncpy(transacoes[i].data, dataDesejada, sizeof(transacoes[i].data) - 1);
-            transacoes[i].data[sizeof(transacoes[i].data) - 1] = '\0';
             strncpy(pagamento, transacoes[i].pagamento, sizeof(pagamento) - 1);
             pagamento[sizeof(pagamento) - 1] = '\0';
 

@@ -5,21 +5,21 @@
 #include "Fluxo.h"
 
 void FormaPP(char *pagamento) {
-    int formaP;
+    int formaPagamento;
     printf("Forma de Pagamento:\n");
     printf("1. Dinheiro\n");
     printf("2. Cartão de Crédito\n");
     printf("3. Cartão de Débito\n");
     printf("4. Pix\n");
     printf("Selecione uma opção: ");
-    if (scanf("%d", &formaP) != 1) {
+    if (scanf("%d", &formaPagamento) != 1) {
         while (getchar() != '\n');
         printf("Entrada inválida!\n");
         strcpy(pagamento, "Inválido");
         return;
     }
     getchar();
-    switch (formaP) {
+    switch (formaPagamento) {
         case 1:
             strcpy(pagamento, "Dinheiro");
             break;
@@ -40,7 +40,7 @@ void FormaPP(char *pagamento) {
 }
 
 void FormaP(char *pagamento) {
-    int formaP;
+    int formaPagamento;
     printf("Forma de Pagamento:\n");
     printf("1. Dinheiro\n");
     printf("2. Cartão de Crédito\n");
@@ -48,14 +48,14 @@ void FormaP(char *pagamento) {
     printf("4. Pix\n");
     printf("5. Vale Alimentação\n");
     printf("Selecione uma opção: ");
-    if (scanf("%d", &formaP) != 1) {
+    if (scanf("%d", &formaPagamento) != 1) {
         while (getchar() != '\n');
         printf("Entrada inválida!\n");
         strcpy(pagamento, "Inválido");
         return;
     }
     getchar();
-    switch (formaP) {
+    switch (formaPagamento) {
         case 1:
             strcpy(pagamento, "Dinheiro");
             break;

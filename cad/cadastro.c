@@ -95,7 +95,7 @@ void cad(int tipoProd) {
         } while (strlen(newProd.nome) == 0);
 
         // Solicitar quantidade e escolher entre unidades ou quilos
-        do{
+        do {
             printf("Escolha a unidade (1 - Unidade, 2 - Kg): ");
             scanf("%d", &newProd.unid); // Salve a unidade diretamente
 
@@ -137,8 +137,6 @@ void cad(int tipoProd) {
         newProds[totalNewProds] = newProd;
         totalNewProds++;
 
-        printf("\nProduto cadastrado com sucesso!\n");
-
         // Perguntar se o usuário deseja cadastrar mais produtos
         int contiCad;
         printf("Deseja continuar cadastrando produtos? (1-Sim, 0-Não): ");
@@ -147,7 +145,7 @@ void cad(int tipoProd) {
         if (contiCad == 1) {
             // Perguntar se deseja cadastrar o mesmo produto
             int cadMesmo;
-            printf("Deseja cadastrar o mesmo produto? (1-Sim, 0-Outro produto): ");
+            printf("Deseja cadastrar o mesmo tipo de produto? (1-Sim, 0-Outro produto): ");
             scanf("%d", &cadMesmo);
 
             if (cadMesmo == 0) {

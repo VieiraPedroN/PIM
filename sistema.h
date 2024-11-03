@@ -41,6 +41,7 @@ typedef struct {
     char colabName[101];
     char colabUser[101];
     char colabPass[101];
+    char funcao[20]; // Nome da função do colaborador
 }  Colaborador;
 
 // Funções para gerenciar produtos
@@ -54,7 +55,7 @@ int visuDoa(Cadastro *prod, int totalProd); // Visualiza doações existentes
 
 void descProd(Cadastro *prod, int totalProd);
 void saveDesc(Descarte descarte); // Salva descartes em descarte.dat
-int visuDesc(); // Visualiza descartes existentes
+int visuDesc(Cadastro *prod, int totalProd); // Visualiza descartes existentes
 
 
 // Funções para validação e operações com arquivos
@@ -75,7 +76,9 @@ int visuDoa(); // Visualiza doações existentes
 
 // Funções para gerenciar colaboradores
 void saveCadColab(Colaborador func[], int totalFunc);
-
+int loadCadColab(Colaborador func[]);
+int compCadColab (Colaborador func[], int totalFunc, char colabName[]);
+void cadColab(int tipoFunc, char *funcao); // Adiciona parâmetro funcao para o nome da função
 
 int check = 0;
 

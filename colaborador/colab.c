@@ -15,7 +15,7 @@ void menu_colab(){
     printf("\n");
 }
 
-void main(){
+void colab() {
     int op;
 
     do {
@@ -25,9 +25,28 @@ void main(){
         printf("Escolha uma opção: ");
         scanf("%d", &op);
 
-        switch (op){
+        switch (op) {
             case 1:
-                printf("Ola");
+                int tipo;
+                char funcao[20];
+                do {
+                    printf("***********************\n");
+                    printf("* 1- Caixa            *\n");
+                    printf("* 2- Almoxarife       *\n");
+                    printf("* 3- Financeiro       *\n");
+                    printf("* 4- Gerente          *\n");
+                    printf("* 0- Sair da operacao *\n");
+                    printf("***********************\n");
+                    scanf("%d", &tipo);
+
+                    if (tipo == 0) {
+                        printf("Saindo da operação de cadastro.\n");
+                        return; // Retorna ao menu principal
+                    }
+
+                    cadColab(tipo, funcao); // Passa o tipo e o nome da função
+                } while (1);
+                
                 break;
             case 2:
                 printf("Errou");
@@ -37,9 +56,6 @@ void main(){
                 break;
             default:
                 break;
-            }
+        }
     } while (op != 0);
-    
-        
-
 }

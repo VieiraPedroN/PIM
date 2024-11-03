@@ -11,16 +11,17 @@
 
 void menu_print() {
     printf("\n");
-    printf("***************************\n");
-    printf("*   Menu Raizes da Terra  *\n");
-    printf("* 1- Cadastro de Produtos *\n");
-    printf("* 2- Compra de Produtos   *\n");
-    printf("* 3- Fluxo de Caixa       *\n");
-    printf("* 4- Estoque              *\n");
-    printf("* 5- Doacao de Produtos   *\n");
-    printf("* 6- Descarte de Produtos *\n");
-    printf("* 0- Sair da aplicacao    *\n");
-    printf("***************************\n");
+    printf("********************************\n");
+    printf("*   Menu Raizes da Terra       *\n");
+    printf("* 1- Cadastro de Produtos      *\n");
+    printf("* 2- Compra de Produtos        *\n");
+    printf("* 3- Cadastro de Colaboradores *\n");
+    printf("* 4- Fluxo de Caixa            *\n");
+    printf("* 5- Estoque                   *\n");
+    printf("* 6- Doacao de Produtos        *\n");
+    printf("* 7- Descarte de Produtos      *\n");
+    printf("* 0- Sair da aplicacao         *\n");
+    printf("********************************\n");
     printf("\n");
 }
 
@@ -47,7 +48,7 @@ void menu() {
                 break;
             case 3: 
                 printf("\nCadastro de Colaboradores\n");
-                cad_colab();
+                colab();
                 rep = 1;
                 break;
             case 4:

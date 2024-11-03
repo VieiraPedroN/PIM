@@ -4,12 +4,12 @@
 #include <locale.h>
 #include "Fluxo.h"
 
-void ImprimirF(Fluxo *transacoes, int NumF) {
+void ImprimirF(Fluxo *transacoes, int numTransacoes) {
     printf("===================================================================================================================\n");
     printf("| ID |         Transação          |  Unidades  |  Valor Unitário |  Valor Total |    Data    |     Pagamento       \n");
     printf("===================================================================================================================\n");
     int id = 1;
-    for (int i = 0; i < NumF; i++) {
+    for (int i = 0; i < numTransacoes; i++) {
         if (strcmp(transacoes[i].movimentacao, "") == 0) continue;
 
         int unidadesVendidas = -1;

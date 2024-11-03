@@ -4,19 +4,19 @@
 #include <locale.h>
 #include "Fluxo.h"
 
-void GerarR_M(Fluxo *transacoes, int NumF, char *MesAno) {
+void GerarR_M(Fluxo *transacoes, int numTransacoes, char *mesAno) {
     float saldo = 0.0, totalRecebido = 0.0, totalGasto = 0.0;
     printf("|============================================================================================================================\n");
-    printf("|                                FLUXO DE CAIXA DO MÊS %s\n", MesAno);
+    printf("|                                FLUXO DE CAIXA DO MÊS %s\n", mesAno);
     printf("=============================================================================================================================\n");
     printf("| ID |              Transação              |  Unidades  |  Valor Unitário |  Valor Total  |    Data    |  Pagamento    \n");
     printf("=============================================================================================================================\n");
     int id = 1;
-    for (int i = 0; i < NumF; i++) {
-        char MesAnoT[8];
-        strncpy(MesAnoT, &transacoes[i].data[3], 7);
-        MesAnoT[7] = '\0';
-        if (strcmp(MesAnoT, MesAno) == 0) {
+    for (int i = 0; i < numTransacoes; i++) {
+        char mesAnoTransacao[8];
+        strncpy(mesAnoTransacao, &transacoes[i].data[3], 7);
+        mesAnoTransacao[7] = '\0';
+        if (strcmp(mesAnoTransacao, mesAno) == 0) {
             int unidadesVendidas = -1;
             float valorUnitario = -1;
             float valorTotal = transacoes[i].valor;
@@ -42,8 +42,8 @@ void GerarR_M(Fluxo *transacoes, int NumF, char *MesAno) {
         }
     }
     printf("=============================================================================================================================\n");
-    printf("| %-72s | %-10.2f  \n", "Total Recebido:", totalRecebido);
-    printf("| %-72s | %-10.2f  \n", "Total Gasto:", totalGasto);
-    printf("| %-71s | %-10.2f  \n", "Saldo do Mês:", saldo);
+    printf("| %-71s | %-10.2f  \n", "Total Recebido:", totalRecebido);
+    printf("| %-71s | %-10.2f  \n", "Total Gasto:", totalGasto);
+    printf("| %-72s | %-10.2f  \n", "Saldo do Mês:", saldo);
     printf("=============================================================================================================================\n");
 }

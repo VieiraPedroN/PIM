@@ -3,8 +3,6 @@
 #include <string.h>
 #include "../sistema.h"
 
-#define MAX_DESCARTES 100 // Limite de descartes
-
 void descProd(Cadastro *prod, int totalProd) {
     printf("* Verificar Estoque para seleção de descarte de produtos  *\n");
 

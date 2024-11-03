@@ -36,6 +36,13 @@ typedef struct {
     Data dataRmv; // Data de descarte
 } Descarte;
 
+typedef struct {
+    int tipo;
+    char colabName[101];
+    char colabUser[101];
+    char colabPass[101];
+}  Colaborador;
+
 // Funções para gerenciar produtos
 void editProd(Cadastro *prod, int totalProd);
 void removeProd(Cadastro *prod, int *totalProd);
@@ -65,6 +72,10 @@ void doaProd(Cadastro *prod, int totalProd);
 void rmvProd(Cadastro *prod, int totalProd);
 void saveDoa(Doacao doacao); // Salva doações em doaca.dat
 int visuDoa(); // Visualiza doações existentes
+
+// Funções para gerenciar colaboradores
+void saveCadColab(Colaborador func[], int totalFunc);
+
 
 int check = 0;
 

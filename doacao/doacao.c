@@ -3,7 +3,6 @@
 #include <stdlib.h>
 #include "../sistema.h"
 
-
 void doaProd(Cadastro *prod, int totalProd) {
     printf("* Verificar Estoque para seleção de doação de produtos  *\n");
 
@@ -57,7 +56,6 @@ void doaProd(Cadastro *prod, int totalProd) {
     printf("Foi doado %d %s de %s com sucesso!\n", newDoa.qtdDoa, unidadeTipo, prod[index].nome);
 
 }
-
 
 void saveDoa(Doacao doacao) {
     FILE *file = fopen("doacao.dat", "ab"); // Abre o arquivo para escrita em modo binário

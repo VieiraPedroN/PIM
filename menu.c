@@ -6,6 +6,7 @@
 #include "doacao/menu_doa.c"
 #include "doacao/menu_desc.c"
 #include "compra/compra.c"
+#include "colaborador/colab.c"
 #include "fluxo_caixa/Fluxo_menu.c"
 
 void menu_print() {
@@ -44,22 +45,27 @@ void menu() {
                 compra();
                 rep = 1;
                 break;
-            case 3:
+            case 3: 
+                printf("\nCadastro de Colaboradores\n");
+                cad_colab();
+                rep = 1;
+                break;
+            case 4:
                 printf("\nFluxo de Caixa\n");
                 fluxo();
                 rep = 1;
                 break;
-            case 4:
+            case 5:
                 printf("\nEstoque\n");
                 menuArmz();
                 rep = 1;
                 break;
-            case 5:
+            case 6:
                 printf("\nDoacao\n");
                 menu_doa();
                 rep = 1;
                 break;
-            case 6:
+            case 7:
                 printf("\nDescarte\n");
                 menu_desc();
                 rep = 1;

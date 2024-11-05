@@ -77,9 +77,15 @@ int visuDoa(); // Visualiza doações existentes
 // Funções para gerenciar colaboradores
 void saveCadColab(Colaborador func[], int totalFunc);
 int loadCadColab(Colaborador func[]);
+
 int compCadColab (Colaborador func[], int totalFunc, char colabName[]);
+
 void cadColab(int tipoFunc, char *funcao); // Adiciona parâmetro funcao para o nome da função
 
-int check = 0;
+void editFunc(Colaborador *func, int totalFunc);
+void rmvFunc(Colaborador *func, int *totalFunc);
+void visuColab();
+
+int check = 0, checkColab = 1;
 
 #endif // SISTEMA_H

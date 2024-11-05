@@ -50,21 +50,6 @@ int loadCad(Cadastro prod[]) {
     return totalProd;
 }
 
-void listCad(Cadastro prod[], int totalProd) {
-    if (totalProd == 0) {
-        printf("Nenhum produto cadastrado.\n");
-        return;
-    }
-
-    printf("\nProdutos cadastrados:\n");
-    for (int i = 0; i < totalProd; i++) {
-        printf("%d. Nome: %s, Quantidade: %d, Valor: %.2f, Validade: %s/%s, Tipo: %d\n",
-               i + 1, prod[i].nome, prod[i].qtd, prod[i].valor,
-               prod[i].valid.mes, prod[i].valid.ano,
-               prod[i].tipo);
-    }
-}
-
 void cad(int tipoProd) {
     Cadastro prod[MAX_PRODUTOS];
     Cadastro newProds[MAX_PRODUTOS]; // Array para novos produtos

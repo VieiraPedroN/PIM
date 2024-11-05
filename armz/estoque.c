@@ -157,7 +157,7 @@ void menuArmz(){
     int totalProd = loadCad(prod); // Carrega produtos existentes
     int opcao;
 
-   do{
+   do {
 
     if (totalProd == 0){
         printf("O estoque não contém nenhum produto. Por favor, adicione produtos.\n");

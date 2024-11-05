@@ -2,6 +2,7 @@
 #include <string.h>
 #include <stdlib.h> 
 #include "cad_colab.c"
+#include "edit_colab.c"
 #include "../sistema.h"
 
 void menu_colab(){
@@ -16,9 +17,14 @@ void menu_colab(){
 }
 
 void colab() {
-    int op;
+    Colaborador func[MAX_PRODUTOS];
+    int totalFunc = loadCadColab(func); // Carrega produtos existentes
+    int op, opt;
 
     do {
+        int tipo; 
+        char funcao[20]; 
+
         printf("\n");
         menu_colab();
 
@@ -27,9 +33,8 @@ void colab() {
 
         switch (op) {
             case 1:
-                int tipo;
-                char funcao[20];
                 do {
+                    
                     printf("***********************\n");
                     printf("* 1- Caixa            *\n");
                     printf("* 2- Almoxarife       *\n");
@@ -46,10 +51,10 @@ void colab() {
 
                     cadColab(tipo, funcao); // Passa o tipo e o nome da função
                 } while (1);
-                
                 break;
+
             case 2:
-                printf("Errou");
+                menuColab();
                 break;
             case 0:
                 printf("Saindo");
@@ -58,4 +63,6 @@ void colab() {
                 break;
         }
     } while (op != 0);
+
+    saveCadColab(func, totalFunc);
 }

@@ -59,6 +59,7 @@ void doaProd(Cadastro *prod, int totalProd) {
 
 void saveDoa(Doacao doacao) {
     FILE *file = fopen("doacao.dat", "ab"); // Abre o arquivo para escrita em modo binário
+    
     if (file == NULL) {
         printf("Erro ao abrir o arquivo de doações!\n");
         return;

@@ -32,7 +32,8 @@ int validarD(char *dia, char *mes, char *ano) {
 }
 
 void MenuF() {
-    printf("\n======== Menu do Financeiro =============\n");
+    printf("\n");
+    printf("======== Menu do Financeiro =============\n");
     printf("| 1. Iniciar Venda                      |\n");
     printf("| 2. Realizar Pagamentos                |\n");
     printf("| 3. Ver Histórico de Transações        |\n");

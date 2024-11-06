@@ -44,6 +44,23 @@ typedef struct {
     char funcao[20]; // Nome da função do colaborador
 }  Colaborador;
 
+typedef struct {
+    char dia[3];
+    char mes[3];
+    char ano[5];
+} DataCompra;
+typedef struct {
+    int tipo;
+    char fornecedor[101];
+    char produto[101];
+    int quantidade;
+    float preco;
+    float valorTotal;
+    DataCompra valid;
+} Compra;
+
+
+
 // Funções para gerenciar produtos
 void editProd(Cadastro *prod, int totalProd);
 void removeProd(Cadastro *prod, int *totalProd);

@@ -1,13 +1,13 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "sistema.h"
-#include "cad/cadastro_menu.c"
-#include "armz/estoque.c"
-#include "doacao/menu_doa.c"
-#include "doacao/menu_desc.c"
-#include "compra/compra.c"
-#include "colaborador/colab.c"
-#include "fluxo_caixa/Fluxo_menu.c"
+#include "../sistema.h"
+#include "../cad/cadastro_menu.c"
+#include "../armz/estoque.c"
+#include "../doacao/menu_doa.c"
+#include "../doacao/menu_desc.c"
+#include "../compra/compra.c"
+#include "../colaborador/colab.c"
+#include "../fluxo_caixa/Fluxo_menu.c"
 
 void menu_print() {
     printf("\n");
@@ -25,9 +25,9 @@ void menu_print() {
     printf("\n");
 }
 
-void menu() {
+void menuAdm() {
 
-    int opcao, rep = 0;
+    int opcao;
     
     do {
         check = 0;
@@ -39,46 +39,37 @@ void menu() {
             case 1: 
                 printf("\nCadastro de Produtos\n");
                 cad_menu();
-                rep = 1;
                 break;
             case 2: 
                 printf("\nCompra de Produtos\n");
                 compra();
-                rep = 1;
                 break;
             case 3: 
                 printf("\nCadastro de Colaboradores\n");
                 colab_menu();
-                rep = 1;
                 break;
             case 4:
                 printf("\nFluxo de Caixa\n");
                 fluxo();
-                rep = 1;
                 break;
             case 5:
                 printf("\nEstoque\n");
                 menuArmz();
-                rep = 1;
                 break;
             case 6:
                 printf("\nDoacao\n");
                 menu_doa();
-                rep = 1;
                 break;
             case 7:
                 printf("\nDescarte\n");
                 menu_desc();
-                rep = 1;
                 break;
             case 0:
                 printf("\nSaindo da aplicacao\n");
-                rep = 0;
-                break;
+                break;;
             default:
                 printf("\nOpcao inválida\n");
-                rep = 1;
                 break;
         }
-    } while (rep == 1);
+    } while (opcao != 0);
 }

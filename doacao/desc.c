@@ -61,7 +61,7 @@ void descProd(Cadastro *prod, int totalProd) {
 }
 
 void saveDesc(Descarte descarte) {
-    FILE *file = fopen("descarte.dat", "ab"); // Abre o arquivo para escrita em modo binário
+    FILE *file = fopen("dados/desc.dat", "ab"); // Abre o arquivo para escrita em modo binário
     if (file == NULL) {
         printf("Erro ao abrir o arquivo de descartes!\n");
         return;
@@ -73,7 +73,7 @@ void saveDesc(Descarte descarte) {
 
 int visuDesc(Cadastro *prod, int totalProd) {
     Descarte descarte;
-    FILE *file = fopen("descarte.dat", "rb"); // Abre o arquivo para leitura em modo binário
+    FILE *file = fopen("dados/desc.dat", "rb"); // Abre o arquivo para leitura em modo binário
     if (file == NULL) {
         printf("Nenhum descarte registrado até o momento.\n");
         return 0;

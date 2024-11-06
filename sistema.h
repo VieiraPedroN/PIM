@@ -80,7 +80,7 @@ int loadCadColab(Colaborador func[]);
 
 int compCadColab (Colaborador func[], int totalFunc, char colabName[]);
 
-void cadColab(int tipoFunc, char *funcao); // Adiciona parâmetro funcao para o nome da função
+void cadColab(int tipoFunc);
 
 void editFunc(Colaborador *func, int totalFunc);
 void rmvFunc(Colaborador *func, int *totalFunc);

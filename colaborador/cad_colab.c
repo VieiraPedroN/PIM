@@ -6,7 +6,7 @@
 #define MAX_FUNCIONARIOS 100 // Limite de colaboradores
 
 void saveCadColab(Colaborador func[], int totalFunc) {
-    FILE *arquivo = fopen("colab.dat", "wb");
+    FILE *arquivo = fopen("dados/colab.dat", "ab");
 
     if (arquivo == NULL) {
         printf("Erro ao abrir o arquivo para salvar os colaboradores.\n");
@@ -19,16 +19,22 @@ void saveCadColab(Colaborador func[], int totalFunc) {
 }
 
 int loadCadColab(Colaborador func[]) {
-    FILE *arquivo = fopen("colab.dat", "rb");
-
+    FILE *arquivo = fopen("dados/colab.dat", "rb");
     if (arquivo == NULL) {
         printf("Nenhum arquivo de colaboradores encontrado. Iniciando novo cadastro.\n");
         return 0;
     }
 
+    // Tentativa de leitura dos dados do arquivo
     int totalFunc = fread(func, sizeof(Colaborador), MAX_FUNCIONARIOS, arquivo);
+    if (totalFunc == 0 && ferror(arquivo)) {
+        printf("Erro ao ler os colaboradores do arquivo.\n");
+        fclose(arquivo);
+        return 0;
+    }
+
     fclose(arquivo);
-    printf("Abrindo o banco de dados!\n");
+    printf("Banco de dados carregado com sucesso!\n");
     return totalFunc;
 }
 
@@ -51,7 +57,7 @@ const char* getFuncaoNome(int tipo) {
     }
 }
 
-void cadColab(int tipoFunc, char *funcao) {
+void cadColab(int tipoFunc) {
     Colaborador func[MAX_FUNCIONARIOS];
     Colaborador newFunc[MAX_FUNCIONARIOS];
     int totalFunc = loadCadColab(func);

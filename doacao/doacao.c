@@ -58,7 +58,7 @@ void doaProd(Cadastro *prod, int totalProd) {
 }
 
 void saveDoa(Doacao doacao) {
-    FILE *file = fopen("doacao.dat", "ab"); // Abre o arquivo para escrita em modo binário
+    FILE *file = fopen("dados/doacao.dat", "ab"); // Abre o arquivo para escrita em modo binário
     
     if (file == NULL) {
         printf("Erro ao abrir o arquivo de doações!\n");
@@ -71,7 +71,7 @@ void saveDoa(Doacao doacao) {
 
 int visuDoa(Cadastro *prod, int totalProd) {
     Doacao doacao;
-    FILE *file = fopen("doacao.dat", "rb");
+    FILE *file = fopen("dados/doacao.dat", "rb");
     if (file == NULL) {
         printf("\nNenhuma doação registrada até o momento.\n");
         return 0;

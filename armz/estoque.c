@@ -120,18 +120,29 @@ void visuArmz(){
             printf("Escolha um Tipo: ");
             scanf("%d", &opcTipo);
         
+            int busca = 0; // Variável para verificar se foi busca
+
             for (int i = 0; i < totalProd; i++){
 
             char *unidadeTipo = (prod[i].unid == 1) ? "Unid" : "Kg"; // Define unidade
 
                 if (prod[i].tipo == opcTipo){
                     printf("%d. Nome: %s, Quantidade: %d %s, Valor: %.2f, Validade: %s/%s, Tipo: %d\n",
-                    i + 1, prod[i].nome, prod[i].qtd, unidadeTipo,
-                    prod[i].valor, prod[i].valid.mes, prod[i].valid.ano, prod[i].tipo);
-                    }
+                    i + 1, prod[i].nome, prod[i].qtd, unidadeTipo,prod[i].valor, 
+                    prod[i].valid.mes, prod[i].valid.ano, prod[i].tipo);
+                    busca = 1; // Marca como busca    
+                }
+            }
+
+            // Se não encontrou nenhum registro, exibe a mensagem
+            if (!busca) {
+                printf("Nenhum cadastro busca com o tipo escolhido.\n");
             }
             break;
         case 2:
+
+            busca = 0; // Variável para verificar se foi busca
+
             // Exibe todos os produtos cadastrados
             for (int i = 0; i < totalProd; i++){
             char *unidadeTipo = (prod[i].unid == 1) ? "Unid" : "Kg"; // Define unidade
@@ -139,7 +150,12 @@ void visuArmz(){
             printf("%d. Nome: %s, Quantidade: %d %s, Valor: %.2f, Validade: %s/%s, Tipo: %d\n",
                i + 1, prod[i].nome, prod[i].qtd, unidadeTipo,
                prod[i].valor, prod[i].valid.mes, prod[i].valid.ano, prod[i].tipo);
-             }
+               busca = 1; // Marca como busca   
+            }
+            // Se não encontrou nenhum registro, exibe a mensagem
+            if (!busca) {
+                printf("Nenhum cadastro busca com o tipo escolhido.\n");
+            }
             break;
         case 0:
             printf("\nSaindo da operação.\n");

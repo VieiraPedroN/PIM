@@ -48,7 +48,7 @@ void menu() {
                 break;
             case 3: 
                 printf("\nCadastro de Colaboradores\n");
-                colab();
+                colab_menu();
                 rep = 1;
                 break;
             case 4:

@@ -24,7 +24,7 @@ int compareCad (Cadastro prod[], int totalProd, char nome[]) {
 }
 
 void saveCad(Cadastro prod[], int totalProd) {
-    FILE *arquivo = fopen("prod.dat", "wb");
+    FILE *arquivo = fopen("dados/prod.dat", "wb");
 
     if (arquivo == NULL) {
         printf("Erro ao abrir o arquivo para salvar os produtos.\n");
@@ -37,7 +37,7 @@ void saveCad(Cadastro prod[], int totalProd) {
 }
 
 int loadCad(Cadastro prod[]) {
-    FILE *arquivo = fopen("prod.dat", "rb");
+    FILE *arquivo = fopen("dados/prod.dat", "rb");
 
     if (arquivo == NULL) {
         printf("Nenhum arquivo de produtos encontrado. Iniciando novo cadastro.\n");

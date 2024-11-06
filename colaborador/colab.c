@@ -1,68 +1,75 @@
 #include <stdio.h>
 #include <string.h>
-#include <stdlib.h> 
+#include <stdlib.h>
 #include "cad_colab.c"
 #include "edit_colab.c"
 #include "../sistema.h"
 
-void menu_colab(){
+void menu_principal(){
     printf("\n");
-    printf("****************************\n");
-    printf("*   Menu de Cadastro       *\n");
-    printf("* 1- Cadastro Colaborador  *\n");
-    printf("* 2- Edição de Colaborador *\n");
-    printf("* 0- Sair da aplicacao     *\n");
-    printf("****************************\n");
+    printf("*******************************\n");
+    printf("*   Menu de Cadastro          *\n");
+    printf("* 1- Cadastro Colaborador     *\n");
+    printf("* 2- Visualizar Colaboradores *\n");
+    printf("* 3- Edição de Colaborador    *\n");
+    printf("* 0- Sair da aplicacao        *\n");
+    printf("*******************************\n");
     printf("\n");
 }
 
-void colab() {
-    Colaborador func[MAX_PRODUTOS];
-    int totalFunc = loadCadColab(func); // Carrega produtos existentes
-    int op, opt;
+int colab_menu() {
+    Colaborador func[MAX_FUNCIONARIOS];
+    int totalFunc = loadCadColab(func); // Carrega colaboradores existentes
+    int op, tipo;
 
     do {
-        int tipo; 
-        char funcao[20]; 
-
-        printf("\n");
-        menu_colab();
-
+        menu_principal();
         printf("Escolha uma opção: ");
         scanf("%d", &op);
 
         switch (op) {
             case 1:
-                do {
-                    
-                    printf("***********************\n");
-                    printf("* 1- Caixa            *\n");
-                    printf("* 2- Almoxarife       *\n");
-                    printf("* 3- Financeiro       *\n");
-                    printf("* 4- Gerente          *\n");
-                    printf("* 0- Sair da operacao *\n");
-                    printf("***********************\n");
-                    scanf("%d", &tipo);
+                {
+                    do {
+                        printf("***********************\n");
+                        printf("* 1- Caixa            *\n");
+                        printf("* 2- Almoxarife       *\n");
+                        printf("* 3- Financeiro       *\n");
+                        printf("* 4- Gerente          *\n");
+                        printf("* 0- Sair da operacao *\n");
+                        printf("***********************\n");
+                        printf("Escolha o tipo de colaborador para cadastrar: ");
+                        scanf("%d", &tipo);
 
-                    if (tipo == 0) {
-                        printf("Saindo da operação de cadastro.\n");
-                        return; // Retorna ao menu principal
-                    }
+                        if (tipo == 0) {
+                            printf("\nSaindo da operação de cadastro.\n");
+                            break;
+                        }
 
-                    cadColab(tipo, funcao); // Passa o tipo e o nome da função
-                } while (1);
+                        cadColab(tipo); // Atualiza o cadastro no array e incrementa totalFunc
+                    } while (tipo != 0);
+                }
                 break;
 
             case 2:
-                menuColab();
+                visuColab(tipo, func, totalFunc);  // Função para visualizar colaboradores
                 break;
+
+            case 3:
+                editColab(func, &totalFunc);
+                break;
+
             case 0:
-                printf("Saindo");
+                printf("Saindo do sistema.\n");
                 break;
+
             default:
+                printf("Opção inválida! Tente novamente.\n");
                 break;
         }
     } while (op != 0);
 
+    // Salva os dados antes de sair
     saveCadColab(func, totalFunc);
+    return 0;
 }

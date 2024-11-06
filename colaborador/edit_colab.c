@@ -81,55 +81,68 @@ void rmvFunc(Colaborador *func, int *totalFunc){
     (*totalFunc)--; // Reduz o número total de Colaboradors
     printf("Colaborador removido com sucesso!\n");
 }
-
-void visuColab(){
-    Colaborador func[MAX_PRODUTOS];
-    int totalFunc = loadCadColab(func); // Carrega produtos existentes
+ 
+void visuColab(int tipoFunc, Colaborador func[], int totalFunc) {
     int visu;
+    printf("\nRegistros de Colaboradores:\n");
 
-    printf("\nRegistros:\n");
-    printf("\nComo deseja visualizar?");
-
-    do{
-        printf("\n1. Função\n2. Todos os colaboradores\n0. sair\n");
-        printf("\nEscolha uma opção: ");
+    do {
+        printf("\n1. Visualizar por Função\n2. Visualizar Todos\n0. Sair\n");
+        printf("Escolha uma opção: ");
         scanf("%d", &visu);
-        switch (visu){ 
-        int opcTipo;    
-        case 1:
 
-            printf("\n\n1.Caixa\n2.Almoxarife\n3.Financeiro\n4.Gerente\n");
-            printf("Escolha um Tipo: ");
-            scanf("%d", &opcTipo);
-        
-            for (int i = 0; i < totalFunc; i++){
-                if (func[i].tipo == opcTipo){
-                    printf("%d. Nome: %s, Login %s, Senha: %s, Funcao: %s\n",
-                    i + 1, func[i].colabName, func[i].colabUser,
-                    func[i].colabPass, getFuncaoNome(func[i].tipo));
+        switch (visu) {
+            int opcTipo;    
+            case 1:
+                printf("\nFunções:\n1. Caixa\n2. Almoxarife\n3. Financeiro\n4. Gerente\n");
+                printf("Escolha um tipo: ");
+                scanf("%d", &opcTipo);
+            // preciso de um if que verifica se existe cadastro com o tipo escolhido, se o tipo escolhido nao tiver no banco de dados deve exibir um printf
+
+                int busca = 0; // Variável para verificar se foi busca
+
+                for (int i = 0; i < totalFunc; i++) {
+                    if (func[i].tipo == opcTipo) {
+                        printf("Nome: %s, Login: %s, Função: %s\n",
+                            func[i].colabName, func[i].colabUser, 
+                            getFuncaoNome(func[i].tipo));
+                        busca = 1; // Marca como busca
+                    }
                 }
-            }
-            break;
-        case 2:
-            // Exibe todos os produtos cadastrados
-            for (int i = 0; i < totalFunc; i++) {
-            printf("Nome: %s, Login: %s, Senha: %s, Função: %s\n",
-                   func[i].colabName, func[i].colabUser, 
-                   func[i].colabPass, getFuncaoNome(func[i].tipo));
-            }
-            break;
-        case 0:
-            printf("\nSaindo da operação.\n");
-            break;
-        default:
-            printf("Opção inválida!\n");
-            break;
+
+                // Se não encontrou nenhum registro, exibe a mensagem
+                if (!busca) {
+                    printf("\nNenhum cadastro busca com o tipo escolhido.\n");
+                }
+                break;
+
+            case 2:
+
+                busca = 0; // Variável para verificar se foi busca
+
+                for (int i = 0; i < totalFunc; i++) {
+                    printf("Nome: %s, Login: %s, Função: %s\n",
+                           func[i].colabName, func[i].colabUser, 
+                           getFuncaoNome(func[i].tipo));
+                    busca = 1; // Marca como busca
+                }
+                if (!busca) {
+                    printf("\nNenhum cadastro busca com o tipo escolhido.\n");
+                }
+                break;
+
+            case 0:
+                printf("Saindo da visualização.\n");
+                break;
+
+            default:
+                printf("Opção inválida! Tente novamente.\n");
+                break;
         }
     } while (visu != 0);
-
 }
 
-void menuColab(){
+void editColab(){
     Colaborador func[MAX_PRODUTOS];
     int totalFunc = loadCadColab(func); // Carrega produtos existentes
     int opt;
@@ -148,13 +161,10 @@ void menuColab(){
         
         switch (opt){
             case 1:
-                visuColab();
-                break;
-            case 2:
                 editFunc(func, totalFunc);
                 saveCadColab(func, totalFunc);
                 break;
-            case 3:
+            case 2:
                 rmvFunc(func, &totalFunc);
                 saveCadColab(func, totalFunc);
                 break;

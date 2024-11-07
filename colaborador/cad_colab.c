@@ -6,7 +6,7 @@
 #define MAX_FUNCIONARIOS 100 // Limite de colaboradores
 
 void saveCadColab(Colaborador func[], int totalFunc) {
-    FILE *arquivo = fopen("dados/colab.dat", "ab");
+    FILE *arquivo = fopen("dados/colab.dat", "wb");
 
     if (arquivo == NULL) {
         printf("Erro ao abrir o arquivo para salvar os colaboradores.\n");

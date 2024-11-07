@@ -71,15 +71,17 @@ typedef struct {
 int check = 0, checkColab = 1;
 
 
-#include "cad/cadastro.c"
-#include "cad/cadastro_menu.c"
+#include "cadastro/cadastro.c"
+#include "cadastro/cadastro_menu.c"
 
-#include "armz/estoque.c"
+#include "estoque/estoque.c"
 
-#include "doacao/desc.c"
+
 #include "doacao/doacao.c"
 #include "doacao/menu_doa.c"
-#include "doacao/menu_desc.c"
+
+#include "descarte/desc.c"
+#include "descarte/menu_desc.c"
 
 #include "colaborador/cad_colab.c"
 #include "colaborador/edit_colab.c"

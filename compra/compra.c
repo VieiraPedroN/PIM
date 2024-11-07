@@ -27,7 +27,7 @@ int validarData(char *dia, char *mes, char *ano) {
 
 // Função para salvar a compra
 void saveCompra(Compra compra) {
-    FILE *arquivo = fopen("compra.dat", "ab");
+    FILE *arquivo = fopen("dados/compra.dat", "ab");
     if (arquivo != NULL) {
         fwrite(&compra, sizeof(Compra), 1, arquivo);
         fclose(arquivo);

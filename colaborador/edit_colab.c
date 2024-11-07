@@ -97,7 +97,6 @@ void visuColab(int tipoFunc, Colaborador func[], int totalFunc) {
                 printf("\nFunções:\n1. Caixa\n2. Almoxarife\n3. Financeiro\n4. Gerente\n");
                 printf("Escolha um tipo: ");
                 scanf("%d", &opcTipo);
-            // preciso de um if que verifica se existe cadastro com o tipo escolhido, se o tipo escolhido nao tiver no banco de dados deve exibir um printf
 
                 int busca = 0; // Variável para verificar se foi busca
 

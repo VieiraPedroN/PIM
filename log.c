@@ -2,7 +2,6 @@
 #include <stdlib.h>
 #include <string.h>
 #include "sistema.h"
-#include "menus/menuAdm.c"
 
 
 int main() {
@@ -40,21 +39,21 @@ int main() {
                         printf("\nSeja bem vindo %s", colab.colabName);
                         login_efetuado = 1;
                         encontrou = 1;
-                        //menuCaixa();
+                        menuCaixa();
                         break;
                     } else if (colab.tipo == 2){
                         printf("\nLogado como Almoxarife\n");
                         printf("\nSeja bem vindo %s", colab.colabName);
                         login_efetuado = 1;
                         encontrou = 1;
-                        //menuFinanc();
+                        menuAlmox();
                         break;
                     } else if (colab.tipo == 3){
                         printf("\nLogado como Financeiro\n");
                         printf("\nSeja bem vindo %s", colab.colabName);
                         login_efetuado = 1;
                         encontrou = 1;
-                        //menuFinanc();
+                        menuFinanc();
                         break;
                     } else if (colab.tipo == 4){
                         printf("\nLogado como Gerente\n");

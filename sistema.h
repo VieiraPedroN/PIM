@@ -1,11 +1,20 @@
 #ifndef SISTEMA_H
 #define SISTEMA_H
 
+#define MAX_PRODUTOS 100 // Limite de produtos
+
+#define Max_Fluxos 100
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-
-#define MAX_PRODUTOS 5 // Limite de produtos
+typedef struct {
+    char movimentacao[50];
+    float valor;
+    char tipo[12];
+    char data[11];
+    char pagamento[20];
+} Fluxo;
 
 // Estrutura de Data
 typedef struct {
@@ -59,50 +68,39 @@ typedef struct {
     DataCompra valid;
 } Compra;
 
-
-
-// Funções para gerenciar produtos
-void editProd(Cadastro *prod, int totalProd);
-void removeProd(Cadastro *prod, int *totalProd);
-void visuArmz(); // Visualiza o estoque
-
-void doaProd(Cadastro *prod, int totalProd);
-void saveDoa(Doacao doacao); // Salva doações em doaca.dat
-int visuDoa(Cadastro *prod, int totalProd); // Visualiza doações existentes
-
-void descProd(Cadastro *prod, int totalProd);
-void saveDesc(Descarte descarte); // Salva descartes em descarte.dat
-int visuDesc(Cadastro *prod, int totalProd); // Visualiza descartes existentes
-
-
-// Funções para validação e operações com arquivos
-int validData(char *mes, char *ano); // Verifica validade da data (somente mês e ano)
-void saveCad(Cadastro prod[], int totalProd); // Salva cadastros no arquivo
-int loadCad(Cadastro prod[]); // Carrega cadastros do arquivo
-
-// Funções adicionais para gerenciamento de cadastro
-int compareCad(Cadastro prod[], int totalProd, char nome[]);
-void listCad(Cadastro prod[], int totalProd); // Lista os cadastros
-void cad(int tipoProd); // Função de cadastro de produtos
-
-// Funções para gerenciar doações
-void doaProd(Cadastro *prod, int totalProd);
-void rmvProd(Cadastro *prod, int totalProd);
-void saveDoa(Doacao doacao); // Salva doações em doaca.dat
-int visuDoa(); // Visualiza doações existentes
-
-// Funções para gerenciar colaboradores
-void saveCadColab(Colaborador func[], int totalFunc);
-int loadCadColab(Colaborador func[]);
-
-int compCadColab (Colaborador func[], int totalFunc, char colabName[]);
-
-void cadColab(int tipoFunc);
-
-void editFunc(Colaborador *func, int totalFunc);
-void rmvFunc(Colaborador *func, int *totalFunc);
-void visuColab();
-
 int check = 0, checkColab = 1;
+
+
+#include "cad/cadastro.c"
+#include "cad/cadastro_menu.c"
+
+#include "armz/estoque.c"
+
+#include "doacao/desc.c"
+#include "doacao/doacao.c"
+#include "doacao/menu_doa.c"
+#include "doacao/menu_desc.c"
+
+#include "colaborador/cad_colab.c"
+#include "colaborador/edit_colab.c"
+#include "colaborador/colab.c"
+
+
+#include "compra/compra.c"
+//#include "compra/edit_compra.c"
+
+#include "fluxo_caixa/Fluxo_FormaP.c"
+#include "fluxo_caixa/Fluxo_GRM.c"
+#include "fluxo_caixa/Fluxo_IFC.c"
+#include "fluxo_caixa/Fluxo_Impr.c"
+#include "fluxo_caixa/Fluxo_Pag.c"
+#include "fluxo_caixa/Fluxo_M_E_D.c"
+#include "fluxo_caixa/Fluxo_Venda.c"
+#include "fluxo_caixa/Fluxo_menu.c"
+
+#include "menus/menuAdm.c"
+#include "menus/menuAlmox.c"
+#include "menus/menuCaixa.c"
+#include "menus/menuFinanc.c"
 
 #endif // SISTEMA_H

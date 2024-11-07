@@ -1,13 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "../sistema.h"
-#include "../cad/cadastro_menu.c"
-#include "../armz/estoque.c"
-#include "../doacao/menu_doa.c"
-#include "../doacao/menu_desc.c"
-#include "../compra/compra.c"
-#include "../colaborador/colab.c"
-#include "../fluxo_caixa/Fluxo_menu.c"
+
 
 void menu_print() {
     printf("\n");

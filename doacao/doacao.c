@@ -3,6 +3,18 @@
 #include <stdlib.h>
 #include "../sistema.h"
 
+void saveDoa(Doacao doacao) {
+    FILE *file = fopen("dados/doacao.dat", "ab"); // Abre o arquivo para escrita em modo binário
+    
+    if (file == NULL) {
+        printf("Erro ao abrir o arquivo de doações!\n");
+        return;
+    }
+
+    fwrite(&doacao, sizeof(Doacao), 1, file); // Grava a doação
+    fclose(file);
+}
+
 void doaProd(Cadastro *prod, int totalProd) {
     printf("* Verificar Estoque para seleção de doação de produtos  *\n");
 
@@ -55,18 +67,6 @@ void doaProd(Cadastro *prod, int totalProd) {
     char *unidadeTipo = (prod[index].unid == 1) ? "Unidade(s)" : "Kg"; // Define a unidade de exibição
     printf("Foi doado %d %s de %s com sucesso!\n", newDoa.qtdDoa, unidadeTipo, prod[index].nome);
 
-}
-
-void saveDoa(Doacao doacao) {
-    FILE *file = fopen("dados/doacao.dat", "ab"); // Abre o arquivo para escrita em modo binário
-    
-    if (file == NULL) {
-        printf("Erro ao abrir o arquivo de doações!\n");
-        return;
-    }
-
-    fwrite(&doacao, sizeof(Doacao), 1, file); // Grava a doação
-    fclose(file);
 }
 
 int visuDoa(Cadastro *prod, int totalProd) {

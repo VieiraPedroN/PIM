@@ -2,7 +2,6 @@
 #include <stdlib.h>
 #include <string.h>
 #include <locale.h>
-#include "Fluxo.h"
 #include "../sistema.h"
 
 void DeletV(Fluxo *transacoes, int *numTransacoes, int indiceTransacao, Cadastro *produtos, int totalProdutos) {

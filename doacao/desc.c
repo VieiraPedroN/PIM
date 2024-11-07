@@ -3,6 +3,17 @@
 #include <string.h>
 #include "../sistema.h"
 
+void saveDesc(Descarte descarte) {
+    FILE *file = fopen("dados/desc.dat", "ab"); // Abre o arquivo para escrita em modo binário
+    if (file == NULL) {
+        printf("Erro ao abrir o arquivo de descartes!\n");
+        return;
+    }
+
+    fwrite(&descarte, sizeof(Descarte), 1, file); // Grava o descarte
+    fclose(file);
+}
+
 void descProd(Cadastro *prod, int totalProd) {
     printf("* Verificar Estoque para seleção de descarte de produtos  *\n");
 
@@ -58,17 +69,6 @@ void descProd(Cadastro *prod, int totalProd) {
     if (prod[index].qtd == 0) {
         removeProd(prod, &totalProd);
     }
-}
-
-void saveDesc(Descarte descarte) {
-    FILE *file = fopen("dados/desc.dat", "ab"); // Abre o arquivo para escrita em modo binário
-    if (file == NULL) {
-        printf("Erro ao abrir o arquivo de descartes!\n");
-        return;
-    }
-
-    fwrite(&descarte, sizeof(Descarte), 1, file); // Grava o descarte
-    fclose(file);
 }
 
 int visuDesc(Cadastro *prod, int totalProd) {

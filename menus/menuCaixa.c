@@ -1,7 +1,7 @@
-/*#include <stdio.h>
+#include <stdio.h>
 #include <stdlib.h>
 #include "../sistema.h"
-#include "../fluxo_caixa/Fluxo_menu.c"
+
 
 void menu_print_Caixa() {
     printf("\n");

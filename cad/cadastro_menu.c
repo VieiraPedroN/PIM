@@ -1,6 +1,5 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "cadastro.c"
 #include "../sistema.h"
 
 void cad_menu() {

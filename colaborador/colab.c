@@ -1,9 +1,9 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
-#include "cad_colab.c"
-#include "edit_colab.c"
 #include "../sistema.h"
+
+#define MAX_FUNCIONARIOS 100 // Limite de colaboradores
 
 void menu_principal(){
     printf("\n");

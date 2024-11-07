@@ -2,14 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <locale.h>
-#include "Fluxo.h"
-#include "Fluxo_FormaP.c"
-#include "Fluxo_GRM.c"
-#include "Fluxo_IFC.c"
-#include "Fluxo_Impr.c"
-#include "Fluxo_Pag.c"
-#include "Fluxo_Venda.c"
-#include "Fluxo_M_E_D.c"
+#include "../sistema.h"
 
 int validarD(char *dia, char *mes, char *ano) {
     int d = atoi(dia);

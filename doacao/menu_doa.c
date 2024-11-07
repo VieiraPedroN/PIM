@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "doacao.c"
+
 #include "../sistema.h"
 
 void exb_menu_doa(){

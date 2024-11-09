@@ -3,37 +3,37 @@
 #include <string.h>
 #include <locale.h>
 
-void IFC(Fluxo *transacoes, int numTransacoes, const char *dataDesejada) {
+void IFC(Fluxo *transacoes, int NumT, const char *DataEsc) {
     float saldo = 0.0, totalRecebido = 0.0, totalGasto = 0.0;
     printf("|==============================================================================================================================\n");
-    printf("|                                FLUXO DE CAIXA PARA O DIA %s\n", dataDesejada);
+    printf("|                                FLUXO DE CAIXA PARA O DIA %s\n", DataEsc);
     printf("|====|=====================================|============|=================|===============|============|=======================\n");
-    printf("| ID |           Transação                 |  Unidades  |  Valor Unitário |  Valor Total  |    Data    |  Pagamento            \n");
+    printf("| ID |           Transação                 |  Unidades  |  Valor Unitário |  Valor Total  |    Data    |  Pagamento        \n" );
     printf("|====|=====================================|============|=================|===============|============|=======================\n");
     int id = 1;
-    for (int i = 0; i < numTransacoes; i++) {
-        if (strcmp(transacoes[i].data, dataDesejada) == 0) {
-            int unidadesVendidas = -1;
-            float valorUnitario = -1;
+    for (int i = 0; i < NumT; i++) {
+        if (strcmp(transacoes[i].data, DataEsc) == 0) {
+            int UniV = -1;
+            float ValorUnit = -1;
             float valorTotal = transacoes[i].valor;
-            char nomeProduto[31] = "";
-            char pagamento[26];
+            char NomeProdt[31] = "";
+            char Pag[26];
 
-            strncpy(pagamento, transacoes[i].pagamento, sizeof(pagamento) - 1);
-            pagamento[sizeof(pagamento) - 1] = '\0';
+            strncpy(Pag, transacoes[i].Pag, sizeof(Pag) - 1);
+            Pag[sizeof(Pag) - 1] = '\0';
 
             if (strcasecmp(transacoes[i].tipo, "Gasto") == 0) {
-                strncpy(nomeProduto, transacoes[i].movimentacao, sizeof(nomeProduto) - 1);
-                nomeProduto[sizeof(nomeProduto) - 1] = '\0';
+                strncpy(NomeProdt, transacoes[i].mov, sizeof(NomeProdt) - 1);
+                NomeProdt[sizeof(NomeProdt) - 1] = '\0';
                 saldo -= transacoes[i].valor;
                 totalGasto += transacoes[i].valor;
-                printf("| %-3d| %-35s | %-10s | %-15s | %-13.2f | %-10s | %-21s \n", id++, nomeProduto, "---", "---", valorTotal, transacoes[i].data, pagamento);
+                printf("| %-3d| %-35s | %-10s | %-15s | %-13.2f | %-10s | %-21s \n", id++, NomeProdt, "---", "---", valorTotal, transacoes[i].data, Pag);
             } else if (strcasecmp(transacoes[i].tipo, "Recebimento") == 0) {
-                sscanf(transacoes[i].movimentacao, "%[^()] (ID: %*d, Unidades Vendidas: %d)", nomeProduto, &unidadesVendidas);
-                valorUnitario = transacoes[i].valor / unidadesVendidas;
+                sscanf(transacoes[i].mov, "%[^()] (ID: %*d, Unidades Vendidas: %d)", NomeProdt, &UniV);
+                ValorUnit = transacoes[i].valor / UniV;
                 saldo += transacoes[i].valor;
                 totalRecebido += transacoes[i].valor;
-                printf("| %-3d| %-35s | %-10d | %-15.2f | %-13.2f | %-10s | %-21s \n", id++, nomeProduto, unidadesVendidas, valorUnitario, valorTotal, transacoes[i].data, pagamento);
+                printf("| %-3d| %-35s | %-10d | %-15.2f | %-13.2f | %-10s | %-21s \n", id++, NomeProdt, UniV, ValorUnit, valorTotal, transacoes[i].data, Pag);
             }
         }
     }

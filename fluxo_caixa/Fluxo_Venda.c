@@ -1,65 +1,66 @@
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <locale.h>
 #include "../sistema.h"
 
-void Venda(Fluxo *transacoes, int *numTransacoes, Cadastro *produtos, int totalProdutos) {
-    int produtoID, quantidadeVendida;
-    char data[11], formaPagamento[20], dia[3], mes[3], ano[5];
+void Venda(Fluxo *transacoes, int *NumT, Cadastro *produtos, int TotalProdts) {
+    int Prodid, QtdV;
+    char data[11], FormaPag[20], dia[3], mes[3], ano[5];
     char confirmacao;
     float subtotal = 0.0;
-    int transacoesInicial = *numTransacoes;
+    int InicialT = *NumT;
 
     while (1) {
         printf("ID do Produto que será vendido (digite 0 para sair): ");
-        scanf("%d", &produtoID);
+        scanf("%d", &Prodid);
 
-        if (produtoID == 0) {
+        if (Prodid == 0) {
             printf("Saindo da venda...\n");
             break;
         }
 
-        if (produtoID <= 0 || produtoID > totalProdutos) {
+        if (Prodid <= 0 || Prodid > TotalProdts) {
             printf("ID inválido. Por favor, tente novamente.\n");
             continue;
         }
 
-        printf("Produto selecionado: %s\n", produtos[produtoID - 1].nome);
+        printf("Produto selecionado: %s\n", produtos[Prodid - 1].nome);
         printf("Quantidades a serem Vendidas: ");
-        scanf("%d", &quantidadeVendida);
+        scanf("%d", &QtdV);
 
-        if (quantidadeVendida <= 0) {
+        if (QtdV <= 0) {
             printf("Erro: A quantidade de unidades vendidas deve ser maior que zero.\n");
             continue;
         }
 
-        if (*numTransacoes >= Max_Fluxos) {
+        if (*NumT >= Max_Fluxos) {
             printf("Limite de transações alcançado!\n");
             return;
         }
 
-        int indiceProduto = produtoID - 1;
+        int IndiceP = Prodid - 1;
 
-        if (produtos[indiceProduto].qtd < quantidadeVendida) {
+        if (produtos[IndiceP].qtd < QtdV) {
             printf("Erro: Quantidade insuficiente no estoque!\n");
             continue;
         }
 
-        float valorProduto = produtos[indiceProduto].valor;
-        float valorTotal = valorProduto * quantidadeVendida;
+        float valorProduto = produtos[IndiceP].valor;
+        float valorTotal = valorProduto * QtdV;
         subtotal += valorTotal;
 
-        Fluxo novaTransacao;
-        snprintf(novaTransacao.movimentacao, sizeof(novaTransacao.movimentacao), "%s (ID: %d, Unidades Vendidas: %d)", produtos[indiceProduto].nome, produtoID, quantidadeVendida);
-        novaTransacao.valor = valorTotal;
-        strcpy(novaTransacao.tipo, "Recebimento");
+        Fluxo NewT;
+        snprintf(NewT.mov, sizeof(NewT.mov), "%s (ID: %d, Unidades Vendidas: %d)", produtos[IndiceP].nome, Prodid, QtdV);
+        NewT.valor = valorTotal;
+        strcpy(NewT.tipo, "Recebimento");
 
-        transacoes[*numTransacoes] = novaTransacao;
-        (*numTransacoes)++;
-        produtos[indiceProduto].qtd -= quantidadeVendida;
+        transacoes[*NumT] = NewT;
+        (*NumT)++;
+        produtos[IndiceP].qtd -= QtdV;
 
-        printf("Produto adicionado com Sucesso! Quantidade restante de %s: %d\n", produtos[indiceProduto].nome, produtos[indiceProduto].qtd);
+        printf("Produto adicionado com Sucesso! Quantidade restante de %s: %d\n", produtos[IndiceP].nome, produtos[IndiceP].qtd);
         printf("Subtotal da compra até agora: %.2f\n", subtotal);
         printf("Deseja adicionar Outro Produto? (S/N): ");
         scanf(" %c", &confirmacao);
@@ -69,7 +70,7 @@ void Venda(Fluxo *transacoes, int *numTransacoes, Cadastro *produtos, int totalP
         }
     }
 
-    if (transacoesInicial != *numTransacoes) {
+    if (InicialT != *NumT) {
         int dataValida = 0;
         while (!dataValida) {
             printf("Data Da Venda (DD/MM/YYYY): ");
@@ -85,9 +86,9 @@ void Venda(Fluxo *transacoes, int *numTransacoes, Cadastro *produtos, int totalP
         }
 
         snprintf(data, sizeof(data), "%s/%s/%s", dia, mes, ano);
-        FormaP(formaPagamento);
+        FormaPV(FormaPag);
 
-        if (strcmp(formaPagamento, "Dinheiro") == 0) {
+        if (strcmp(FormaPag, "Dinheiro") == 0) {
             float valorPago, troco;
             printf("Valor Pago pelo Cliente: ");
             scanf("%f", &valorPago);
@@ -96,15 +97,15 @@ void Venda(Fluxo *transacoes, int *numTransacoes, Cadastro *produtos, int totalP
             printf("Venda Realizada com Sucesso!\n");
         }
 
-        for (int i = transacoesInicial; i < *numTransacoes; i++) {
+        for (int i = InicialT; i < *NumT; i++) {
             strncpy(transacoes[i].data, data, sizeof(transacoes[i].data) - 1);
             transacoes[i].data[sizeof(transacoes[i].data) - 1] = '\0';
-            strncpy(transacoes[i].pagamento, formaPagamento, sizeof(transacoes[i].pagamento) - 1);
-            transacoes[i].pagamento[sizeof(transacoes[i].pagamento) - 1] = '\0';
+            strncpy(transacoes[i].Pag, FormaPag, sizeof(transacoes[i].Pag) - 1);
+            transacoes[i].Pag[sizeof(transacoes[i].Pag) - 1] = '\0';
         }
 
-        saveFluxo(transacoes, *numTransacoes);
-        saveCad(produtos, totalProdutos);
+        saveFluxo(transacoes, *NumT);
+        saveCad(produtos, TotalProdts);
     } else {
         printf("Nenhum produto foi vendido.\n");
     }

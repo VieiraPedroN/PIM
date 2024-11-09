@@ -1,9 +1,7 @@
-/*
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include "sistema.h"
-
 
 int main() {
     char login1[101];
@@ -12,10 +10,12 @@ int main() {
     Colaborador colab;
     FILE *file;
 
-    // Loop até o login ser efetuado com sucesso
+    // Caminho absoluto para o arquivo de colaboradores
+    const char *colabPath = "C:/Users/bhper/OneDrive/Documentos/PIM/dados/colab.dat";
 
-    while (1){
-    login_efetuado = 0;
+    // Loop até o login ser efetuado com sucesso
+    while (1) {
+        login_efetuado = 0;
         while (!login_efetuado) {
             printf("\nDigite o Login: ");
             scanf("%s", login1);
@@ -24,9 +24,9 @@ int main() {
             scanf("%s", senha1);
 
             // Abre o arquivo colab.dat para leitura binária
-            file = fopen("dados/colab.dat", "rb");
+            file = fopen(colabPath, "rb");
             if (file == NULL) {
-                printf("Erro ao abrir o arquivo de colaboradores.\n");
+                perror("Erro ao abrir o arquivo de colaboradores");
                 return 1;
             }
 
@@ -35,36 +35,35 @@ int main() {
             while (fread(&colab, sizeof(Colaborador), 1, file) == 1) {
                 // Verifica se o login e a senha coincidem
                 if (strcmp(colab.colabUser, login1) == 0 && strcmp(colab.colabPass, senha1) == 0) {
-                    if (colab.tipo == 1){
+                    if (colab.tipo == 1) {
                         printf("\nLogado como Caixa\n");
                         printf("\nSeja bem vindo %s", colab.colabName);
                         login_efetuado = 1;
                         encontrou = 1;
                         menuCaixa();
                         break;
-                    } else if (colab.tipo == 2){
+                    } else if (colab.tipo == 2) {
                         printf("\nLogado como Almoxarife\n");
                         printf("\nSeja bem vindo %s", colab.colabName);
                         login_efetuado = 1;
                         encontrou = 1;
                         menuAlmox();
                         break;
-                    } else if (colab.tipo == 3){
+                    } else if (colab.tipo == 3) {
                         printf("\nLogado como Financeiro\n");
                         printf("\nSeja bem vindo %s", colab.colabName);
                         login_efetuado = 1;
                         encontrou = 1;
                         menuFinanc();
                         break;
-                    } else if (colab.tipo == 4){
+                    } else if (colab.tipo == 4) {
                         printf("\nLogado como Gerente\n");
                         printf("\nSeja bem vindo %s", colab.colabName);
                         login_efetuado = 1;
                         encontrou = 1;
                         menuAdm();
                         break;
-                    } 
-                    
+                    }
                 }
             }
 
@@ -76,9 +75,7 @@ int main() {
                 printf("\nDADOS INVALIDOS!\n");
             }
         }
-
     }
-    
 
     return 0;
 }

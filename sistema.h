@@ -8,12 +8,13 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+
 typedef struct {
-    char movimentacao[50];
+    char mov[50];
     float valor;
     char tipo[12];
     char data[11];
-    char pagamento[20];
+    char Pag[20];
 } Fluxo;
 
 // Estrutura de Data
@@ -100,7 +101,7 @@ int check = 0, checkColab = 1;
 #include "fluxo_caixa/Fluxo_Venda.c"
 #include "fluxo_caixa/Fluxo_menu.c"
 
-#//include "menus/menuAdm.c"
+#include "menus/menuAdm.c"
 #include "menus/menuAlmox.c"
 #include "menus/menuCaixa.c"
 #include "menus/menuFinanc.c"

@@ -27,13 +27,15 @@ int validarData(char *dia, char *mes, char *ano) {
 
 // Função para salvar a compra
 void saveCompra(Compra compra) {
-    FILE *arquivo = fopen("dados/compra.dat", "ab");
+    // Caminho absoluto para a pasta 'dados'
+    const char *path = "C:/Users/bhper/OneDrive/Documentos/PIM/dados/compra.dat";
+    FILE *arquivo = fopen(path, "ab");
     if (arquivo != NULL) {
         fwrite(&compra, sizeof(Compra), 1, arquivo);
         fclose(arquivo);
         printf("Compra salva com sucesso!\n");
     } else {
-        printf("Erro ao salvar a compra.\n");
+        perror("Erro ao salvar a compra");
     }
 }
 

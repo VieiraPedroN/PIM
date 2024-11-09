@@ -4,25 +4,25 @@
 #include <locale.h>
 #include "../sistema.h"
 
-void Pagamentos(Fluxo *transacoes, int *numTransacoes) {
-    if (*numTransacoes >= Max_Fluxos) {
+void Pags(Fluxo *transacoes, int *NumT) {
+    if (*NumT >= Max_Fluxos) {
         printf("Limite de transações alcançado!\n");
         return;
     }
 
-    Fluxo novaTransacao;
+    Fluxo NewT;
     printf("Informe o que deseja pagar: ");
     getchar();
-    fgets(novaTransacao.movimentacao, sizeof(novaTransacao.movimentacao), stdin);
-    novaTransacao.movimentacao[strcspn(novaTransacao.movimentacao, "\n")] = '\0';
+    fgets(NewT.mov, sizeof(NewT.mov), stdin);
+    NewT.mov[strcspn(NewT.mov, "\n")] = '\0';
 
-    printf("Informe o valor desse pagamento: ");
-    scanf("%f", &novaTransacao.valor);
+    printf("Informe o valor desse Pagamento: ");
+    scanf("%f", &NewT.valor);
     getchar();
-    strcpy(novaTransacao.tipo, "Gasto");
+    strcpy(NewT.tipo, "Gasto");
 
-    printf("Forma de Pagamento:\n");
-    FormaPP(novaTransacao.pagamento);
+    printf("Forma de Pagamneto:\n");
+    FormaPP(NewT.Pag);
 
     int dataValida = 0;
     char dia[3], mes[3], ano[5];
@@ -39,10 +39,10 @@ void Pagamentos(Fluxo *transacoes, int *numTransacoes) {
         }
     }
 
-    snprintf(novaTransacao.data, sizeof(novaTransacao.data), "%s/%s/%s", dia, mes, ano);
+    snprintf(NewT.data, sizeof(NewT.data), "%s/%s/%s", dia, mes, ano);
 
-    transacoes[*numTransacoes] = novaTransacao;
-    (*numTransacoes)++;
+    transacoes[*NumT] = NewT;
+    (*NumT)++;
 
-    printf("Pagamento registrado: %s\n", novaTransacao.data);
+    printf("Pagamento registrado com Sucesso\n");
 }

@@ -27,7 +27,7 @@ void MenuF() {
     printf("\n");
     printf("======== Menu do Financeiro =============\n");
     printf("| 1. Iniciar Venda                      |\n");
-    printf("| 2. Realizar Pagamentos                |\n");
+    printf("| 2. Realizar Pagametos                 |\n");
     printf("| 3. Ver Histórico de Transações        |\n");
     printf("| 4. Editar ou Deletar Transações       |\n");
     printf("| 5. Relatório Diário                   |\n");
@@ -36,37 +36,43 @@ void MenuF() {
     printf("=========================================\n");
 }
 
-void saveFluxo(Fluxo *transacoes, int totalTransacoes) {
-    FILE *arquivo = fopen("fluxo.dat", "wb");
-    if (arquivo == NULL) {
-        printf("Erro ao abrir o arquivo para salvar as transações.\n");
+void saveFluxo(Fluxo *transacoes, int TotalT) {
+    // Caminho absoluto para a pasta 'dados'
+    const char *path = "C:/Users/bhper/OneDrive/Documentos/PIM/dados/fluxo.dat";
+    FILE *arquivo = fopen(path, "wb");
+    if (!arquivo) {
+        perror("Erro ao abrir o arquivo para salvar as transações");
         return;
     }
-
-    fwrite(transacoes, sizeof(Fluxo), totalTransacoes, arquivo);
+    fwrite(transacoes, sizeof(Fluxo), TotalT, arquivo);
     fclose(arquivo);
+    printf("Transações salvas com sucesso no banco de dados!\n");
 }
 
+
 int loadFluxo(Fluxo *transacoes) {
-    FILE *arquivo = fopen("fluxo.dat", "rb");
-    if (arquivo == NULL) {
-        printf("Nenhum arquivo de transações encontrado. Iniciando novo registro.\n");
+    // Caminho absoluto para a pasta 'dados'
+    const char *path = "C:/Users/bhper/OneDrive/Documentos/PIM/dados/fluxo.dat";
+    FILE *arquivo = fopen(path, "rb");
+    if (!arquivo) {
+        perror("Erro ao abrir o arquivo de transações");
         return 0;
     }
-    int totalTransacoes = fread(transacoes, sizeof(Fluxo), Max_Fluxos, arquivo);
+    int TotalT = fread(transacoes, sizeof(Fluxo), Max_Fluxos, arquivo);
     fclose(arquivo);
-    return totalTransacoes;
+    printf("Transações carregadas com sucesso do banco de dados!\n");
+    return TotalT;
 }
 
 void fluxo() {
     setlocale(LC_ALL, "pt_BR.UTF-8");
     system("chcp 65001 > nul");
     Fluxo transacoes[Max_Fluxos];
-    int totalTransacoes = loadFluxo(transacoes);
+    int TotalT = loadFluxo(transacoes);
     Cadastro produtos[MAX_PRODUTOS];
-    int totalProdutos = loadCad(produtos);
+    int TotalProdts = loadCad(produtos);
     int acao;
-    char dataDesejada[11];
+    char DataEsc[11];
 
     do {
         MenuF();
@@ -74,36 +80,36 @@ void fluxo() {
         scanf("%d", &acao);
         switch (acao) {
             case 1:
-                Venda(transacoes, &totalTransacoes, produtos, totalProdutos);
-                saveFluxo(transacoes, totalTransacoes);
+                Venda(transacoes, &TotalT, produtos, TotalProdts);
+                saveFluxo(transacoes, TotalT);
                 printf("Venda Realizada com Sucesso!\n");
                 break;
             case 2:
-                Pagamentos(transacoes, &totalTransacoes);
-                saveFluxo(transacoes, totalTransacoes);
-                printf("Pagamento Salvo com Sucesso!\n");
+                Pags(transacoes, &TotalT);
+                saveFluxo(transacoes, TotalT);
+                printf("Pagamentos Salvo com Sucesso!\n");
                 break;
             case 3:
-                ImprimirF(transacoes, totalTransacoes);
+                ImprimirF(transacoes, TotalT);
                 break;
             case 4:
-                MenuED(transacoes, totalTransacoes, produtos, totalProdutos);
+                MenuED(transacoes, TotalT, produtos, TotalProdts);
                 break;
             case 5:
                 printf("Digite o Dia do Relatório (DD/MM/YYYY): ");
-                scanf("%s", dataDesejada);
-                IFC(transacoes, totalTransacoes, dataDesejada);
+                scanf("%s", DataEsc);
+                IFC(transacoes, TotalT, DataEsc);
                 break;
             case 6: {
-                char mesAno[8];
+                char MesAno[8];
                 printf("Digite o Mês e o Ano do Relatório (MM/YYYY): ");
-                scanf("%s", mesAno);
-                GerarR_M(transacoes, totalTransacoes, mesAno);
+                scanf("%s", MesAno);
+                GerarR_M(transacoes, TotalT, MesAno);
                 break;
             }
             case 7:
                 printf("Retornando...\n");
-                saveFluxo(transacoes, totalTransacoes);
+                saveFluxo(transacoes, TotalT);
                 break;
             default:
                 printf("Opção inválida!\n");

@@ -6,10 +6,12 @@
 #define MAX_FUNCIONARIOS 100 // Limite de colaboradores
 
 void saveCadColab(Colaborador func[], int totalFunc) {
-    FILE *arquivo = fopen("dados/colab.dat", "wb");
+    // Caminho absoluto para a pasta 'dados'
+    const char *path = "C:/Users/bhper/OneDrive/Documentos/PIM/dados/colab.dat";
+    FILE *arquivo = fopen(path, "wb");
 
     if (arquivo == NULL) {
-        printf("Erro ao abrir o arquivo para salvar os colaboradores.\n");
+        perror("Erro ao abrir o arquivo para salvar os colaboradores");
         return;
     }
 
@@ -18,10 +20,13 @@ void saveCadColab(Colaborador func[], int totalFunc) {
     printf("Colaboradores salvos com sucesso no banco de dados!\n");
 }
 
+
 int loadCadColab(Colaborador func[]) {
-    FILE *arquivo = fopen("dados/colab.dat", "rb");
+    // Caminho absoluto para a pasta 'dados'
+    const char *path = "C:/Users/bhper/OneDrive/Documentos/PIM/dados/colab.dat";
+    FILE *arquivo = fopen(path, "rb");
     if (arquivo == NULL) {
-        printf("Nenhum arquivo de colaboradores encontrado. Iniciando novo cadastro.\n");
+        perror("Erro ao abrir o arquivo para carregar os colaboradores");
         return 0;
     }
 
@@ -37,6 +42,7 @@ int loadCadColab(Colaborador func[]) {
     printf("Banco de dados carregado com sucesso!\n");
     return totalFunc;
 }
+
 
 int compCadColab(Colaborador func[], int totalFunc, char colabName[]) {
     for (int i = 0; i < totalFunc; i++) {

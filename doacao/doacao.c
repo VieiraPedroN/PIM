@@ -4,16 +4,18 @@
 #include "../sistema.h"
 
 void saveDoa(Doacao doacao) {
-    FILE *file = fopen("dados/doacao.dat", "ab"); // Abre o arquivo para escrita em modo binário
-    
+    // Caminho absoluto para a pasta 'dados'
+    const char *path = "C:/Users/bhper/OneDrive/Documentos/PIM/dados/doacao.dat";
+    FILE *file = fopen(path, "wb");
     if (file == NULL) {
-        printf("Erro ao abrir o arquivo de doações!\n");
+        perror("Erro ao abrir o arquivo para salvar as doações");
         return;
     }
-
-    fwrite(&doacao, sizeof(Doacao), 1, file); // Grava a doação
+    fwrite(&doacao, sizeof(Doacao), 1, file);
     fclose(file);
+    printf("Doações salvas com sucesso no banco de dados!\n");
 }
+
 
 void doaProd(Cadastro *prod, int totalProd) {
     printf("* Verificar Estoque para seleção de doação de produtos  *\n");

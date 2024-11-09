@@ -4,15 +4,18 @@
 #include "../sistema.h"
 
 void saveDesc(Descarte descarte) {
-    FILE *file = fopen("dados/desc.dat", "ab"); // Abre o arquivo para escrita em modo binário
+    // Caminho absoluto para a pasta 'dados'
+    const char *path = "C:/Users/bhper/OneDrive/Documentos/PIM/dados/desc.dat";
+    FILE *file = fopen(path, "wb");
     if (file == NULL) {
-        printf("Erro ao abrir o arquivo de descartes!\n");
+        perror("Erro ao abrir o arquivo para salvar os descartes");
         return;
     }
-
-    fwrite(&descarte, sizeof(Descarte), 1, file); // Grava o descarte
+    fwrite(&descarte, sizeof(Descarte), 1, file);
     fclose(file);
+    printf("Descartes salvos com sucesso no banco de dados!\n");
 }
+
 
 void descProd(Cadastro *prod, int totalProd) {
     printf("* Verificar Estoque para seleção de descarte de produtos  *\n");

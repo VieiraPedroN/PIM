@@ -2,7 +2,6 @@
 #include <stdlib.h>
 #include <string.h>
 #include <locale.h>
-#include "../sistema.h"
 
 int validarD(char *dia, char *mes, char *ano) {
     int d = atoi(dia);
@@ -43,6 +42,7 @@ void saveFluxo(Fluxo *transacoes, int totalTransacoes) {
         printf("Erro ao abrir o arquivo para salvar as transações.\n");
         return;
     }
+
     fwrite(transacoes, sizeof(Fluxo), totalTransacoes, arquivo);
     fclose(arquivo);
 }

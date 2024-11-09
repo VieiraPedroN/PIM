@@ -19,7 +19,7 @@ void menu_print() {
     printf("\n");
 }
 
-void menuAdm() {
+void main() {
 
     int opcao;
     

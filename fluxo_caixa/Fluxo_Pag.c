@@ -2,7 +2,6 @@
 #include <stdlib.h>
 #include <string.h>
 #include <locale.h>
-#include "Fluxo.h"
 #include "../sistema.h"
 
 void Pagamentos(Fluxo *transacoes, int *numTransacoes) {

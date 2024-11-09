@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <locale.h>
-#include "Fluxo.h"
+#include "../sistema.h"
 
 void ImprimirF(Fluxo *transacoes, int numTransacoes) {
     printf("===================================================================================================================\n");

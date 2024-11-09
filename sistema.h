@@ -100,7 +100,7 @@ int check = 0, checkColab = 1;
 #include "fluxo_caixa/Fluxo_Venda.c"
 #include "fluxo_caixa/Fluxo_menu.c"
 
-#include "menus/menuAdm.c"
+#//include "menus/menuAdm.c"
 #include "menus/menuAlmox.c"
 #include "menus/menuCaixa.c"
 #include "menus/menuFinanc.c"

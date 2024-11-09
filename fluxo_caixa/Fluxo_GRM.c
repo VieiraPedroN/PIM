@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <locale.h>
-#include "Fluxo.h"
+#include "../sistema.h"
 
 void GerarR_M(Fluxo *transacoes, int numTransacoes, char *mesAno) {
     float saldo = 0.0, totalRecebido = 0.0, totalGasto = 0.0;

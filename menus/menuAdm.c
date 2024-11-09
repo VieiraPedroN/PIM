@@ -10,17 +10,20 @@ void menu_print() {
     printf("* 1- Cadastro de Produtos      *\n");
     printf("* 2- Compra de Produtos        *\n");
     printf("* 3- Cadastro de Colaboradores *\n");
-    printf("* 4- Fluxo de Caixa            *\n");
-    printf("* 5- Estoque                   *\n");
-    printf("* 6- Doacao de Produtos        *\n");
-    printf("* 7- Descarte de Produtos      *\n");
+    printf("* 4- Caixa                     *\n");
+    printf("* 5- Financeiro                *\n");
+    printf("* 6- Estoque                   *\n");
+    printf("* 7- Doacao de Produtos        *\n");
+    printf("* 8- Descarte de Produtos      *\n");
     printf("* 0- Sair da aplicacao         *\n");
     printf("********************************\n");
     printf("\n");
 }
 
 void menuAdm() {
-
+    Fluxo transacoes[Max_Fluxos];
+    int TotalT = loadFluxo(transacoes); Cadastro produtos[MAX_PRODUTOS];
+    int TotalProdts = loadCad(produtos);
     int opcao;
     
     do {
@@ -43,18 +46,21 @@ void menuAdm() {
                 colab_menu();
                 break;
             case 4:
-                printf("\nFluxo de Caixa\n");
-                fluxo();
+                printf("\nCaixa\n");
+                Caixa(transacoes, &TotalT, produtos, TotalProdts);
                 break;
             case 5:
+                printf("\nMenu Financeiro");
+                fluxo();
+            case 6:
                 printf("\nEstoque\n");
                 menuArmz();
                 break;
-            case 6:
+            case 7:
                 printf("\nDoacao\n");
                 menu_doa();
                 break;
-            case 7:
+            case 8:
                 printf("\nDescarte\n");
                 menu_desc();
                 break;

@@ -1,11 +1,14 @@
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <locale.h>
 #include "../sistema.h"
 
-void Venda(Fluxo *transacoes, int *NumT, Cadastro *produtos, int TotalProdts) {
+int validarD(char *dia, char *mes, char *ano);
+void FormaPV(char *Pag);
+void saveFluxo(Fluxo *transacoes, int TotalT);
+
+int Caixa(Fluxo *transacoes, int *NumT, Cadastro *produtos, int TotalProdts) {
     int Prodid, QtdV;
     char data[11], FormaPag[20], dia[3], mes[3], ano[5];
     char confirmacao;
@@ -17,7 +20,7 @@ void Venda(Fluxo *transacoes, int *NumT, Cadastro *produtos, int TotalProdts) {
         scanf("%d", &Prodid);
 
         if (Prodid == 0) {
-            printf("Saindo da venda...\n");
+            printf("Saindo do Caixa...\n");
             break;
         }
 
@@ -37,7 +40,7 @@ void Venda(Fluxo *transacoes, int *NumT, Cadastro *produtos, int TotalProdts) {
 
         if (*NumT >= Max_Fluxos) {
             printf("Limite de transações alcançado!\n");
-            return;
+            return 1; // Retorna 1 para indicar que houve um problema
         }
 
         int IndiceP = Prodid - 1;
@@ -109,4 +112,6 @@ void Venda(Fluxo *transacoes, int *NumT, Cadastro *produtos, int TotalProdts) {
     } else {
         printf("Nenhum produto foi vendido.\n");
     }
+
+    return 0;
 }

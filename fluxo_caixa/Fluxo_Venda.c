@@ -1,4 +1,4 @@
-
+/*
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -109,4 +109,4 @@ void Venda(Fluxo *transacoes, int *NumT, Cadastro *produtos, int TotalProdts) {
     } else {
         printf("Nenhum produto foi vendido.\n");
     }
-}
+}*/

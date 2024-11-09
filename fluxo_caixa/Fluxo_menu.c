@@ -25,14 +25,13 @@ int validarD(char *dia, char *mes, char *ano) {
 
 void MenuF() {
     printf("\n");
-    printf("======== Menu do Financeiro =============\n");
-    printf("| 1. Iniciar Venda                      |\n");
-    printf("| 2. Realizar Pagametos                 |\n");
-    printf("| 3. Ver Histórico de Transações        |\n");
-    printf("| 4. Editar ou Deletar Transações       |\n");
-    printf("| 5. Relatório Diário                   |\n");
-    printf("| 6. Relatório Mensal                   |\n");
-    printf("| 7. Voltar ao Menu Principal           |\n");
+    printf("==========  Menu do Financeiro  =========\n");
+    printf("| 1- Realizar Pagametos                 |\n");
+    printf("| 2- Ver Histórico de Transações        |\n");
+    printf("| 3- Editar ou Deletar Transações       |\n");
+    printf("| 4- Relatório Diário                   |\n");
+    printf("| 5- Relatório Mensal                   |\n");
+    printf("| 6- Voltar ao Menu Principal           |\n");
     printf("=========================================\n");
 }
 
@@ -80,39 +79,34 @@ void fluxo() {
         scanf("%d", &acao);
         switch (acao) {
             case 1:
-                Venda(transacoes, &TotalT, produtos, TotalProdts);
-                saveFluxo(transacoes, TotalT);
-                printf("Venda Realizada com Sucesso!\n");
-                break;
-            case 2:
                 Pags(transacoes, &TotalT);
                 saveFluxo(transacoes, TotalT);
                 printf("Pagamentos Salvo com Sucesso!\n");
                 break;
-            case 3:
+            case 2:
                 ImprimirF(transacoes, TotalT);
                 break;
-            case 4:
+            case 3:
                 MenuED(transacoes, TotalT, produtos, TotalProdts);
                 break;
-            case 5:
+            case 4:
                 printf("Digite o Dia do Relatório (DD/MM/YYYY): ");
                 scanf("%s", DataEsc);
                 IFC(transacoes, TotalT, DataEsc);
                 break;
-            case 6: {
+            case 5: {
                 char MesAno[8];
                 printf("Digite o Mês e o Ano do Relatório (MM/YYYY): ");
                 scanf("%s", MesAno);
                 GerarR_M(transacoes, TotalT, MesAno);
                 break;
             }
-            case 7:
+            case 6:
                 printf("Retornando...\n");
                 saveFluxo(transacoes, TotalT);
                 break;
             default:
                 printf("Opção inválida!\n");
         }
-    } while (acao != 7);
+    } while (acao != 6);
 }

@@ -3,6 +3,8 @@
     "files.associations": {
         "stdlib.h": "c",
         "stdio.h": "c",
-        "fluxo_grm.c": "cpp"
+        "fluxo_grm.c": "cpp",
+        "compra.c": "cpp",
+        "fluxo_pag.c": "cpp"
     }
 }

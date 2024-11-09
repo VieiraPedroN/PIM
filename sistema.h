@@ -2,7 +2,7 @@
 #define SISTEMA_H
 
 #define MAX_PRODUTOS 100 // Limite de produtos
-
+#define MAX_COMPRA 100
 #define Max_Fluxos 100
 
 #include <stdio.h>
@@ -87,9 +87,9 @@ int check = 0, checkColab = 1;
 #include "colaborador/edit_colab.c"
 #include "colaborador/colab.c"
 
-
+#include "compra/cad_compra.c"
+#include "compra/edit_compra.c"
 #include "compra/compra.c"
-//#include "compra/edit_compra.c"
 
 #include "fluxo_caixa/Fluxo_FormaP.c"
 #include "fluxo_caixa/Fluxo_GRM.c"

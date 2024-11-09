@@ -9,6 +9,8 @@ void FormaPV(char *Pag);
 void saveFluxo(Fluxo *transacoes, int TotalT);
 
 int Caixa(Fluxo *transacoes, int *NumT, Cadastro *produtos, int TotalProdts) {
+    setlocale(LC_ALL, "pt_BR.UTF-8");
+    system("chcp 65001 > nul");
     int Prodid, QtdV;
     char data[11], FormaPag[20], dia[3], mes[3], ano[5];
     char confirmacao;

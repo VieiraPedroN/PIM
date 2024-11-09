@@ -94,13 +94,11 @@ int check = 0, checkColab = 1;
 
 #include "caixa/caixa.c"
 
-#include "fluxo_caixa/Fluxo_FormaP.c"
-#include "fluxo_caixa/Fluxo_GRM.c"
-#include "fluxo_caixa/Fluxo_IFC.c"
-#include "fluxo_caixa/Fluxo_Impr.c"
-#include "fluxo_caixa/Fluxo_Pag.c"
-#include "fluxo_caixa/Fluxo_M_E_D.c"
-#include "fluxo_caixa/Fluxo_menu.c"
+#include "Financeiro/Financ_FormaP.c"
+#include "Financeiro/financ_relatorios.c"
+#include "Financeiro/Financ_Pag.c"
+#include "Financeiro/Financ_M_E_D.c"
+#include "Financeiro/Financ_menu.c"
 
 #include "menus/menuAdm.c"
 #include "menus/menuAlmox.c"

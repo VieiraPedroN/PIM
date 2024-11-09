@@ -48,7 +48,6 @@ int loadCad(Cadastro prod[]) {
     }
     int totalProd = fread(prod, sizeof(Cadastro), MAX_PRODUTOS, arquivo);
     fclose(arquivo);
-    printf("Produtos carregados com sucesso do banco de dados!\n");
     return totalProd;
 }
 //modifição para localizar a pasta dados

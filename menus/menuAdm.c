@@ -52,6 +52,7 @@ void menuAdm() {
             case 5:
                 printf("\nMenu Financeiro");
                 fluxo();
+                break;
             case 6:
                 printf("\nEstoque\n");
                 menuArmz();

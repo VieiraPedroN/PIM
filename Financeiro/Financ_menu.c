@@ -59,7 +59,6 @@ int loadFluxo(Fluxo *transacoes) {
     }
     int TotalT = fread(transacoes, sizeof(Fluxo), Max_Fluxos, arquivo);
     fclose(arquivo);
-    printf("Transações carregadas com sucesso do banco de dados!\n");
     return TotalT;
 }
 

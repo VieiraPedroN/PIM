@@ -136,14 +136,32 @@ void removeProd(Cadastro *prod, int *totalProd){
         return;
     }
 
-    // Remover o produto deslocando os demais
-    for (int i = index; i < *totalProd - 1; i++)
-    {
-        prod[i] = prod[i + 1];
-    }
+    printf("Nome: %s, Quantidade: %d %s, Valor: %.2f, Validade: %s/%s, Tipo: %s\n",
+            prod[index].nome, prod[index].qtd, tipoUnid(prod[index].unid), prod[index].valor, 
+            prod[index].valid.mes, prod[index].valid.ano, tipoCad(prod[index].tipo));
 
-    (*totalProd)--; // Reduz o número total de produtos
-    printf("Produto removido com sucesso!\n");
+    int opt;
+    printf("Deseja editar esse produto? (1-Sim, 0-Cancelar): ");
+    scanf("%d",&opt);
+
+    do {
+        if (opt == 1) {
+
+        // Remover o produto deslocando os demais
+        for (int i = index; i < *totalProd - 1; i++) {
+            prod[i] = prod[i + 1];
+        }
+
+        (*totalProd)--; // Reduz o número total de produtos
+        printf("Produto removido com sucesso!\n");
+
+        saveCad(prod, *totalProd);
+        break;
+        } else {
+            printf("Opção invalida");
+        }
+        
+    } while (opt !=0);
 }
 
 void visuArmz(){

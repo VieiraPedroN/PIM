@@ -23,7 +23,7 @@ void editCompra(Compra *compra, int totalCompra){
             editCompra->valid.ano, tipoCompra(editCompra->tipo));
     
     int opt;
-    printf("Deseja editar esse produto? (1-Sim, 0-Cancelar): ");
+    printf("Deseja remover esse produto? (1-Sim, 0-Cancelar): ");
     scanf("%d",&opt);
 
     do { 
@@ -54,7 +54,7 @@ void editCompra(Compra *compra, int totalCompra){
                         if (editCompra->unidade != 1 && editCompra->unidade != 2) {
                             printf("Erro: Unidade inválida. Tente novamente.\n");
                         }
-                    } while (editCompra->unidade != 1 && editCompra->unidade != 2 <= 0);  
+                    } while (editCompra->unidade != 1 && editCompra->unidade != 2);  
                     break;
                 case 4:
                     do{
@@ -142,14 +142,34 @@ void removeCompra(Compra *compra, int *totalCompra){
         return;
     }
 
-    // Remover o produto deslocando os demais
-    for (int i = index; i < *totalCompra - 1; i++)
-    {
-        compra[i] = compra[i + 1];
-    }
+    printf("Fornecedor: %s, Produto: %s, Quantidade: %d %s, Valor Total: %.2f, Data de compra: %2s/%2s/%4s, Tipo: %s\n",
+            compra[index].fornecedor, compra[index].produto,
+            compra[index].quantidade, tipoUnidCompra(compra[index].unidade), 
+            compra[index].valorTotal, compra[index].valid.dia, compra[index].valid.mes, 
+            compra[index].valid.ano, tipoCompra(compra[index].tipo));
 
-    (*totalCompra)--; // Reduz o número total de produtos
-    printf("Produto removido com sucesso!\n");
+    int opt;
+    printf("Deseja editar esse produto? (1-Sim, 0-Cancelar): ");
+    scanf("%d",&opt);
+
+    do {
+        if (opt == 1) {
+
+        // Remover o produto deslocando os demais
+        for (int i = index; i < *totalCompra - 1; i++) {
+            compra[i] = compra[i + 1];
+        }
+
+        (*totalCompra)--; // Reduz o número total de produtos
+        printf("Produto removido com sucesso!\n");
+
+        saveCompra(compra, *totalCompra);
+        break;
+        } else {
+            printf("Opção invalida");
+        }
+        
+    } while (opt !=0);
 }
 
 void visuCompra(){

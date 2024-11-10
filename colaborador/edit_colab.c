@@ -90,10 +90,10 @@ void editFunc(Colaborador *func, int totalFunc){
 void rmvFunc(Colaborador *func, int *totalFunc){
     int index;
 
-    if (index == 0){
+    /*if (index == NULL){
         printf("Não contem nenhum colaborador para ser removido.");
         return;
-    }
+    }*/
     
 
     printf("Digite o número do colaborador que deseja remover (1 a %d): ", *totalFunc);
@@ -106,14 +106,33 @@ void rmvFunc(Colaborador *func, int *totalFunc){
         return;
     }
 
-    // Remover o Colaborador deslocando os demais
-    for (int i = index; i < *totalFunc - 1; i++)
-    {
-        func[i] = func[i + 1];
-    }
+    printf("Nome: %s, Login: %s, Senha: %s, Função: %s\n",
+            func[index].colabName, func[index].colabUser, 
+            func[index].colabPass, getFuncaoNome(func[index].tipo));
 
-    (*totalFunc)--; // Reduz o número total de Colaboradors
-    printf("Colaborador removido com sucesso!\n");
+
+    int opt;
+    printf("Deseja editar esse produto? (1-Sim, 0-Cancelar): ");
+    scanf("%d",&opt);
+
+    do {
+        if (opt == 1) {
+
+        // Remover o produto deslocando os demais
+        for (int i = index; i < *totalFunc- 1; i++) {
+            func[i] = func[i + 1];
+        }
+
+        (*totalFunc)--; // Reduz o número total de produtos
+        printf("Produto removido com sucesso!\n");
+
+        saveCadColab(func, *totalFunc);
+        break;
+        } else {
+            printf("Opção invalida");
+        }
+        
+    } while (opt !=0);
 }
  
 void visuColab() {

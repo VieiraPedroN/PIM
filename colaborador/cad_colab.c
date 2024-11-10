@@ -20,21 +20,15 @@ void saveCadColab(Colaborador func[], int totalFunc) {
 
 int loadCadColab(Colaborador func[]) {
     FILE *arquivo = fopen("dados/colab.dat", "rb");
+
     if (arquivo == NULL) {
         printf("Nenhum arquivo de colaboradores encontrado. Iniciando novo cadastro.\n");
         return 0;
     }
 
-    // Tentativa de leitura dos dados do arquivo
     int totalFunc = fread(func, sizeof(Colaborador), MAX_FUNCIONARIOS, arquivo);
-    if (totalFunc == 0 && ferror(arquivo)) {
-        printf("Erro ao ler os colaboradores do arquivo.\n");
-        fclose(arquivo);
-        return 0;
-    }
-
     fclose(arquivo);
-    printf("Banco de dados carregado com sucesso!\n");
+    printf("Abrindo o banco de dados!\n");
     return totalFunc;
 }
 
@@ -59,7 +53,7 @@ const char* getFuncaoNome(int tipo) {
 
 void cadColab(int tipoFunc) {
     Colaborador func[MAX_FUNCIONARIOS];
-    Colaborador newFunc[MAX_FUNCIONARIOS];
+    Colaborador newFuncs[MAX_FUNCIONARIOS];
     int totalFunc = loadCadColab(func);
     int totalNewFunc = 0;
     int conti = 1;
@@ -70,46 +64,81 @@ void cadColab(int tipoFunc) {
             break;
         }
 
+        Colaborador newFunc;
+
         // Coletar dados do colaborador
         do {
             printf("\nNome do colaborador: ");
-            scanf(" %100[^\n]", newFunc[totalNewFunc].colabName);
+            scanf(" %100[^\n]", newFunc.colabName);
         
-            if (strlen(newFunc[totalNewFunc].colabName) == 0) {
+            if (strlen(newFunc.colabName) == 0) {
                 printf("Erro: Nome do colaborador não pode ser vazio!\n");
             }
             
-        } while (strlen(newFunc[totalNewFunc].colabName) == 0);
+        } while (strlen(newFunc.colabName) == 0);
 
         do {
-            printf("\nLogin do colaborador: ");
-            scanf(" %100[^\n]", newFunc[totalNewFunc].colabUser);
+            printf("Login do colaborador: ");
+            scanf(" %100[^\n]", newFunc.colabUser);
 
-            if (strlen(newFunc[totalNewFunc].colabUser) == 0) {
+            if (strlen(newFunc.colabUser) == 0) {
                 printf("Erro: Login não pode estar vazio. Tente novamente.\n");
             }
             
-        } while (strlen(newFunc[totalNewFunc].colabUser) == 0);
+        } while (strlen(newFunc.colabUser) == 0);
 
         do {
-            printf("\nSenha do colaborador: ");
-            scanf(" %100[^\n]", newFunc[totalNewFunc].colabPass);
+            printf("Senha do colaborador: ");
+            scanf(" %100[^\n]", newFunc.colabPass);
 
-            if (strlen(newFunc[totalNewFunc].colabPass) == 0) {
+            if (strlen(newFunc.colabPass) == 0) {
                 printf("Erro: Senha não pode estar vazia. Tente novamente.\n");
             }
             
-        } while (strlen(newFunc[totalNewFunc].colabPass) == 0);
+        } while (strlen(newFunc.colabPass) == 0);
 
-        newFunc[totalNewFunc].tipo = tipoFunc;
+        newFunc.tipo = tipoFunc;
+        
+        newFuncs[totalNewFunc] = newFunc;
         totalNewFunc++;
 
         // Perguntar se o usuário deseja cadastrar mais colaboradores
         int contiCad;
-        printf("Deseja continuar cadastrando colaboradores da mesma funcao? (1-Sim, 0-Não): ");
+        printf("\nDeseja continuar cadastrando colaboradores da mesma funcao? (1-Sim, 0-Não): ");
         scanf("%d", &contiCad);
         
-        if (contiCad == 0) {
+        if (contiCad == 1) {
+            int cadMesmo;
+            printf("Deseja cadastrar o mesmo tipo de produto? (1-Sim, 0-Outro produto): ");
+            scanf("%d", &cadMesmo);
+
+            if (cadMesmo == 0) {
+            if (totalNewFunc > 0) {
+                printf("\nProdutos cadastrados nesta sessão:\n");
+                for (int i = 0; i < totalNewFunc; i++){
+                    printf("Nome: %s, Login: %s, Senha: %s, Função: %s\n",
+                        newFuncs[i].colabName, newFuncs[i].colabUser, 
+                        newFuncs[i].colabPass, getFuncaoNome(newFuncs[i].tipo));
+                }
+
+                int salvar;
+                printf("\nDeseja salvar os dados cadastrados? (1-Sim, 0-Cancelar): ");
+                scanf("%d", &salvar);
+
+                if (salvar == 1) {
+                    for (int i = 0; i < totalNewFunc; i++) {
+                        func[totalFunc + i] = newFuncs[i];
+                    }
+                    saveCadColab(func, totalFunc + totalNewFunc);
+                    printf("Colaboradores salvos!\n");
+                } else {
+                    printf("Operação cancelada. Produtos não foram salvos.\n");
+                }
+            }
+                return;
+            }
+        } else {
+            check = 1;
             break;
         }
 
@@ -120,8 +149,8 @@ void cadColab(int tipoFunc) {
         printf("\nColaboradores cadastrados nesta sessão:\n");
         for (int i = 0; i < totalNewFunc; i++) {
             printf("Nome: %s, Login: %s, Senha: %s, Função: %s\n",
-                   newFunc[i].colabName, newFunc[i].colabUser, 
-                   newFunc[i].colabPass, getFuncaoNome(newFunc[i].tipo));
+                   newFuncs[i].colabName, newFuncs[i].colabUser, 
+                   newFuncs[i].colabPass, getFuncaoNome(newFuncs[i].tipo));
         }
 
         // Confirmar salvamento
@@ -132,7 +161,7 @@ void cadColab(int tipoFunc) {
         if (salvar == 1) {
             // Adiciona os novos colaboradores ao array principal
             for (int i = 0; i < totalNewFunc; i++) {
-                func[totalFunc + i] = newFunc[i];
+                func[totalFunc + i] = newFuncs[i];
             }
             saveCadColab(func, totalFunc + totalNewFunc);
         } else {

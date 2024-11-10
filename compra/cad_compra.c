@@ -52,7 +52,26 @@ int loadCompra(Compra compra[]) {
     return totalCompra;
 }
 
-void cad_compra(){
+const char* tipoUnidCompra(int unid) {
+    switch (unid) {
+        case 1: return "Unid";
+        case 2: return "Kg";
+        default: return "Tipo Desconhecido";
+    }
+}
+
+const char* tipoCompra(int tipo) {
+    switch (tipo) {
+        case 1: return "Frutas";
+        case 2: return "Hortalicas";
+        case 3: return "Bebidas";
+        case 4: return "Cereias";
+        case 5: return "Laticineos";
+        default: return "Tipo Desconhecido";
+    }
+}
+
+void cad_compra(int tipoProd){
     Compra compra[MAX_COMPRA];
     Compra newCompras[MAX_COMPRA];
     int totalCompra = loadCompra(compra);
@@ -66,13 +85,6 @@ void cad_compra(){
         }
 
         Compra newCompra;
-
-        do {
-            printf("1-Frutas, 2-Hortalicas, 3-Bebidas, 4-Cereais, 5-Laticinios\n");
-            printf("Digite o tipo do produto: ");
-            scanf("%d", &newCompra.tipo);
-            getchar();
-        } while (newCompra.tipo < 1 || newCompra.tipo > 5);
 
         do {
             printf("Nome do fornecedor: ");
@@ -93,12 +105,20 @@ void cad_compra(){
         } while (strlen(newCompra.produto) == 0);
 
         do {
-            printf("Quantidade: ");
+            printf("Escolha a unidade (1 - Unidade, 2 - Kg): ");
+            scanf("%d", &newCompra.unidade); // Salve a unidade diretamente
+
+            if (newCompra.unidade != 1 && newCompra.unidade != 2) {
+                printf("Erro: Unidade inválida. Tente novamente.\n");
+            }
+
+            printf("Quantidade %s: ", tipoUnidCompra(newCompra.unidade));
             scanf("%d", &newCompra.quantidade);
+
             if (newCompra.quantidade <= 0) {
                 printf("Erro: Quantidade deve ser maior que zero. Tente novamente.\n");
             }
-        } while (newCompra.quantidade <= 0);    
+        } while (newCompra.quantidade <= 0 && newCompra.unidade != 1 && newCompra.unidade != 2 <= 0);    
         
 
         do {
@@ -124,6 +144,8 @@ void cad_compra(){
             
         } while (!dataValida);
 
+        newCompra.tipo = tipoProd;
+
         newCompras[totalNewCompra] = newCompra;
         totalNewCompra++;
         
@@ -140,10 +162,11 @@ void cad_compra(){
                 if (totalNewCompra > 0){
                     printf("\nCompras cadastradas nesta sessão:\n");
                     for (int i = 0; i < totalNewCompra; i++){
-                        printf("%d. Fornecedor: %s, Produto: %s, Quantidade: %d, Valor Total: %.2f, Data de compra: %2s/%2s/%4s.",
+                        printf("%d. Fornecedor: %s, Produto: %s, Quantidade: %d %s, Valor Total: %.2f, Data de compra: %2s/%2s/%4s, Tipo: %s\n",
                                 i + 1, newCompras[i].fornecedor, newCompras[i].produto,
-                                newCompras[i].quantidade, newCompras[i].valorTotal, 
-                                newCompras[i].valid.dia, newCompras[i].valid.mes, newCompras[i].valid.ano);
+                                newCompras[i].quantidade, tipoUnidCompra(newCompras[i].unidade), 
+                                newCompras[i].valorTotal, newCompras[i].valid.dia, newCompras[i].valid.mes, 
+                                newCompras[i].valid.ano, tipoCompra(newCompras[i].tipo));
                     }
                     int salvar;
                     printf("\nDeseja salvar os produtos antes de mudar de tipo? (1-Sim, 0-Não): ");
@@ -172,10 +195,11 @@ void cad_compra(){
     if (totalNewCompra > 0){
         printf("\nCompras cadastradas nessa sessão!:\n");
         for (int i = 0; i < totalNewCompra; i++) {
-            printf("%d. Fornecedor: %s, Produto: %s, Quantidade: %d, Valor Total: %.2f, Data de compra: %2s/%2s/%4s.",
+            printf("%d. Fornecedor: %s, Produto: %s, Quantidade: %d %s, Valor Total: %.2f, Data de compra: %2s/%2s/%4s, Tipo: %s\n",
                                 i + 1, newCompras[i].fornecedor, newCompras[i].produto,
-                                newCompras[i].quantidade, newCompras[i].valorTotal, 
-                                newCompras[i].valid.dia, newCompras[i].valid.mes, newCompras[i].valid.ano);
+                                newCompras[i].quantidade, tipoUnidCompra(newCompras[i].unidade), 
+                                newCompras[i].valorTotal, newCompras[i].valid.dia, newCompras[i].valid.mes, 
+                                newCompras[i].valid.ano, tipoCompra(newCompras[i].tipo));
         }
 
         int salvar;

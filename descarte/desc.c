@@ -19,7 +19,7 @@ void descProd(Cadastro *prod, int totalProd) {
 
     int index;
 
-    printf("Produtos disponíveis para descarte:\n");
+    printf("Produtos disponíveis para descarte:\n\n");
 
     // Exibir produtos
     for (int i = 0; i < totalProd; i++) {
@@ -29,7 +29,7 @@ void descProd(Cadastro *prod, int totalProd) {
                i + 1, prod[i].nome, prod[i].qtd, unidadeTipo, prod[i].valid.mes, prod[i].valid.ano);
     }
 
-    printf("Digite o número do produto que deseja descartar (1 a %d): ", totalProd);
+    printf("\nDigite o número do produto que deseja descartar (1 a %d): ", totalProd);
     scanf("%d", &index);
     index--; // Ajusta para índice de array
 
@@ -79,7 +79,7 @@ int visuDesc(Cadastro *prod, int totalProd) {
         return 0;
     }
 
-    printf("Descartes registrados:\n");
+    printf("Descartes registrados:\n\n");
     while (fread(&descarte, sizeof(Descarte), 1, file)) {
 
         char unidadeTipo[10] = "";

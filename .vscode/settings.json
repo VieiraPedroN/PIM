@@ -4,6 +4,7 @@
         "stdlib.h": "c",
         "stdio.h": "c",
         "fluxo_grm.c": "cpp",
-        "string.h": "c"
+        "string.h": "c",
+        "cad_compra.c": "cpp"
     }
 }

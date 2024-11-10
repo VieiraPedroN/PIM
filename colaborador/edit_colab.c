@@ -16,41 +16,75 @@ void editFunc(Colaborador *func, int totalFunc){
     }
 
     Colaborador *editFunc = &func[index]; // Usa ponteiro para acessar o Colaborador
-    int opcao;
 
-    do
-    {
-        printf("\nO que deseja editar?\n");
-        printf("1. Nome\n2. Login\n3. Senha\n4. Função\n0. Sair\n");
-        printf("Escolha uma opção: ");
-        scanf("%d", &opcao);
+    printf("Nome: %s, Login: %s, Senha: %s, Função: %s\n",
+            editFunc->colabName, editFunc->colabUser, 
+            editFunc->colabPass, getFuncaoNome(editFunc->tipo));
 
-        switch (opcao)
-        {
-        case 1:
-            printf("Novo Nome: ");
-            scanf(" %100[^\n]", editFunc->colabName);
-            break;
-        case 2:
-            printf("Novo Login: ");
-            scanf(" %100[^\n]", editFunc->colabUser);
-            break;
-        case 3:
-            printf("Nova Senha: ");
-            scanf(" %100[^\n]", editFunc->colabPass);
-            break;
-        case 4:
-            printf("Nova Função (1-Caixa, 2-Almoxarife, 3-Financeiro, 4-Gerente): ");
-            scanf("%d", &editFunc->tipo);
-            break;
-        case 0:
-            printf("Saindo da edição.\n");
-            break;
-        default:
-            printf("Opção inválida!\n");
-            break;
-        }
-    } while (opcao != 0);
+    int opt;
+    printf("Deseja editar esse colobarador? (1-Sim, 0-Cancelar): ");
+    scanf("%d",&opt);
+
+    do { 
+        if (opt == 1) {
+            int opcao;
+
+            do {
+                printf("\nO que deseja editar?\n");
+                printf("1. Nome\n2. Login\n3. Senha\n4. Função\n0. Sair\n");
+                printf("Escolha uma opção: ");
+                scanf("%d", &opcao);
+
+                switch (opcao)
+                {
+                case 1:
+                    printf("Novo Nome: ");
+                    scanf(" %100[^\n]", editFunc->colabName);
+                    break;
+                case 2:
+                    printf("Novo Login: ");
+                    scanf(" %100[^\n]", editFunc->colabUser);
+                    break;
+                case 3:
+                    printf("Nova Senha: ");
+                    scanf(" %100[^\n]", editFunc->colabPass);
+                    break;
+                case 4:
+                    printf("Nova Função (1-Caixa, 2-Almoxarife, 3-Financeiro, 4-Gerente): ");
+                    scanf("%d", &editFunc->tipo);
+                    break;
+                case 0:
+                    printf("Finalizar a edição.\n");
+                    break;
+                default:
+                    printf("Opção inválida!\n");
+                    break;
+                }
+            } while (opcao != 0);
+            int salvar;
+            printf("As alterações feitas foram: \n");
+
+            printf("Nome: %s, Login: %s, Senha: %s, Função: %s\n",
+                    editFunc->colabName, editFunc->colabUser, 
+                    editFunc->colabPass, getFuncaoNome(editFunc->tipo));
+
+            printf("Deseja salvar? (1-Sim, 0-Não): ");
+            scanf("%d",&salvar);
+            printf("\n");
+            do {
+                if (salvar == 1) {
+                    printf("Alterações salvas com sucesso!\n");
+                    saveCadColab(func, totalFunc);
+                    break;
+                } else if (salvar == 0){
+                    printf("Alterações não salvas.\n");
+                } else {
+                    printf("Opção inválida!\n");
+                }
+            } while (salvar != 0);
+                break; 
+        } 
+    }while (opt !=0);    
 }
 
 void rmvFunc(Colaborador *func, int *totalFunc){
@@ -82,19 +116,23 @@ void rmvFunc(Colaborador *func, int *totalFunc){
     printf("Colaborador removido com sucesso!\n");
 }
  
-void visuColab(int tipoFunc, Colaborador func[], int totalFunc) {
+void visuColab() {
+    Colaborador func[MAX_FUNCIONARIOS];
+    int totalFunc = loadCadColab(func);
     int visu;
+    
     printf("\nRegistros de Colaboradores:\n");
 
     do {
         printf("\n1. Visualizar por Função\n2. Visualizar Todos\n0. Sair\n");
         printf("Escolha uma opção: ");
         scanf("%d", &visu);
+        printf("\n");
 
         switch (visu) {
             int opcTipo;    
             case 1:
-                printf("\nFunções:\n1. Caixa\n2. Almoxarife\n3. Financeiro\n4. Gerente\n");
+                printf("Funções:\n\n1. Caixa\n2. Almoxarife\n3. Financeiro\n4. Gerente\n");
                 printf("Escolha um tipo: ");
                 scanf("%d", &opcTipo);
 
@@ -141,7 +179,7 @@ void visuColab(int tipoFunc, Colaborador func[], int totalFunc) {
     } while (visu != 0);
 }
 
-void editColab(){
+void menuColab(){
     Colaborador func[MAX_PRODUTOS];
     int totalFunc = loadCadColab(func); // Carrega produtos existentes
     int opt;
@@ -161,11 +199,9 @@ void editColab(){
         switch (opt){
             case 1:
                 editFunc(func, totalFunc);
-                saveCadColab(func, totalFunc);
                 break;
             case 2:
                 rmvFunc(func, &totalFunc);
-                saveCadColab(func, totalFunc);
                 break;
             default:
                 printf("Opção inválida!\n");
@@ -173,6 +209,4 @@ void editColab(){
         }
 
     } while (opt != 0);
-    // Salvar produtos no arquivo após alterações
-    saveCadColab(func, totalFunc);    
 }

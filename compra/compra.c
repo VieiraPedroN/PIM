@@ -28,7 +28,36 @@ void compra(){
 
         switch (opcao) {
         case 1:
-            cad_compra();
+        int opt, tipo;
+            do {
+
+                if (check == 1){
+                    return;
+                }
+
+                printf("***********************\n");
+                printf("* 1- Frutas           *\n");
+                printf("* 2- Hortalicas       *\n");
+                printf("* 3- Bebidas          *\n");
+                printf("* 4- Cereais          *\n");
+                printf("* 5- Laticineos       *\n");
+                printf("* 0- Sair da operacao *\n");
+                printf("***********************\n");
+                printf("Selecione um tipo de produto para cadastro: ");
+                scanf("%d", &tipo);
+
+                if (tipo == 0) {
+                    printf("Saindo da operação de cadastro.\n");
+                    return; // Retorna ao menu principal
+                }
+                
+                if (tipo < 1 || tipo > 5) {
+                    printf("Tipo inválido. Tente novamente.\n");
+                    continue;
+                }
+
+                cad_compra(tipo);
+            } while (1);    
             break;
         case 2:
             visuCompra();

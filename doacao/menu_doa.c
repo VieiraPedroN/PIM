@@ -7,8 +7,7 @@ void exb_menu_doa(){
     printf("**************************************\n");
     printf("* Gerenciador de Descartes e Doações *\n");
     printf("* 1- Doar Item                       *\n");
-    printf("* 2- Ponto de Coleta                 *\n");
-    printf("* 3- Visualizar doações              *\n");
+    printf("* 2- Visualizar doações              *\n");
     printf("* 0- Sair                            *\n");
     printf("**************************************\n");
     printf("\n");
@@ -21,7 +20,6 @@ int menu_doa() {
     int opcao;
     int opvisu;
 
-    // Código do menu de daocao...
     do {
         // Código para exibir opções do menu
         printf("\n");
@@ -33,8 +31,6 @@ int menu_doa() {
                 doaProd(prod, totalProd);
                 break;
             case 2:
-                break;
-            case 3:
                 printf("\nHistorico de doações\n");
                 visuDoa(prod, totalProd);
                 break;                       

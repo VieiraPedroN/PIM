@@ -15,60 +15,106 @@ void editProd(Cadastro *prod, int totalProd){
     }
 
     Cadastro *editProd = &prod[index]; // Usa ponteiro para acessar o produto
-    int opcao;
 
-    do
-    {
-        printf("\nO que deseja editar?\n");
-        printf("1. Nome\n2. Quantidade\n3. Valor\n4. Data de validade\n5. Tipo\n0. Sair\n");
-        printf("Escolha uma opção: ");
-        scanf("%d", &opcao);
+    printf("Nome: %s, Quantidade: %d %s, Valor: %.2f, Validade: %s/%s, Tipo: %s\n",
+            editProd->nome, editProd->qtd, tipoUnid(editProd->unid), editProd->valor, 
+           editProd->valid.mes,editProd->valid.ano, tipoCad(editProd->tipo));
 
-        switch (opcao)
-        {
-        case 1:
-            printf("Novo nome: ");
-            scanf(" %100[^\n]", editProd->nome);
-            break;
-        case 2:
-            do{
-                printf("Nova quantidade: ");
-                scanf("%d", &editProd->qtd);
-                if (editProd->qtd < 0){
-                    printf("Erro: Quantidade deve ser maior que zero.\n");
-                }
-            } while (editProd->qtd < 0);
-            break;
-        case 3:
-            do
-            {
-                printf("Novo valor: ");
-                scanf("%f", &editProd->valor);
-                if (editProd->valor <= 0)
+    int opt;
+    printf("Deseja editar esse produto? (1-Sim, 0-Cancelar): ");
+    scanf("%d",&opt);
+
+    do { 
+        if (opt == 1) {
+            int opcao;
+
+            do {
+                printf("\nO que deseja editar?\n");
+                printf("1. Nome\n2. Unidade\n3. Quantidade\n4. Valor\n5. Data de validade\n6. Tipo\n0. Finalizar edições\n");
+                printf("Escolha uma opção: ");
+                scanf("%d", &opcao);
+
+                switch (opcao)
                 {
-                    printf("Erro: O valor deve ser positivo.\n");
+                case 1:
+                    printf("Novo nome: ");
+                    scanf(" %100[^\n]", editProd->nome);
+                    break;
+                case 2:
+                do {
+                    printf("Nova tipo de unidade: ");
+                    printf("Escolha a unidade (1 - Unidade, 2 - Kg): ");
+                    scanf("%d", &editProd->unid); // Salve a unidade diretamente
+
+                    if (editProd->unid != 1 && editProd->unid != 2) {
+                        printf("Erro: Unidade inválida. Tente novamente.\n");
+                    }
+                    break;
+                } while (editProd->unid != 1 && editProd->unid != 2);
+                    break;
+                case 3:
+                    do{
+                        printf("Nova quantidade: ");
+                        scanf("%d", &editProd->qtd);
+                        if (editProd->qtd < 0){
+                            printf("Erro: Quantidade deve ser maior que zero.\n");
+                        }
+                    } while (editProd->qtd < 0);
+                    break;
+                case 4:
+                    do
+                    {
+                        printf("Novo valor: ");
+                        scanf("%f", &editProd->valor);
+                        if (editProd->valor <= 0)
+                        {
+                            printf("Erro: O valor deve ser positivo.\n");
+                        }
+                    } while (editProd->valor <= 0);
+                    break;
+                case 5:
+                    do
+                    {
+                        printf("Nova data de validade (mm/yyyy): ");
+                        scanf("%2s/%4s", editProd->valid.mes, editProd->valid.ano);
+                    } while (!validData(editProd->valid.mes, editProd->valid.ano));
+                    break;
+                case 6:
+                    printf("Novo tipo (1-Frutas, 2-Hortaliças, 3-Bebidas, 4-Cereais, 5-Laticínios): ");
+                    scanf("%d", &editProd->tipo);
+                    break;
+                case 0:
+                    printf("Saindo da edição.\n");
+                    break;
+                default:
+                    printf("Opção inválida!\n");
+                    break;
                 }
-            } while (editProd->valor <= 0);
-            break;
-        case 4:
-            do
-            {
-                printf("Nova data de validade (mm/yyyy): ");
-                scanf("%2s/%4s", editProd->valid.mes, editProd->valid.ano);
-            } while (!validData(editProd->valid.mes, editProd->valid.ano));
-            break;
-        case 5:
-            printf("Novo tipo (1-Frutas, 2-Hortaliças, 3-Bebidas, 4-Cereais, 5-Laticínios): ");
-            scanf("%d", &editProd->tipo);
-            break;
-        case 0:
-            printf("Saindo da edição.\n");
-            break;
-        default:
-            printf("Opção inválida!\n");
-            break;
-        }
-    } while (opcao != 0);
+            } while (opcao != 0);
+            int salvar;
+            printf("As alterações feitas foram: \n");
+
+            printf("Nome: %s, Quantidade: %d %s, Valor: %.2f, Validade: %s/%s, Tipo: %s\n",
+                    editProd->nome, editProd->qtd, tipoUnid(editProd->unid), editProd->valor, 
+                    editProd->valid.mes,editProd->valid.ano, tipoCad(editProd->tipo));
+
+            printf("Deseja salvar? (1-Sim, 0-Não): ");
+            scanf("%d",&salvar);
+            printf("\n");
+            do {
+                if (salvar == 1) {
+                    printf("Alterações salvas com sucesso!\n");
+                    saveCad(prod, totalProd);
+                    break;
+                } else if (salvar == 0){
+                    printf("Alterações não salvas.\n");
+                } else {
+                    printf("Opção inválida!\n");
+                }
+            } while (salvar != 0);
+                break; 
+        } 
+    }while (opt !=0); 
 }
 
 void removeProd(Cadastro *prod, int *totalProd){
@@ -124,12 +170,10 @@ void visuArmz(){
 
             for (int i = 0; i < totalProd; i++){
 
-            char *unidadeTipo = (prod[i].unid == 1) ? "Unid" : "Kg"; // Define unidade
-
                 if (prod[i].tipo == opcTipo){
-                    printf("%d. Nome: %s, Quantidade: %d %s, Valor: %.2f, Validade: %s/%s, Tipo: %d\n",
-                    i + 1, prod[i].nome, prod[i].qtd, unidadeTipo,prod[i].valor, 
-                    prod[i].valid.mes, prod[i].valid.ano, prod[i].tipo);
+                    printf("%d. Nome: %s, Quantidade: %d %s, Valor: %.2f, Validade: %s/%s, Tipo: %s\n",
+                    i + 1, prod[i].nome, prod[i].qtd, tipoUnid(prod[i].unid),prod[i].valor, 
+                    prod[i].valid.mes, prod[i].valid.ano, tipoCad(prod[i].tipo));
                     busca = 1; // Marca como busca    
                 }
             }
@@ -145,11 +189,9 @@ void visuArmz(){
 
             // Exibe todos os produtos cadastrados
             for (int i = 0; i < totalProd; i++){
-            char *unidadeTipo = (prod[i].unid == 1) ? "Unid" : "Kg"; // Define unidade
-
-            printf("%d. Nome: %s, Quantidade: %d %s, Valor: %.2f, Validade: %s/%s, Tipo: %d\n",
-               i + 1, prod[i].nome, prod[i].qtd, unidadeTipo,
-               prod[i].valor, prod[i].valid.mes, prod[i].valid.ano, prod[i].tipo);
+            printf("%d. Nome: %s, Quantidade: %d %s, Valor: %.2f, Validade: %s/%s, Tipo: %s\n",
+               i + 1, prod[i].nome, prod[i].qtd, tipoUnid(prod[i].unid),
+               prod[i].valor, prod[i].valid.mes, prod[i].valid.ano, tipoCad(prod[i].tipo));
                busca = 1; // Marca como busca   
             }
             // Se não encontrou nenhum registro, exibe a mensagem
@@ -193,11 +235,9 @@ void menuArmz(){
                 break;
             case 2:
                 editProd(prod, totalProd);
-                saveCad(prod, totalProd);
                 break;
             case 3:
                 removeProd(prod, &totalProd);
-                saveCad(prod, totalProd);
                 break;
             case 0:
                 printf("Saindo da operação.\n");
@@ -209,6 +249,4 @@ void menuArmz(){
         }
 
     } while (opcao != 0);
-    // Salvar produtos no arquivo após alterações
-    saveCad(prod, totalProd);
 }

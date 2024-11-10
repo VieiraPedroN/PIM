@@ -3,6 +3,7 @@
 
 #define MAX_PRODUTOS 100 // Limite de produtos
 #define MAX_COMPRA 100
+#define MAX_FUNCIONARIOS 100 // Limite de colaboradores
 #define Max_Fluxos 100
 
 #include <stdio.h>
@@ -36,6 +37,7 @@ typedef struct {
 typedef struct {
     char prodNome[101];
     int qtdDoa;
+    char inst[101];
     Data dataDoa; // Data de doação
 } Doacao;
 
@@ -63,6 +65,7 @@ typedef struct {
     char fornecedor[101];
     char produto[101];
     int quantidade;
+    int unidade;
     float preco;
     float valorTotal;
     DataCompra valid;

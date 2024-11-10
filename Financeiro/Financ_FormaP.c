@@ -6,11 +6,11 @@
 
 void FormaPP(char *Pag) {   // Função para selecionar a forma de pagamento para pagamentos
     int FormaPag;
-    printf("Forma de Pagamento:\n");
     printf("1. Dinheiro\n");
     printf("2. Cartão de Crédito\n");
     printf("3. Cartão de Débito\n");
     printf("4. Pix\n");
+    printf("5. Boleto\n");
     printf("Selecione uma opção: ");
     
     if (scanf("%d", &FormaPag) != 1) {  // Verifica se a opção é válida
@@ -33,6 +33,9 @@ void FormaPP(char *Pag) {   // Função para selecionar a forma de pagamento par
             break;
         case 4:
             strcpy(Pag, "Pix");
+            break;
+            case 5:
+            strcpy(Pag, "Boleto");
             break;
         default:
             printf("Opção inválida!\n");

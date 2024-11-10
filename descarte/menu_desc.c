@@ -6,8 +6,7 @@ void exb_menu_desc(){
     printf("**************************************\n");
     printf("* Gerenciador de Descartes           *\n");
     printf("* 1- Descartar Item                  *\n");
-    printf("* 2- Ponto de Descarte               *\n");
-    printf("* 3- Visualizar descartes            *\n");
+    printf("* 2- Visualizar descartes            *\n");
     printf("* 0- Sair                            *\n");
     printf("**************************************\n");
     printf("\n");
@@ -32,8 +31,6 @@ int menu_desc() {
                 descProd(prod, totalProd);
                 break;
             case 2:
-                break;
-            case 3:
                 printf("\nHistorico de descartes\n");
                 visuDesc(prod, totalProd);
                 break;    

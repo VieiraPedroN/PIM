@@ -50,7 +50,6 @@ void menuAdm() {
                 Caixa(transacoes, &TotalT, produtos, TotalProdts);
                 break;
             case 5:
-                printf("\nMenu Financeiro");
                 fluxo();
                 break;
             case 6:

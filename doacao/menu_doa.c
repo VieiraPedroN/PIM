@@ -1,14 +1,13 @@
 #include <stdio.h>
 #include <stdlib.h>
-
+#include <locale.h>
 #include "../sistema.h"
 
 void exb_menu_doa(){
     printf("**************************************\n");
     printf("* Gerenciador de Descartes e Doações *\n");
     printf("* 1- Doar Item                       *\n");
-    printf("* 2- Ponto de Coleta                 *\n");
-    printf("* 3- Visualizar doações              *\n");
+    printf("* 2- Visualizar doações              *\n");
     printf("* 0- Sair                            *\n");
     printf("**************************************\n");
     printf("\n");
@@ -20,6 +19,8 @@ int menu_doa() {
     int totalProd = loadCad(prod); // Carrega produtos existentes
     int opcao;
     int opvisu;
+setlocale(LC_ALL, "pt_BR.UTF-8");
+    system("chcp 65001 > nul");
 
     // Código do menu de daocao...
     do {
@@ -33,8 +34,6 @@ int menu_doa() {
                 doaProd(prod, totalProd);
                 break;
             case 2:
-                break;
-            case 3:
                 printf("\nHistorico de doações\n");
                 visuDoa(prod, totalProd);
                 break;                       

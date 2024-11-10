@@ -23,7 +23,7 @@ void editCompra(Compra *compra, int totalCompra){
             editCompra->valid.ano, tipoCompra(editCompra->tipo));
     
     int opt;
-    printf("Deseja remover esse produto? (1-Sim, 0-Cancelar): ");
+    printf("Deseja editar esse produto? (1-Sim, 0-Cancelar): ");
     scanf("%d",&opt);
 
     do { 
@@ -96,6 +96,9 @@ void editCompra(Compra *compra, int totalCompra){
                 }
             } while (opcao != 0);
             int salvar;
+
+            editCompra->valorTotal = editCompra->quantidade * editCompra->preco;
+
             printf("As alterações feitas foram: \n");
 
             printf("Fornecedor: %s, Produto: %s, Quantidade: %d %s, Valor Total: %.2f, Data de compra: %2s/%2s/%4s, Tipo: %s\n",
@@ -149,7 +152,7 @@ void removeCompra(Compra *compra, int *totalCompra){
             compra[index].valid.ano, tipoCompra(compra[index].tipo));
 
     int opt;
-    printf("Deseja editar esse produto? (1-Sim, 0-Cancelar): ");
+    printf("Deseja remover esse produto? (1-Sim, 0-Cancelar): ");
     scanf("%d",&opt);
 
     do {

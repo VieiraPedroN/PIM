@@ -112,7 +112,7 @@ void rmvFunc(Colaborador *func, int *totalFunc){
 
 
     int opt;
-    printf("Deseja editar esse produto? (1-Sim, 0-Cancelar): ");
+    printf("Deseja remover esse colaborador? (1-Sim, 0-Cancelar): ");
     scanf("%d",&opt);
 
     do {
@@ -124,7 +124,7 @@ void rmvFunc(Colaborador *func, int *totalFunc){
         }
 
         (*totalFunc)--; // Reduz o número total de produtos
-        printf("Produto removido com sucesso!\n");
+        printf("Colaborador removido com sucesso!\n");
 
         saveCadColab(func, *totalFunc);
         break;
@@ -168,7 +168,7 @@ void visuColab() {
 
                 // Se não encontrou nenhum registro, exibe a mensagem
                 if (!busca) {
-                    printf("\nNenhum cadastro busca com o tipo escolhido.\n");
+                    printf("\nNenhum cadastro de colaborador encontrado com a função escolhido.\n");
                 }
                 break;
 
@@ -183,7 +183,7 @@ void visuColab() {
                     busca = 1; // Marca como busca
                 }
                 if (!busca) {
-                    printf("\nNenhum cadastro busca com o tipo escolhido.\n");
+                    printf("\nNenhum cadastro de colaborador encontrado com a função escolhido.\n");
                 }
                 break;
 
@@ -199,7 +199,7 @@ void visuColab() {
 }
 
 void menuColab(){
-    Colaborador func[MAX_PRODUTOS];
+    Colaborador func[MAX_FUNCIONARIOS];
     int totalFunc = loadCadColab(func); // Carrega produtos existentes
     int opt;
 

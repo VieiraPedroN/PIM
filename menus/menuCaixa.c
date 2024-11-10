@@ -7,7 +7,7 @@ void menu_print_Caixa() {
     printf("\n");
     printf("********************************\n");
     printf("*   Menu Raizes da Terra       *\n");
-    printf("* 1- Fluxo de Caixa            *\n");
+    printf("* 1- Caixa                     *\n");
     printf("* 0- Sair da aplicacao         *\n");
     printf("********************************\n");
     printf("\n");

@@ -118,13 +118,7 @@ void editProd(Cadastro *prod, int totalProd){
 }
 
 void removeProd(Cadastro *prod, int *totalProd){
-    int index;
-
-    if (index == 0){
-        printf("Não contem nenhum produto para ser removido.");
-        return;
-    }
-    
+    int index;    
 
     printf("Digite o número do produto que deseja remover (1 a %d): ", *totalProd);
     scanf("%d", &index);
@@ -141,7 +135,7 @@ void removeProd(Cadastro *prod, int *totalProd){
             prod[index].valid.mes, prod[index].valid.ano, tipoCad(prod[index].tipo));
 
     int opt;
-    printf("Deseja editar esse produto? (1-Sim, 0-Cancelar): ");
+    printf("Deseja remover esse produto? (1-Sim, 0-Cancelar): ");
     scanf("%d",&opt);
 
     do {
@@ -157,11 +151,13 @@ void removeProd(Cadastro *prod, int *totalProd){
 
         saveCad(prod, *totalProd);
         break;
+        } else if ( opt == 0) {        
+            printf("As alterações não foram salvas.");
         } else {
             printf("Opção invalida");
         }
         
-    } while (opt !=0);
+    } while (opt != 0);
 }
 
 void visuArmz(){
@@ -198,7 +194,7 @@ void visuArmz(){
 
             // Se não encontrou nenhum registro, exibe a mensagem
             if (!busca) {
-                printf("Nenhum cadastro busca com o tipo escolhido.\n");
+                printf("Nenhum cadastro encontrado com o tipo escolhido.\n");
             }
             break;
         case 2:

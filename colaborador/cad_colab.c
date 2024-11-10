@@ -109,12 +109,12 @@ void cadColab(int tipoFunc) {
         
         if (contiCad == 1) {
             int cadMesmo;
-            printf("Deseja cadastrar o mesmo tipo de produto? (1-Sim, 0-Outro produto): ");
+            printf("Deseja cadastrar a mesmo função do colaborador? (1-Sim, 0-Outra função): ");
             scanf("%d", &cadMesmo);
 
             if (cadMesmo == 0) {
             if (totalNewFunc > 0) {
-                printf("\nProdutos cadastrados nesta sessão:\n");
+                printf("\nColaboradores cadastrados nesta sessão:\n");
                 for (int i = 0; i < totalNewFunc; i++){
                     printf("Nome: %s, Login: %s, Senha: %s, Função: %s\n",
                         newFuncs[i].colabName, newFuncs[i].colabUser, 
@@ -122,7 +122,7 @@ void cadColab(int tipoFunc) {
                 }
 
                 int salvar;
-                printf("\nDeseja salvar os dados cadastrados? (1-Sim, 0-Cancelar): ");
+                printf("\nDeseja salvar os colaboradores cadastrados? (1-Sim, 0-Cancelar): ");
                 scanf("%d", &salvar);
 
                 if (salvar == 1) {
@@ -132,7 +132,7 @@ void cadColab(int tipoFunc) {
                     saveCadColab(func, totalFunc + totalNewFunc);
                     printf("Colaboradores salvos!\n");
                 } else {
-                    printf("Operação cancelada. Produtos não foram salvos.\n");
+                    printf("Operação cancelada. Colaboradores não foram salvos.\n");
                 }
             }
                 return;

@@ -22,7 +22,6 @@ int menu_doa() {
 setlocale(LC_ALL, "pt_BR.UTF-8");
     system("chcp 65001 > nul");
 
-    // Código do menu de daocao...
     do {
         // Código para exibir opções do menu
         printf("\n");

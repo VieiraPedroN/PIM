@@ -7,16 +7,19 @@ void menu_print_Caixa() {
     printf("\n");
     printf("********************************\n");
     printf("*   Menu Raizes da Terra       *\n");
-    printf("* 1- Fluxo de Caixa            *\n");
+    printf("* 1- Caixa                     *\n");
     printf("* 0- Sair da aplicacao         *\n");
     printf("********************************\n");
     printf("\n");
 }
 
 void menuCaixa() {
-
-    int opcao;
     
+Fluxo transacoes[Max_Fluxos];
+    int TotalT = loadFluxo(transacoes); Cadastro produtos[MAX_PRODUTOS];
+    int TotalProdts = loadCad(produtos);
+    int opcao;
+
     do {
         check = 0;
         menu_print_Caixa();
@@ -26,7 +29,7 @@ void menuCaixa() {
         switch (opcao) {
             case 1:
                 printf("\nFluxo de Caixa\n");
-                fluxo();
+                Caixa(transacoes, &TotalT, produtos, TotalProdts);
                 break;
             case 0:
                 printf("\nSaindo da aplicacao\n");

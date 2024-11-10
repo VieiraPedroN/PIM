@@ -3,8 +3,6 @@
 #include <stdlib.h>
 #include "../sistema.h"
 
-#define MAX_FUNCIONARIOS 100 // Limite de colaboradores
-
 void menu_principal(){
     printf("\n");
     printf("*******************************\n");
@@ -17,12 +15,13 @@ void menu_principal(){
     printf("\n");
 }
 
-int colab_menu() {
+void colab_menu() {
     Colaborador func[MAX_FUNCIONARIOS];
     int totalFunc = loadCadColab(func); // Carrega colaboradores existentes
     int op, tipo;
 
     do {
+
         menu_principal();
         printf("Escolha uma opção: ");
         scanf("%d", &op);
@@ -31,6 +30,12 @@ int colab_menu() {
             case 1:
                 {
                     do {
+
+                        if (check == 1){
+                            return;
+                        }
+                        
+                        printf("\n");
                         printf("***********************\n");
                         printf("* 1- Caixa            *\n");
                         printf("* 2- Almoxarife       *\n");
@@ -56,7 +61,7 @@ int colab_menu() {
                 break;
 
             case 3:
-                editColab(func, &totalFunc);
+                menuColab(func, &totalFunc);
                 break;
 
             case 0:
@@ -68,8 +73,4 @@ int colab_menu() {
                 break;
         }
     } while (op != 0);
-
-    // Salva os dados antes de sair
-    saveCadColab(func, totalFunc);
-    return 0;
 }

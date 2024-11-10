@@ -27,7 +27,7 @@ void Pags(Fluxo *transacoes, int *NumT) {
     int dataValida = 0;
     char dia[3], mes[3], ano[5];
     while (!dataValida) {
-        printf("Data (DD/MM/YYYY): ");
+        printf("Informe a Data do Pagamento (DD/MM/YYYY): ");
         if (scanf("%2s/%2s/%4s", dia, mes, ano) != 3) {
             printf("Erro: Formato de data inválido. Por favor, tente novamente.\n");
             while (getchar() != '\n');
@@ -44,5 +44,5 @@ void Pags(Fluxo *transacoes, int *NumT) {
     transacoes[*NumT] = NewT;
     (*NumT)++;
 
-    printf("Pagamento registrado com Sucesso\n");
+    printf("Pagamento registrado com Sucesso!\n");
 }

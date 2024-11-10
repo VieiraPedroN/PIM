@@ -2,7 +2,8 @@
 #define SISTEMA_H
 
 #define MAX_PRODUTOS 100 // Limite de produtos
-
+#define MAX_COMPRA 100
+#define MAX_FUNCIONARIOS 100 // Limite de colaboradores
 #define Max_Fluxos 100
 
 #include <stdio.h>
@@ -37,6 +38,7 @@ typedef struct {
 typedef struct {
     char prodNome[101];
     int qtdDoa;
+    char inst[101];
     Data dataDoa; // Data de doação
 } Doacao;
 
@@ -64,6 +66,7 @@ typedef struct {
     char fornecedor[101];
     char produto[101];
     int quantidade;
+    int unidade;
     float preco;
     float valorTotal;
     DataCompra valid;
@@ -88,9 +91,9 @@ int check = 0, checkColab = 1;
 #include "colaborador/edit_colab.c"
 #include "colaborador/colab.c"
 
-
+#include "compra/cad_compra.c"
+#include "compra/edit_compra.c"
 #include "compra/compra.c"
-//#include "compra/edit_compra.c"
 
 #include "caixa/caixa.c"
 

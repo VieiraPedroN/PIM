@@ -10,7 +10,6 @@ void cad_menu() {
         if (check == 1){
             return;
         }
-        
 
         printf("***********************\n");
         printf("* 1- Frutas           *\n");

@@ -45,7 +45,6 @@ void saveFluxo(Fluxo *transacoes, int TotalT) {
     }
     fwrite(transacoes, sizeof(Fluxo), TotalT, arquivo);
     fclose(arquivo);
-    printf("Transações salvas com sucesso no banco de dados!\n");
 }
 
 
@@ -71,6 +70,8 @@ void fluxo() {
     int TotalProdts = loadCad(produtos);
     int acao;
     char DataEsc[11];
+    Compra compras[MAX_COMPRA];
+    int totalCompra = loadCompra(compras);
 
     do {
         MenuF();
@@ -80,7 +81,6 @@ void fluxo() {
             case 1:
                 Pags(transacoes, &TotalT);
                 saveFluxo(transacoes, TotalT);
-                printf("Pagamentos Salvo com Sucesso!\n");
                 break;
             case 2:
                 ImprimirF(transacoes, TotalT);
@@ -91,13 +91,13 @@ void fluxo() {
             case 4:
                 printf("Digite o Dia do Relatório (DD/MM/YYYY): ");
                 scanf("%s", DataEsc);
-                IFC(transacoes, TotalT, DataEsc);
+                IFC(transacoes, TotalT, DataEsc, compras, totalCompra);
                 break;
             case 5: {
                 char MesAno[8];
                 printf("Digite o Mês e o Ano do Relatório (MM/YYYY): ");
                 scanf("%s", MesAno);
-                GerarR_M(transacoes, TotalT, MesAno);
+                GerarR_M(transacoes, TotalT, MesAno, compras, totalCompra);
                 break;
             }
             case 6:

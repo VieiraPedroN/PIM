@@ -52,6 +52,25 @@ int loadCad(Cadastro prod[]) {
 }
 //modifição para localizar a pasta dados
 
+const char* tipoUnid(int unid) {
+    switch (unid) {
+        case 1: return "Unid";
+        case 2: return "Kg";
+        default: return "Tipo Desconhecido";
+    }
+}
+
+const char* tipoCad(int tipo) {
+    switch (tipo) {
+        case 1: return "Frutas";
+        case 2: return "Hortalicas";
+        case 3: return "Bebidas";
+        case 4: return "Cereias";
+        case 5: return "Laticineos";
+        default: return "Tipo Desconhecido";
+    }
+}
+
 void cad(int tipoProd) {
     Cadastro prod[MAX_PRODUTOS];
     Cadastro newProds[MAX_PRODUTOS]; // Array para novos produtos
@@ -66,7 +85,6 @@ void cad(int tipoProd) {
         }
 
         Cadastro newProd;
-        char unidTipo[10];
         
         // Validar o nome do produto e verificar se já está cadastrado
         do {
@@ -86,11 +104,11 @@ void cad(int tipoProd) {
             printf("Escolha a unidade (1 - Unidade, 2 - Kg): ");
             scanf("%d", &newProd.unid); // Salve a unidade diretamente
 
-             if (newProd.unid != 1 && newProd.unid != 2) {
+            if (newProd.unid != 1 && newProd.unid != 2) {
                 printf("Erro: Unidade inválida. Tente novamente.\n");
             }
 
-            printf("Quantidade %s: ", unidTipo);
+            printf("Quantidade %s: ", tipoUnid(newProd.unid));
             scanf("%d", &newProd.qtd);
 
             if (newProd.qtd <= 0) {
@@ -120,7 +138,6 @@ void cad(int tipoProd) {
 
         newProd.tipo = tipoProd;
 
-
         newProds[totalNewProds] = newProd;
         totalNewProds++;
 
@@ -140,10 +157,10 @@ void cad(int tipoProd) {
                 if (totalNewProds > 0) {
                     printf("\nProdutos cadastrados nesta sessão:\n");
                     for (int i = 0; i < totalNewProds; i++) {
-                        char *unidadeTipo = (newProds[i].unid == 1) ? "Unid" : "Kg";
-                        printf("%d. Nome: %s, Quantidade: %d %s, Valor: %.2f, Validade: %s/%s, Tipo: %d\n",
-                               i + 1, newProds[i].nome, newProds[i].qtd, unidadeTipo, newProds[i].valor,
-                               newProds[i].valid.mes, newProds[i].valid.ano, newProds[i].tipo);
+                        printf("%d. Nome: %s, Quantidade: %d %s, Valor: %.2f, Validade: %s/%s, Tipo: %s\n",
+                                i + 1, newProds[i].nome, newProds[i].qtd, tipoUnid(newProds[i].unid),
+                                newProds[i].valor, newProds[i].valid.mes, newProds[i].valid.ano, tipoCad(newProds[i].tipo));
+
                     }
 
                     int salvar;
@@ -174,10 +191,9 @@ void cad(int tipoProd) {
     if (totalNewProds > 0) {
         printf("\nProdutos cadastrados nesta sessão:\n");
         for (int i = 0; i < totalNewProds; i++) {
-            char *unidadeTipo = (newProds[i].unid == 1) ? "Unid" : "Kg";
-            printf("%d. Nome: %s, Quantidade: %d %s, Valor: %.2f, Validade: %s/%s, Tipo: %d\n",
-                   i + 1, newProds[i].nome, newProds[i].qtd, unidadeTipo, newProds[i].valor,
-                   newProds[i].valid.mes, newProds[i].valid.ano, newProds[i].tipo);
+            printf("%d. Nome: %s, Quantidade: %d %s, Valor: %.2f, Validade: %s/%s, Tipo: %s\n",
+                   i + 1, newProds[i].nome, newProds[i].qtd, tipoUnid(newProds[i].unid), newProds[i].valor,
+                   newProds[i].valid.mes, newProds[i].valid.ano, tipoCad(newProds[i].tipo));
         }
 
         // Confirmar salvamento

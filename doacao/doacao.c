@@ -22,7 +22,7 @@ void doaProd(Cadastro *prod, int totalProd) {
 
     int index;
 
-    printf("Produtos disponíveis para doação:\n");
+    printf("Produtos disponíveis para doação:\n\n");
 
     // Exibir produtos
     for (int i = 0; i < totalProd; i++) {
@@ -32,7 +32,7 @@ void doaProd(Cadastro *prod, int totalProd) {
             i + 1, prod[i].nome, prod[i].qtd, unidadeTipo, prod[i].valid.mes, prod[i].valid.ano);
     }
 
-    printf("Digite o número do produto que deseja doar (1 a %d): ", totalProd);
+    printf("\nDigite o número do produto que deseja doar (1 a %d): ", totalProd);
     scanf("%d", &index);
     index--; // Ajusta para índice de array
 
@@ -60,6 +60,16 @@ void doaProd(Cadastro *prod, int totalProd) {
         scanf("%2s/%4s", newDoa.dataDoa.mes, newDoa.dataDoa.ano);
     } while (!validData(newDoa.dataDoa.mes, newDoa.dataDoa.ano));
 
+    do {
+        printf("Nome da instituição: ");
+        scanf(" %100[^\n]", newDoa.inst);
+         
+        if (strlen(newDoa.inst) == 0) {
+            printf("Erro: Nome não pode estar vazio. Tente novamente.\n");
+        }
+    } while (strlen(newDoa.inst) == 0);
+    
+
     // Registra a doação
     strcpy(newDoa.prodNome, prod[index].nome);
     saveDoa(newDoa);
@@ -67,7 +77,7 @@ void doaProd(Cadastro *prod, int totalProd) {
     // Atualiza o estoque
     prod[index].qtd -= newDoa.qtdDoa;
     char *unidadeTipo = (prod[index].unid == 1) ? "Unidade(s)" : "Kg"; // Define a unidade de exibição
-    printf("Foi doado %d %s de %s com sucesso!\n", newDoa.qtdDoa, unidadeTipo, prod[index].nome);
+    printf("Foi doado %d %s de %s para a instituição %s com sucesso!\n", newDoa.qtdDoa, unidadeTipo, prod[index].nome, newDoa.inst);
 
 }
 
@@ -79,7 +89,7 @@ int visuDoa(Cadastro *prod, int totalProd) {
         return 0;
     }
 
-    printf("\nDoações registradas:\n\n");
+    printf("Doações registradas:\n\n");
     while (fread(&doacao, sizeof(Doacao), 1, file) == 1) {
         // Vamos encontrar o produto correspondente pelo nome para obter a unidade
         char unidadeTipo[10] = "";
@@ -95,12 +105,9 @@ int visuDoa(Cadastro *prod, int totalProd) {
             }
         }
 
-        printf("Produto: %s, Quantidade doada: %d %s, Data da doação: %s/%s\n", 
-            doacao.prodNome, 
-            doacao.qtdDoa, 
-            unidadeTipo, // Exibe a unidade (Unidade ou Kg)
-            doacao.dataDoa.mes, 
-            doacao.dataDoa.ano);
+        printf("Produto: %s, Quantidade doada: %d %s, Data da doação: %s/%s, Instituição: %s\n", 
+            doacao.prodNome, doacao.qtdDoa, unidadeTipo, doacao.dataDoa.mes, 
+            doacao.dataDoa.ano, doacao.inst);
     }
 
     fclose(file);

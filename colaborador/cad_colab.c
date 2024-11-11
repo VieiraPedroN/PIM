@@ -5,6 +5,7 @@
 
 #define MAX_FUNCIONARIOS 100 // Limite de colaboradores
 
+//modifição para localizar a pasta dados
 void saveCadColab(Colaborador func[], int totalFunc) {
     // Caminho absoluto para a pasta 'dados'
     const char *path = "C:/Users/bhper/OneDrive/Documentos/PIM/dados/colab.dat";
@@ -19,7 +20,7 @@ void saveCadColab(Colaborador func[], int totalFunc) {
     fclose(arquivo);
     printf("Colaboradores salvos com sucesso no banco de dados!\n");
 }
-
+//modifição para localizar a pasta dados
 
 int loadCadColab(Colaborador func[]) {
     FILE *arquivo = fopen("dados/colab.dat", "rb");

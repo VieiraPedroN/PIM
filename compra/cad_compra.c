@@ -25,6 +25,7 @@ int validarData(char *dia, char *mes, char *ano) {
     return 1;
 }
 
+//modifição para localizar a pasta dados
 void saveCompra(Compra *compras, int totalCompra) {
     // Caminho absoluto para a pasta 'dados'
     const char *path = "C:/Users/bhper/OneDrive/Documentos/PIM/dados/compra.dat"; 
@@ -51,6 +52,7 @@ int loadCompra(Compra *compras) {
     printf("Compras carregadas com sucesso!\n");
     return totalCompra;
 }
+//modifição para localizar a pasta dados
 
 const char* tipoUnidCompra(int unid) {
     switch (unid) {

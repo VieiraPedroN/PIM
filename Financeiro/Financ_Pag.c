@@ -45,4 +45,5 @@ void Pags(Fluxo *transacoes, int *NumT) {
     (*NumT)++;
 
     printf("Pagamento registrado com Sucesso!\n");
+    saveFluxo(transacoes, *NumT); // garantir que as transações sejam salvas após o pagamento
 }

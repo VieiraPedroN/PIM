@@ -3,6 +3,7 @@
 #include <string.h>
 #include "../sistema.h"
 
+//modifição para localizar a pasta dados
 void saveDesc(Descarte descarte) {
     // Caminho absoluto para a pasta 'dados'
     const char *path = "C:/Users/bhper/OneDrive/Documentos/PIM/dados/desc.dat";
@@ -15,7 +16,7 @@ void saveDesc(Descarte descarte) {
     fclose(file);
     printf("Descartes salvos com sucesso no banco de dados!\n");
 }
-
+//modifição para localizar a pasta dados
 
 void descProd(Cadastro *prod, int totalProd) {
     printf("* Verificar Estoque para seleção de descarte de produtos  *\n");

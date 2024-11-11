@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include "../sistema.h"
 
+//modifição para localizar a pasta dados
 void saveDoa(Doacao doacao) {
     // Caminho absoluto para a pasta 'dados'
     const char *path = "C:/Users/bhper/OneDrive/Documentos/PIM/dados/doacao.dat";
@@ -15,7 +16,7 @@ void saveDoa(Doacao doacao) {
     fclose(file);
     printf("Doações salvas com sucesso no banco de dados!\n");
 }
-
+//modifição para localizar a pasta dados
 
 void doaProd(Cadastro *prod, int totalProd) {
     printf("* Verificar Estoque para seleção de doação de produtos  *\n");

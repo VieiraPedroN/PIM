@@ -10,9 +10,9 @@ void menu_print_Almox() {
     printf("*   Menu Raizes da Terra       *\n");
     printf("* 1- Cadastro de Produtos      *\n");
     printf("* 2- Estoque                   *\n");
-    printf("* 3- Doacao de Produtos        *\n");
+    printf("* 3- Doação de Produtos        *\n");
     printf("* 4- Descarte de Produtos      *\n");
-    printf("* 0- Sair da aplicacao         *\n");
+    printf("* 0- Sair da aplicação         *\n");
     printf("********************************\n");
     printf("\n");
 }

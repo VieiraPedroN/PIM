@@ -23,32 +23,32 @@ int compareCad (Cadastro prod[], int totalProd, char nome[]) {
     return 0; // Produto nao cadastrado
 }
 
+//modifição para localizar a pasta dados
 void saveCad(Cadastro prod[], int totalProd) {
     FILE *arquivo = fopen("dados/prod.dat", "wb");
-
+    
     if (arquivo == NULL) {
-        printf("Erro ao abrir o arquivo para salvar os produtos.\n");
+        perror("Erro ao abrir o arquivo para salvar os produtos");
         return;
     }
-
     fwrite(prod, sizeof(Cadastro), totalProd, arquivo);
     fclose(arquivo);
     printf("Produtos salvos com sucesso no banco de dados!\n");
 }
 
-int loadCad(Cadastro prod[]) {
-    FILE *arquivo = fopen("dados/prod.dat", "rb");
 
+int loadCad(Cadastro prod[]) {
+    // Caminho absoluto para a pasta 'dados'
+    FILE *arquivo = fopen("dados/prod.dat", "rb");
     if (arquivo == NULL) {
-        printf("Nenhum arquivo de produtos encontrado. Iniciando novo cadastro.\n");
+        perror("Erro ao abrir o arquivo para carregar os produtos");
         return 0;
     }
-
     int totalProd = fread(prod, sizeof(Cadastro), MAX_PRODUTOS, arquivo);
     fclose(arquivo);
-    printf("Abrindo o banco de dados!\n");
     return totalProd;
 }
+//modifição para localizar a pasta dados
 
 const char* tipoUnid(int unid) {
     switch (unid) {

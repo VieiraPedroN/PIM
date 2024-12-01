@@ -8,7 +8,7 @@ void menu_print_Financ() {
     printf("*   Menu Raizes da Terra       *\n");
     printf("* 1- Compra de Produtos        *\n");
     printf("* 2- Fluxo de Caixa            *\n");
-    printf("* 0- Sair da aplicacao         *\n");
+    printf("* 0- Sair da aplicação         *\n");
     printf("********************************\n");
     printf("\n");
 }

@@ -32,9 +32,9 @@ int loadCadColab(Colaborador func[]) {
     return totalFunc;
 }
 
-int compCadColab(Colaborador func[], int totalFunc, char colabName[]) {
+int compCadColab(Colaborador func[], int totalFunc, char colabUser[]) {
     for (int i = 0; i < totalFunc; i++) {
-        if (strcmp(func[i].colabName, colabName) == 0) {
+        if (strcmp(func[i].colabUser, colabUser) == 0) {
             return 1; // Colaborador já cadastrado
         }
     }
@@ -78,13 +78,15 @@ void cadColab(int tipoFunc) {
         } while (strlen(newFunc.colabName) == 0);
 
         do {
-            printf("Login do colaborador: ");
+            printf("\nNome do produto: ");
             scanf(" %100[^\n]", newFunc.colabUser);
 
             if (strlen(newFunc.colabUser) == 0) {
-                printf("Erro: Login não pode estar vazio. Tente novamente.\n");
+                printf("Erro: Nome não pode estar vazio. Tente novamente.\n");
+            } else if (compCadColab(func, totalFunc, newFunc.colabUser)) {
+                printf("Erro: Produto já cadastrado. Insira outro nome.\n");
+                newFunc.colabUser[0] = '\0'; // Limpar nome
             }
-            
         } while (strlen(newFunc.colabUser) == 0);
 
         do {

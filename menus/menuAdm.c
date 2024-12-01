@@ -12,9 +12,9 @@ void menu_print() {
     printf("* 3- Cadastro de Colaboradores *\n");
     printf("* 4- Fluxo de Caixa            *\n");
     printf("* 5- Estoque                   *\n");
-    printf("* 6- Doacao de Produtos        *\n");
+    printf("* 6- Doação de Produtos        *\n");
     printf("* 7- Descarte de Produtos      *\n");
-    printf("* 0- Sair da aplicacao         *\n");
+    printf("* 0- Sair da aplicação         *\n");
     printf("********************************\n");
     printf("\n");
 }

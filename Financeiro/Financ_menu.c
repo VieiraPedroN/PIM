@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <locale.h>
+#include "../sistema.h"
 
 int validarD(char *dia, char *mes, char *ano)
 {

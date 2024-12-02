@@ -72,7 +72,7 @@ typedef struct {
     DataCompra valid;
 } Compra;
 
-int check = 0, checkColab = 1;
+int check = 0, checkColab = 0;
 
 
 #include "cadastro/cadastro.c"

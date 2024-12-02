@@ -89,13 +89,7 @@ void editFunc(Colaborador *func, int totalFunc){
 
 void rmvFunc(Colaborador *func, int *totalFunc){
     int index;
-
-    /*if (index == NULL){
-        printf("Não contem nenhum colaborador para ser removido.");
-        return;
-    }*/
     
-
     printf("Digite o número do colaborador que deseja remover (1 a %d): ", *totalFunc);
     scanf("%d", &index);
     index--; // Ajusta para índice de array

@@ -68,11 +68,11 @@ void editCompra(Compra *compra, int totalCompra){
                 case 5:
                     do
                     {
-                        printf("Novo preco: ");
+                        printf("Novo preço: ");
                         scanf("%f", &editCompra->preco);
                         if (editCompra->preco <= 0)
                         {
-                            printf("Erro: O preco deve ser positivo.\n");
+                            printf("Erro: O preço deve ser positivo.\n");
                         }
                     } while (editCompra->preco <= 0);
                     break;
@@ -191,7 +191,7 @@ void visuCompra(){
         int opcTipo;    
         case 1:
 
-            printf("\n\n1.Frutas\n2.Hortalicas\n3.Bebidas\n4.Cereais\n5.Laticineos\n");
+            printf("\n\n1.Frutas\n2.Hortaliças\n3.Bebidas\n4.Cereais\n5.Laticíneos\n");
             printf("Escolha um Tipo: ");
             scanf("%d", &opcTipo);
         

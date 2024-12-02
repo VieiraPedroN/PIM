@@ -10,7 +10,7 @@ void menu_principal(){
     printf("* 1- Cadastro Colaborador     *\n");
     printf("* 2- Visualizar Colaboradores *\n");
     printf("* 3- Edição de Colaborador    *\n");
-    printf("* 0- Sair da aplicacao        *\n");
+    printf("* 0- Sair da aplicação        *\n");
     printf("*******************************\n");
     printf("\n");
 }
@@ -31,7 +31,7 @@ void colab_menu() {
                 {
                     do {
 
-                        if (check == 1){
+                        if (checkColab == 1){
                             return;
                         }
                         
@@ -41,7 +41,7 @@ void colab_menu() {
                         printf("* 2- Almoxarife       *\n");
                         printf("* 3- Financeiro       *\n");
                         printf("* 4- Gerente          *\n");
-                        printf("* 0- Sair da operacao *\n");
+                        printf("* 0- Sair da operação *\n");
                         printf("***********************\n");
                         printf("Escolha o tipo de colaborador para cadastrar: ");
                         scanf("%d", &tipo);

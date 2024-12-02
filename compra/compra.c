@@ -11,7 +11,7 @@ void menu_compra(){
     printf("* 1- Cadastro de compra   *\n");
     printf("* 2- Historicos de compra *\n");
     printf("* 3- Edição de compra     *\n");
-    printf("* 0- Sair da aplicacao    *\n");
+    printf("* 0- Sair da aplicação    *\n");
     printf("***************************\n");
     printf("\n");
 }
@@ -41,7 +41,7 @@ void compra(){
                 printf("* 3- Bebidas          *\n");
                 printf("* 4- Cereais          *\n");
                 printf("* 5- Laticineos       *\n");
-                printf("* 0- Sair da operacao *\n");
+                printf("* 0- Sair da operação *\n");
                 printf("***********************\n");
                 printf("Selecione um tipo de produto para cadastro: ");
                 scanf("%d", &tipo);

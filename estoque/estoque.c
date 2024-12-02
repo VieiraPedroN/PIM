@@ -176,7 +176,7 @@ void visuArmz(){
         int opcTipo;    
         case 1:
 
-            printf("\n\n1.Frutas\n2.Hortalicas\n3.Bebidas\n4.Cereais\n5.Laticineos\n");
+            printf("\n\n1.Frutas\n2.Hortaliças\n3.Bebidas\n4.Cereais\n5.Laticínios\n");
             printf("Escolha um Tipo: ");
             scanf("%d", &opcTipo);
         
